@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="Monopoly.BaseModel.Views.GameField"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Monopoly.BaseModel.Views"
+             xmlns:models="clr-namespace:Monopoly.BaseModel.Models" 
+             xmlns:helpers="clr-namespace:Monopoly.BaseModel.Helpers" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles\AbstractCardTemplate.xaml"/>
+                <ResourceDictionary>
+                    <helpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+                    <helpers:CardTemplateSelector x:Key="CardTemplateSelector"
+                                                  LeftTownCard="{StaticResource LeftTownCard}"
+                                                  TopTownCard="{StaticResource TopTownCard}"
+                                                  RightTownCard="{StaticResource RightTownCard}"
+                                                  BottomTownCard="{StaticResource BottomTownCard}"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border BorderThickness="1" BorderBrush="Black"
+            Margin="10" >
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <!--bottom row-->
+            <ContentControl Grid.Row="10" Grid.Column="10" Content="{Binding Cards[0]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="9" Content="{Binding Cards[1]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="8" Content="{Binding Cards[2]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="7" Content="{Binding Cards[3]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="6" Content="{Binding Cards[4]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="5" Content="{Binding Cards[5]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="4" Content="{Binding Cards[6]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="3" Content="{Binding Cards[7]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="2" Content="{Binding Cards[8]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="1" Content="{Binding Cards[9]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="10" Grid.Column="0" Content="{Binding Cards[10]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            
+            <!--left column-->
+            <ContentControl Grid.Row="9" Grid.Column="0" Content="{Binding Cards[11]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="8" Grid.Column="0" Content="{Binding Cards[12]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="7" Grid.Column="0" Content="{Binding Cards[13]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding Cards[14]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding Cards[15]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding Cards[16]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding Cards[17]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding Cards[18]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding Cards[19]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+
+            <!--top row-->
+            <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Cards[20]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding Cards[21]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="2" Content="{Binding Cards[22]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="3" Content="{Binding Cards[23]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="4" Content="{Binding Cards[24]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="5" Content="{Binding Cards[25]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="6" Content="{Binding Cards[26]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="7" Content="{Binding Cards[27]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="8" Content="{Binding Cards[28]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="9" Content="{Binding Cards[29]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="0" Grid.Column="10" Content="{Binding Cards[30]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            
+            <!--right column-->
+            <ContentControl Grid.Row="1" Grid.Column="10" Content="{Binding Cards[31]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="2" Grid.Column="10" Content="{Binding Cards[32]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="3" Grid.Column="10" Content="{Binding Cards[33]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="4" Grid.Column="10" Content="{Binding Cards[34]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="5" Grid.Column="10" Content="{Binding Cards[35]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="6" Grid.Column="10" Content="{Binding Cards[36]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="7" Grid.Column="10" Content="{Binding Cards[37]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="8" Grid.Column="10" Content="{Binding Cards[38]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            <ContentControl Grid.Row="9" Grid.Column="10" Content="{Binding Cards[39]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+            
+
+        </Grid>
+    </Border>
+</UserControl>
