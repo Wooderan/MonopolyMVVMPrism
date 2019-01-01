@@ -1,6 +1,8 @@
 ﻿using Monopoly.Model.Abstract;
 using Monopoly.Model.Interfaces;
+using Prism.Ioc;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,10 +15,19 @@ namespace Monopoly.GameField.ViewModels
     class FieldViewModel : BindableBase
     {
 
-        public FieldViewModel(ICardLocator cardLocator)
+        public FieldViewModel(IRegionManager regionManager)
         {
             this.Message = "Hello from view model!";
-            this.Cards = cardLocator.GetCardSet();
+
+            this.GameManager = (IGameManager)regionManager.Regions["GameFieldRegion"].Context;
+
+        }
+
+        private IGameManager _gameManager;
+        public IGameManager GameManager
+        {
+            get { return _gameManager; }
+            set { SetProperty(ref _gameManager, value); }
         }
 
         private string _message = "Hello from view model!";
@@ -26,12 +37,7 @@ namespace Monopoly.GameField.ViewModels
             set { SetProperty(ref _message, value); }
         }
 
-        private ObservableCollection<AbstractCard> _cards;
-        public ObservableCollection<AbstractCard> Cards
-        {
-            get { return _cards; }
-            set { SetProperty(ref _cards, value); }
-        }
+        public ReadOnlyObservableCollection<AbstractCard> Cards => this.GameManager?.Cards ?? null;
 
     }
 }

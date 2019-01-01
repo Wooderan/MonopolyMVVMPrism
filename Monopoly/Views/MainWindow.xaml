@@ -10,6 +10,7 @@
                         DockPanel.Dock="Left"/>
         <Grid>
             <ContentControl prism:RegionManager.RegionName="GameFieldRegion"
+                            prism:RegionManager.RegionContext="{Binding GameManager}"
                             Width="900" Height="700"/>
             
         </Grid>

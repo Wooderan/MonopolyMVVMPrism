@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace Monopoly.Model.Models
 {
-    class GameManager : BindableBase, IGameManager
+    public class GameManager : BindableBase, IGameManager
     {
 
         #region Constructors
@@ -13,6 +13,7 @@ namespace Monopoly.Model.Models
         public GameManager(ICardLocator cardLocator)
         {
             _cards = cardLocator.GetCardSet();
+            this.Cards = new ReadOnlyObservableCollection<AbstractCard>(_cards);
         }
 
         #endregion
