@@ -118,5 +118,11 @@
       <Version>5.8.13</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Monopoly.Model\Monopoly.Model.csproj">
+      <Project>{ed5b866a-efb3-4646-917a-69329f1d2e75}</Project>
+      <Name>Monopoly.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

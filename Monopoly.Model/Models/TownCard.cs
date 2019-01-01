@@ -1,14 +1,9 @@
-﻿using Monopoly.BaseModel.Models.Interfaces;
-using Monopoly.Infrastructure.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Monopoly.Model.Abstract;
+using Monopoly.Model.Interfaces;
 
-namespace Monopoly.BaseModel.Models
+namespace Monopoly.Model.Models
 {
-    
+
 
     public class TownCard : AbstractCard
     {

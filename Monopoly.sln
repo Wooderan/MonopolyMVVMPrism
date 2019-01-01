@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly", "Monopoly\Monopoly.csproj", "{F45A6CA9-BF21-424C-AEF0-98284EAA6CFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.BaseModel", "Monopoly.BaseModel\Monopoly.BaseModel.csproj", "{6293A285-DF0F-4718-98A2-5654ED6DFB03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.Model", "Monopoly.Model\Monopoly.Model.csproj", "{ED5B866A-EFB3-4646-917A-69329F1D2E75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleA", "ModuleA\ModuleA.csproj", "{AC4852DB-6D89-4208-A1C3-4838CD4B24A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.GameField", "Monopoly.GameField\Monopoly.GameField.csproj", "{FFC554A9-0207-4A31-8D6F-305BAD4BD4E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{F45A6CA9-BF21-424C-AEF0-98284EAA6CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F45A6CA9-BF21-424C-AEF0-98284EAA6CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F45A6CA9-BF21-424C-AEF0-98284EAA6CFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6293A285-DF0F-4718-98A2-5654ED6DFB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6293A285-DF0F-4718-98A2-5654ED6DFB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6293A285-DF0F-4718-98A2-5654ED6DFB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6293A285-DF0F-4718-98A2-5654ED6DFB03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC4852DB-6D89-4208-A1C3-4838CD4B24A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC4852DB-6D89-4208-A1C3-4838CD4B24A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC4852DB-6D89-4208-A1C3-4838CD4B24A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC4852DB-6D89-4208-A1C3-4838CD4B24A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED5B866A-EFB3-4646-917A-69329F1D2E75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED5B866A-EFB3-4646-917A-69329F1D2E75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED5B866A-EFB3-4646-917A-69329F1D2E75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED5B866A-EFB3-4646-917A-69329F1D2E75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC554A9-0207-4A31-8D6F-305BAD4BD4E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC554A9-0207-4A31-8D6F-305BAD4BD4E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC554A9-0207-4A31-8D6F-305BAD4BD4E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC554A9-0207-4A31-8D6F-305BAD4BD4E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

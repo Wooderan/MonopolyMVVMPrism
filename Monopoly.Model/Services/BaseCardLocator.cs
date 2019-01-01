@@ -1,19 +1,15 @@
-﻿using Monopoly.BaseModel.Models;
-using Monopoly.BaseModel.Models.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using Monopoly.Model.Abstract;
+using Monopoly.Model.Interfaces;
+using Monopoly.Model.Models;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
-using static Monopoly.BaseModel.Models.TownCard;
+using static Monopoly.Model.Models.TownCard;
 
-namespace Monopoly.BaseModel.Services
+namespace Monopoly.Model.Services
 {
-    public static class CardLocator
+    public class BaseCardLocator: ICardLocator
     {
-        public static ObservableCollection<AbstractCard> GetStandartCardSet()
+        public ObservableCollection<AbstractCard> GetCardSet()
         {
             var blueCardGroup = new CardGroup(Colors.Blue);
             var brownCardGroup = new CardGroup(Colors.Brown);

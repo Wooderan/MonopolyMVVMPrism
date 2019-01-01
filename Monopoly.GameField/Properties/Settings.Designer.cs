@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleA.Properties
+namespace Monopoly.GameField.Properties
 {
 
 

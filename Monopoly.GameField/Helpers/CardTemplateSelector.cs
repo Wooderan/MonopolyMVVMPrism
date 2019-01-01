@@ -1,14 +1,10 @@
-﻿using Monopoly.BaseModel.Models;
+﻿using Monopoly.Model.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using static Monopoly.BaseModel.Models.TownCard;
+using static Monopoly.Model.Models.TownCard;
 
-namespace Monopoly.BaseModel.Helpers
+namespace Monopoly.GameField.Helpers
 {
     class CardTemplateSelector : DataTemplateSelector
     {

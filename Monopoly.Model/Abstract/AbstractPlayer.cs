@@ -1,13 +1,7 @@
-﻿using Monopoly.BaseModel.Images;
-using Monopoly.Infrastructure.Shared;
+﻿using Monopoly.Model.Images;
+using Monopoly.Model.Interfaces;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace Monopoly.BaseModel.Models.Interfaces

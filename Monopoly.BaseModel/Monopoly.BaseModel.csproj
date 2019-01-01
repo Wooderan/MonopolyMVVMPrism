@@ -54,6 +54,7 @@
     <Compile Include="Helpers\ColorToSolidBrushConverter.cs" />
     <Compile Include="Images\DefaultImagesLocator.cs" />
     <Compile Include="Models\CardGroup.cs" />
+    <Compile Include="Models\GameManager.cs" />
     <Compile Include="Models\Interfaces\AbstractCard.cs" />
     <Compile Include="Models\Interfaces\AbstractPlayer.cs" />
     <Compile Include="Models\TaxGroup.cs" />
@@ -72,6 +73,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\CardLocator.cs" />
+    <Compile Include="ViewModels\CardViewModel.cs" />
     <Compile Include="ViewModels\GameFieldViewModel.cs" />
     <Compile Include="Views\GameField.xaml.cs">
       <DependentUpon>GameField.xaml</DependentUpon>
@@ -128,7 +130,6 @@
       <Version>5.8.13</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\Chips\coffe-cup-aqua.png" />
     <Resource Include="Images\Chips\coffe-cup-blue.png" />

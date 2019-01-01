@@ -1,8 +1,8 @@
-﻿using Monopoly.Infrastructure.Shared;
+﻿using Monopoly.Model.Interfaces;
 using Prism.Mvvm;
 using System;
 
-namespace Monopoly.BaseModel.Models.Interfaces
+namespace Monopoly.Model.Abstract
 {
 
     public abstract class AbstractCard : BindableBase, ICard

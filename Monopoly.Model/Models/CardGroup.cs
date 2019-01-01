@@ -1,13 +1,8 @@
-﻿using Monopoly.BaseModel.Models.Interfaces;
-using Monopoly.Infrastructure.Shared;
-using System;
+﻿using Monopoly.Model.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace Monopoly.BaseModel.Models
+namespace Monopoly.Model.Models
 {
     public class CardGroup : ICardGroup
     {
