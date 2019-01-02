@@ -1,4 +1,6 @@
-﻿using Monopoly.Model.Models;
+﻿using Monopoly.GameField.ViewModels;
+using Monopoly.Model.Abstract;
+using Monopoly.Model.Models;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,23 +17,33 @@ namespace Monopoly.GameField.Helpers
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is TownCard)
+            if (item is CardViewModel)
             {
-                TownCard card = item as TownCard;
+                AbstractCard card = (item as CardViewModel).Card;
 
-                switch (card.Orientation)
+                if (card is TownCard)
                 {
-                    case CardOrientation.LEFT:
-                        return this.LeftTownCard;
-                    case CardOrientation.TOP:
-                        return this.TopTownCard;
-                    case CardOrientation.RIGHT:
-                        return this.RightTownCard;
-                    case CardOrientation.BOTTOM:
-                        return this.BottomTownCard;
-                    default:
-                        throw new Exception("Unavailable CardOrientation!");
+                    TownCard townCard = card as TownCard;
+
+                    switch (townCard.Orientation)
+                    {
+                        case CardOrientation.LEFT:
+                            return this.LeftTownCard;
+                        case CardOrientation.TOP:
+                            return this.TopTownCard;
+                        case CardOrientation.RIGHT:
+                            return this.RightTownCard;
+                        case CardOrientation.BOTTOM:
+                            return this.BottomTownCard;
+                        default:
+                            throw new Exception("Unavailable CardOrientation!");
+                    }
                 }
+                else
+                {
+                    return null;
+                }
+
             }
             else
             {

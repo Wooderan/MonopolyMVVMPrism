@@ -21,9 +21,11 @@ namespace Monopoly
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            IPlayerProvider playerProvider = new MockPlayerProvider();
             containerRegistry.RegisterInstance<ICardLocator>(new BaseCardLocator());
+            containerRegistry.RegisterInstance<IPlayerProvider>(playerProvider);
             ICardLocator cardLocator = this.Container.Resolve<ICardLocator>();
-            containerRegistry.RegisterInstance<IGameManager>(new GameManager(cardLocator));
+            containerRegistry.RegisterInstance<IGameManager>(new GameManager(cardLocator, playerProvider));
         }
 
         protected override IModuleCatalog CreateModuleCatalog()
@@ -32,3 +34,10 @@ namespace Monopoly
         }
     }
 }
+//TODO
+//add player instance+
+//add player provider+
+//add player support to game manager+
+//add player view model+
+//add viewModel support to userfield VM
+//add player template

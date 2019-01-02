@@ -1,12 +1,29 @@
-﻿<Window x:Class="Monopoly.Views.MainWindow"
+﻿<mahApps:MetroWindow x:Class="Monopoly.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="Monopoly" WindowState="Maximized">
+
+    <mahApps:MetroWindow.Flyouts>
+        <mahApps:FlyoutsControl>
+            <mahApps:Flyout Header="Details" Position="Left" Width="150"
+                            Theme="Accent" IsOpen="{Binding IsLeftFlyoutOpened}">
+                <ContentControl prism:RegionManager.RegionName="PlayerDetailsRegion"/>
+                <!--<ListBox ItemsSource="{Binding Calculators}" DisplayMemberPath="CalculatorType"
+                         SelectedItem="{Binding SelectedCalculatorViewModel, Mode=TwoWay}">
+                    
+                </ListBox>-->
+            </mahApps:Flyout>
+        </mahApps:FlyoutsControl>
+    </mahApps:MetroWindow.Flyouts>
+    
     <DockPanel>
         
         <ContentControl prism:RegionManager.RegionName="PlayerInfoRegion" 
+                        prism:RegionManager.RegionContext="{Binding GameManager}"
                         DockPanel.Dock="Left"/>
         <Grid>
             <ContentControl prism:RegionManager.RegionName="GameFieldRegion"
@@ -15,4 +32,4 @@
             
         </Grid>
     </DockPanel>
-</Window>
+</mahApps:MetroWindow>

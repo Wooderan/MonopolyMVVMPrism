@@ -13,10 +13,13 @@ namespace Monopoly.GameField.ViewModels
         public CardViewModel(AbstractCard card, IGameManager manager)
         {
             this.Card = card;
-            this.Card.PropertyChanged += (s, e) =>
+            if (this.Card != null)
             {
-                this.RaisePropertyChanged(e.PropertyName);
-            };
+                this.Card.PropertyChanged += (s, e) =>
+                {
+                    this.RaisePropertyChanged(e.PropertyName);
+                };
+            }
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using Monopoly.Model.Abstract;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,7 @@ namespace Monopoly.Model.Interfaces
     {
         //ObservableCollection<IPlayer> Players { get; set; }
         ReadOnlyObservableCollection<AbstractCard> Cards { get;}
+        ObservableCollection<AbstractPlayer> Players { get; }
 
         //IPlayer CurrentPlayer { get; }
     }

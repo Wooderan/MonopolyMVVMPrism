@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Monopoly.UserField"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:viewModels="clr-namespace:Monopoly.UserField.ViewModels">
+
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Black"/>
+    </Style>
+    
+    
+    <DataTemplate x:Key="PlayerRegularPreview" DataType="{x:Type viewModels:PlayerViewModel}">
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10">
+            <DockPanel>
+                <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="90" Height="90"/>
+                <StackPanel DockPanel.Dock="Left">
+                    <TextBlock Text="{Binding Nickname}" HorizontalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <Binding Path="Money">
+                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+                <Image DockPanel.Dock="Bottom" Source="{Binding Chip}" Width="30" Height="30"/>
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+    
+</ResourceDictionary>

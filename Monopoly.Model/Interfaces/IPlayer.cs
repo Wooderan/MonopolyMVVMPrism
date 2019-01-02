@@ -11,8 +11,8 @@ namespace Monopoly.Model.Interfaces
     public interface IPlayer
     {
         string Nickname { get; set; }
-        BitmapImage Avatar { get; set; }
-        BitmapImage Chip { get; set; }
+        string Avatar { get; set; }
+        string Chip { get; set; }
         int Money { get; set; }
         ObservableCollection<ICard> RealtyCards { get; set; }
         ObservableCollection<ICard> ActionCards { get; set; }

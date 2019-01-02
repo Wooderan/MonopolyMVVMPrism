@@ -4,19 +4,19 @@ using Prism.Mvvm;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 
-namespace Monopoly.BaseModel.Models.Interfaces
+namespace Monopoly.Model.Abstract
 {
-    public class AbstractPlayer : BindableBase, IPlayer
+    public abstract class AbstractPlayer : BindableBase, IPlayer
     {
         #region Fields
 
         protected string _nickname;
-        protected BitmapImage _avatar;
-        protected BitmapImage _chip;
+        protected string _avatar;
+        protected string _chip;
         protected int _money;
 
         public string Nickname { get => _nickname; set => _nickname = value; }
-        public BitmapImage Avatar {
+        public string Avatar {
             get
             {
                 if (_avatar == null)
@@ -27,7 +27,7 @@ namespace Monopoly.BaseModel.Models.Interfaces
             }
             set => _avatar = value;
         }
-        public BitmapImage Chip {
+        public string Chip {
             get
             {
                 if (_chip == null)

@@ -9,14 +9,22 @@ namespace Monopoly.Model.Images
 {
     public static class DefaultImagesLocator
     {
-        public static BitmapImage GetDefaultAvatar()
+        public static string GetDefaultAvatar()
         {
-            return new BitmapImage(new Uri("Avatars/man-1.png", UriKind.Relative));
+            return "pack://application:,,,/Monopoly.Model;component/Images/Avatars/man-1.png";
+        }
+        public static string GetAvatar(string avatarName)
+        {
+            return $"pack://application:,,,/Monopoly.Model;component/Images/Avatars/{avatarName}";
         }
 
-        public static BitmapImage GetDefaultChip()
+        public static string GetDefaultChip()
         {
-            return new BitmapImage(new Uri("Chips/coffe-cup-aqua.png", UriKind.Relative));
+            return "pack://application:,,,/Monopoly.Model;component/Images/Chips/coffe-cup-aqua.png";
+        }
+        public static string GetChip(string chipName)
+        {
+            return $"pack://application:,,,/Monopoly.Model;component/Images/Chips/{chipName}";
         }
     }
 }
