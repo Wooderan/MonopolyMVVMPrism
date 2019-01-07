@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using Monopoly.GameField.ViewModels;
+using System;
+using System.Windows.Controls;
 
 namespace Monopoly.GameField.Views
 {
@@ -11,5 +13,6 @@ namespace Monopoly.GameField.Views
         {
             InitializeComponent();
         }
+
     }
 }

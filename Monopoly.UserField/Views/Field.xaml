@@ -14,10 +14,30 @@
         <ResourceDictionary Source="..\Styles\PlayerPreviewTemplates.xaml"/>
     </UserControl.Resources>
     
-    <Grid>
-        <ListView ItemsSource="{Binding GameManager.Players}" 
+    <DockPanel>
+        <ListView x:Name="townCardsList"
+                  DockPanel.Dock="Top"
+                  ItemsSource="{Binding Players}" 
                   ItemTemplate="{StaticResource PlayerRegularPreview}"
                   SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding ShowPlayerDetailsCommand}"
+                                           CommandParameter="{Binding ElementName=townCardsList, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="PlayerClicked"/>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
-    </Grid>
+        <StackPanel Orientation="Vertical"
+                    DockPanel.Dock="Top">
+            <Button Command="{Binding MakeDrawCommand}"
+                    Content="Draw"/>
+            <Button Command="{Binding NextPlayerCommand}"
+                    Content="Next player"/>
+        </StackPanel>
+    </DockPanel>
 </UserControl>

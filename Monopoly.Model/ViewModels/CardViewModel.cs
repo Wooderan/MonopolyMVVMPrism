@@ -3,9 +3,9 @@ using Monopoly.Model.Interfaces;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace Monopoly.GameField.ViewModels
+namespace Monopoly.Model.ViewModels
 {
-    class CardViewModel : BindableBase
+    public class CardViewModel : BindableBase
     {
                 
         #region Constructors

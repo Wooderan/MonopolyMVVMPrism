@@ -4,12 +4,15 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="Monopoly" WindowState="Maximized">
+        dialogs:DialogParticipation.Register="{Binding}"
+        Title="Monopoly" WindowState="Maximized"
+        Loaded="On_Loaded">
 
     <mahApps:MetroWindow.Flyouts>
         <mahApps:FlyoutsControl>
-            <mahApps:Flyout Header="Details" Position="Left" Width="150"
+            <mahApps:Flyout Header="Details" Position="Left" Width="200"
                             Theme="Accent" IsOpen="{Binding IsLeftFlyoutOpened}">
                 <ContentControl prism:RegionManager.RegionName="PlayerDetailsRegion"/>
                 <!--<ListBox ItemsSource="{Binding Calculators}" DisplayMemberPath="CalculatorType"

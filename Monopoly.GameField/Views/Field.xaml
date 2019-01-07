@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.GameField.Views"
              xmlns:helpers="clr-namespace:Monopoly.GameField.Helpers" 
+             xmlns:sharedHelpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              mc:Ignorable="d" 
              xmlns:prism="http://prismlibrary.com/"
              d:DesignHeight="450" d:DesignWidth="800"
@@ -13,99 +15,194 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="..\Styles\AbstractCardTemplate.xaml"/>
+                <ResourceDictionary Source="..\Styles\PlayerTemplates.xaml"/>
                 <ResourceDictionary>
-                    <helpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+                    <sharedHelpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
                     <helpers:CardTemplateSelector x:Key="CardTemplateSelector"
                                                   LeftTownCard="{StaticResource LeftTownCard}"
                                                   TopTownCard="{StaticResource TopTownCard}"
                                                   RightTownCard="{StaticResource RightTownCard}"
-                                                  BottomTownCard="{StaticResource BottomTownCard}"/>
+                                                  BottomTownCard="{StaticResource BottomTownCard}"
+                                                  MockTownCard="{StaticResource MockTownCard}"/>
+                    <helpers:PlayerTemplateSelector x:Key="PlayerTemplateSelector"
+                                                    PlayerTemplate1="{StaticResource PlayerTemplate1}"
+                                                    PlayerTemplate2="{StaticResource PlayerTemplate2}"
+                                                    PlayerTemplate3="{StaticResource PlayerTemplate3}"
+                                                    PlayerTemplate4="{StaticResource PlayerTemplate4}"
+                                                    PlayerTemplate5="{StaticResource PlayerTemplate5}"
+                                                    PlayerTemplate6="{StaticResource PlayerTemplate6}"
+                                                    MockPlayerTemplate="{StaticResource MockPlayerTemplate}"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border BorderThickness="1" BorderBrush="Black"
-            Margin="10" >
-        <Grid >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" Text="{Binding Message}"/>
-
-            <!--bottom row-->
-            <ContentControl Grid.Row="10" Grid.Column="10" Content="{Binding Cards[0]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="9" Content="{Binding Cards[1]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="8" Content="{Binding Cards[2]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="7" Content="{Binding Cards[3]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="6" Content="{Binding Cards[4]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="5" Content="{Binding Cards[5]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="4" Content="{Binding Cards[6]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="3" Content="{Binding Cards[7]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="2" Content="{Binding Cards[8]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="1" Content="{Binding Cards[9]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="10" Grid.Column="0" Content="{Binding Cards[10]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-
-            <!--left column-->
-            <ContentControl Grid.Row="9" Grid.Column="0" Content="{Binding Cards[11]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="8" Grid.Column="0" Content="{Binding Cards[12]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="7" Grid.Column="0" Content="{Binding Cards[13]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding Cards[14]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding Cards[15]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding Cards[16]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding Cards[17]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding Cards[18]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding Cards[19]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-
-            <!--top row-->
-            <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Cards[20]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding Cards[21]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="2" Content="{Binding Cards[22]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="3" Content="{Binding Cards[23]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="4" Content="{Binding Cards[24]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="5" Content="{Binding Cards[25]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="6" Content="{Binding Cards[26]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="7" Content="{Binding Cards[27]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="8" Content="{Binding Cards[28]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="9" Content="{Binding Cards[29]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="0" Grid.Column="10" Content="{Binding Cards[30]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-
-            <!--right column-->
-            <ContentControl Grid.Row="1" Grid.Column="10" Content="{Binding Cards[31]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="2" Grid.Column="10" Content="{Binding Cards[32]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="3" Grid.Column="10" Content="{Binding Cards[33]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="4" Grid.Column="10" Content="{Binding Cards[34]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="5" Grid.Column="10" Content="{Binding Cards[35]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="6" Grid.Column="10" Content="{Binding Cards[36]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="7" Grid.Column="10" Content="{Binding Cards[37]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="8" Grid.Column="10" Content="{Binding Cards[38]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
-            <ContentControl Grid.Row="9" Grid.Column="10" Content="{Binding Cards[39]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+    <DockPanel>
+        <Border BorderThickness="1" BorderBrush="Black"
+                Margin="10" DockPanel.Dock="Top">
+            <Grid>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition x:Name="SampleColumn" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition x:Name="SampleRow"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
 
 
-        </Grid>
-    </Border>
+                    <TextBlock Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" Text="{Binding Message}"/>
+
+                    <!--bottom row-->
+                    <ContentControl Grid.Row="10" Grid.Column="10" Content="{Binding Cards[0]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="9" Content="{Binding Cards[1]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="8" Content="{Binding Cards[2]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="7" Content="{Binding Cards[3]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="6" Content="{Binding Cards[4]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="5" Content="{Binding Cards[5]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="4" Content="{Binding Cards[6]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="3" Content="{Binding Cards[7]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="2" Content="{Binding Cards[8]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="1" Content="{Binding Cards[9]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="0" Content="{Binding Cards[10]}" ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+
+                    <!--left column-->
+                    <ContentControl Grid.Row="9" Grid.Column="0" Content="{Binding Cards[11]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="8" Grid.Column="0" Content="{Binding Cards[12]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="7" Grid.Column="0" Content="{Binding Cards[13]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding Cards[14]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding Cards[15]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding Cards[16]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding Cards[17]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding Cards[18]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding Cards[19]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+
+                    <!--top row-->
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Cards[20]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding Cards[21]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="2" Content="{Binding Cards[22]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="3" Content="{Binding Cards[23]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="4" Content="{Binding Cards[24]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="5" Content="{Binding Cards[25]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="6" Content="{Binding Cards[26]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="7" Content="{Binding Cards[27]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="8" Content="{Binding Cards[28]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="9" Content="{Binding Cards[29]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="10" Content="{Binding Cards[30]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+
+                    <!--right column-->
+                    <ContentControl Grid.Row="1" Grid.Column="10" Content="{Binding Cards[31]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="2" Grid.Column="10" Content="{Binding Cards[32]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="3" Grid.Column="10" Content="{Binding Cards[33]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="4" Grid.Column="10" Content="{Binding Cards[34]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="5" Grid.Column="10" Content="{Binding Cards[35]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="6" Grid.Column="10" Content="{Binding Cards[36]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="7" Grid.Column="10" Content="{Binding Cards[37]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="8" Grid.Column="10" Content="{Binding Cards[38]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                    <ContentControl Grid.Row="9" Grid.Column="10" Content="{Binding Cards[39]}"  ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+
+                    <!--player chips-->
+                    <!--<ContentControl Grid.Column="10" Content="{Binding Players[0]}"  ContentTemplate="{StaticResource PlayerTemplate1}"
+                                    Grid.Row="{Binding X}">
+                    </ContentControl>
+                    <ContentControl Grid.Row="10" Grid.Column="10" Content="{Binding Players[1]}"  ContentTemplate="{StaticResource PlayerTemplate2}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="10" Content="{Binding Players[2]}"  ContentTemplate="{StaticResource PlayerTemplate3}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="10" Content="{Binding Players[3]}"  ContentTemplate="{StaticResource PlayerTemplate4}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="10" Content="{Binding Players[3]}"  ContentTemplate="{StaticResource PlayerTemplate5}"/>
+                    <ContentControl Grid.Row="10" Grid.Column="10" Content="{Binding Players[3]}"  ContentTemplate="{StaticResource PlayerTemplate6}"/>-->
+
+                    <!--<Button Grid.Row="5"
+                            Grid.Column="5"
+                            Command="{Binding MakeDrawCommand}"/>-->
+
+
+                </Grid>
+
+                <Viewbox Stretch="Fill">
+                    <ItemsControl Name="Board" >
+                        <ItemsControl.Items>
+                            <ContentPresenter x:Name="player1" Content="{Binding Players[0]}" 
+                                              ContentTemplateSelector="{StaticResource PlayerTemplateSelector}"
+                                              Canvas.Left="11.5"
+                                              Canvas.Top="11.5">
+                                <i:Interaction.Behaviors>
+                                    <helpers:PlayerViewModelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </ContentPresenter>
+                            <ContentPresenter x:Name="player2" Content="{Binding Players[1]}" 
+                                              ContentTemplateSelector="{StaticResource PlayerTemplateSelector}"
+                                              Canvas.Left="11.5"
+                                              Canvas.Top="11.5">
+                                <i:Interaction.Behaviors>
+                                    <helpers:PlayerViewModelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </ContentPresenter>
+                            <ContentPresenter x:Name="player3" Content="{Binding Players[2]}" 
+                                              ContentTemplateSelector="{StaticResource PlayerTemplateSelector}"
+                                              Canvas.Left="11.5"
+                                              Canvas.Top="11.5">
+                                <i:Interaction.Behaviors>
+                                    <helpers:PlayerViewModelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </ContentPresenter>
+                            <ContentPresenter x:Name="player4" Content="{Binding Players[3]}" 
+                                              ContentTemplateSelector="{StaticResource PlayerTemplateSelector}"
+                                              Canvas.Left="11.5"
+                                              Canvas.Top="11.5">
+                                <i:Interaction.Behaviors>
+                                    <helpers:PlayerViewModelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </ContentPresenter>
+                            <ContentPresenter x:Name="player5" Content="{Binding Players[4]}" 
+                                              ContentTemplateSelector="{StaticResource PlayerTemplateSelector}"
+                                              Canvas.Left="11.5"
+                                              Canvas.Top="11.5">
+                                <i:Interaction.Behaviors>
+                                    <helpers:PlayerViewModelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </ContentPresenter>
+                            <ContentPresenter x:Name="player6" Content="{Binding Players[5]}" 
+                                              ContentTemplateSelector="{StaticResource PlayerTemplateSelector}"
+                                              Canvas.Left="11.5"
+                                              Canvas.Top="11.5">
+                                <i:Interaction.Behaviors>
+                                    <helpers:PlayerViewModelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </ContentPresenter>
+                        </ItemsControl.Items>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas Width="13" Height="13" Background="{x:Null}"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <!--<ItemsControl.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="Canvas.Left" Value="{Binding Pos.X}" />
+                                <Setter Property="Canvas.Top" Value="{Binding Pos.Y}" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>-->
+                    </ItemsControl>
+                </Viewbox>
+            </Grid>
+        </Border>
+    </DockPanel>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monopoly.Model.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Monopoly.Model.Interfaces
         int HouseCost { get; }
         ICardGroup CardGroup { get; }
         ITaxGroup TaxGroup { get; }
-        IPlayer Owner { get; set; }
+        AbstractPlayer Owner { get; set; }
         int CurrentTax { get; }
 
         void AddHouse();

@@ -11,6 +11,7 @@ namespace Monopoly.UserField
         {
             var regionManager = containerProvider.Resolve<IRegionManager>();
             regionManager.RegisterViewWithRegion("PlayerInfoRegion", typeof(Field));
+            regionManager.RegisterViewWithRegion("PlayerDetailsRegion", typeof(PlayerDetails));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

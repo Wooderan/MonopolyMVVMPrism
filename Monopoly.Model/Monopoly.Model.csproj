@@ -75,6 +75,8 @@
   <ItemGroup>
     <Compile Include="Abstract\AbstractCard.cs" />
     <Compile Include="Abstract\AbstractPlayer.cs" />
+    <Compile Include="Events\ShowPlayerDetailEvent.cs" />
+    <Compile Include="Helpers\ColorToSolidBrushConverter.cs" />
     <Compile Include="Images\DefaultImagesLocator.cs" />
     <Compile Include="Interfaces\ICard.cs" />
     <Compile Include="Interfaces\ICardGroup.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="Models\TownCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseCardLocator.cs" />
+    <Compile Include="ViewModels\CardViewModel.cs" />
+    <Compile Include="ViewModels\PlayerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

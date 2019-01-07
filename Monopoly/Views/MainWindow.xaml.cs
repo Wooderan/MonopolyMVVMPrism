@@ -1,4 +1,6 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Monopoly.ViewModels;
 using System.Windows;
 
 namespace Monopoly.Views
@@ -11,6 +13,11 @@ namespace Monopoly.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void On_Loaded(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as MainWindowViewModel).DialogCoordinator = DialogCoordinator.Instance;
         }
     }
 }

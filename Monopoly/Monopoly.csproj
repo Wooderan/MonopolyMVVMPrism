@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\BuyOrAuctionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -65,6 +71,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Dialogs\BuyOrAuctionDialog.xaml.cs">
+      <DependentUpon>BuyOrAuctionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BuyOrAuctionDialogViewModel.cs" />
+    <Compile Include="Dialogs\DialogResults.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -105,12 +116,13 @@
     <PackageReference Include="MahApps.Metro">
       <Version>2.0.0-alpha0186</Version>
     </PackageReference>
+    <PackageReference Include="MahApps.Metro.IconPacks">
+      <Version>3.0.0-alpha0096</Version>
+    </PackageReference>
     <PackageReference Include="Prism.Unity">
       <Version>7.2.0.708-pre</Version>
     </PackageReference>
-    <PackageReference Include="Prism.Wpf">
-      <Version>7.2.0.708-pre</Version>
-    </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

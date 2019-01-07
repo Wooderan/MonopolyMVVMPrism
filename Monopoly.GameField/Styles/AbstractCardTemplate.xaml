@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Monopoly.GameField"
-                    xmlns:viewModels="clr-namespace:Monopoly.GameField.ViewModels"
+                    xmlns:viewModels="clr-namespace:Monopoly.Model.ViewModels;assembly=Monopoly.Model"
                     xmlns:model="clr-namespace:Monopoly.Model.Models;assembly=Monopoly.Model"
                     xmlns:abstractModel="clr-namespace:Monopoly.Model.Abstract;assembly=Monopoly.Model"
-                    xmlns:helpers="clr-namespace:Monopoly.GameField.Helpers">
+                    xmlns:helpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model">
     <helpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
     
     <DataTemplate x:Key="BottomTownCard" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1" DataContext="{Binding Card}">
+        <Border BorderBrush="Black" BorderThickness="1 2" DataContext="{Binding Card}">
             <DockPanel>
                 <Label DockPanel.Dock="Top" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
                 </Label>
@@ -26,7 +26,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="LeftTownCard" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1">
+        <Border BorderBrush="Black" BorderThickness="2 1">
             <DockPanel>
                 <Label DockPanel.Dock="Right" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
                 </Label>
@@ -44,7 +44,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="TopTownCard" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1">
+        <Border BorderBrush="Black" BorderThickness="1 2">
             <DockPanel>
                 <Label DockPanel.Dock="Bottom" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
                 </Label>
@@ -62,7 +62,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="RightTownCard" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1">
+        <Border BorderBrush="Black" BorderThickness="2 1">
             <DockPanel>
                 <Label DockPanel.Dock="Left" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
                 </Label>
@@ -75,6 +75,15 @@
                     </TextBlock.Text>
                 </TextBlock>
                 <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MockTownCard" DataType="{x:Type viewModels:CardViewModel}">
+        <Border BorderBrush="Black" BorderThickness="1">
+            <DockPanel>
+                <TextBlock Text="Not Supported yet!"
+                           HorizontalAlignment="Center"/>
             </DockPanel>
         </Border>
     </DataTemplate>

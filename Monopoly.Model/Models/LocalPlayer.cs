@@ -5,7 +5,7 @@ namespace Monopoly.Model.Models
 {
     class LocalPlayer : AbstractPlayer
     {
-        public LocalPlayer(string nickname, string avatar, string chip, int money)
+        public LocalPlayer(string nickname, string avatar, string chip, int money) : base()
         {
             this.Nickname = nickname;
             this.Avatar = avatar;

@@ -15,6 +15,7 @@ namespace Monopoly.Model.Models
         public TaxGroup(int empty, int set, int house, int twoHouses, int threeHouses, int fourHouses, int hotel)
         {
             Empty = empty;
+            Set = set;
             House = house;
             TwoHouses = twoHouses;
             ThreeHouses = threeHouses;

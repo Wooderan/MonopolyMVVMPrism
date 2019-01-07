@@ -11,10 +11,30 @@ namespace Monopoly.Model.Interfaces
 {
     public interface IGameManager
     {
-        //ObservableCollection<IPlayer> Players { get; set; }
+        #region Methods
+
+        void MakeDraw();
+        void NextPlayer();
+        void Buy();
+
+        #endregion
+
+        #region Event
+        event Action ShowBuyOrAuctionDialog;
+        #endregion
+
+        #region Fields
+
         ReadOnlyObservableCollection<AbstractCard> Cards { get;}
         ObservableCollection<AbstractPlayer> Players { get; }
+        int CurrentPlayer { get; }
+        bool HaveDraws { get; }
+        bool HaveNotDraws { get; }
 
-        //IPlayer CurrentPlayer { get; }
+
+        #endregion
+
+
+
     }
 }

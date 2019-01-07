@@ -69,7 +69,7 @@ namespace Monopoly.Model.Abstract
         protected ICardGroup _cardGroup;
         protected ITaxGroup _taxGroup;
         protected int _houses;
-        protected IPlayer _owner;
+        protected AbstractPlayer _owner;
 
 
         public CardType Type { get => _type; protected set => _type = value; }
@@ -82,7 +82,7 @@ namespace Monopoly.Model.Abstract
 
         //bindable
         public int Houses { get => _houses; set => this.SetProperty(ref _houses, value); }
-        public IPlayer Owner { get => _owner; set => this.SetProperty(ref _owner, value); }
+        public AbstractPlayer Owner { get => _owner; set => this.SetProperty(ref _owner, value); }
 
         #endregion // Fields
     }

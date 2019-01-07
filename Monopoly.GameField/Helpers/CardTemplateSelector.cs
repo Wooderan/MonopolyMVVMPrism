@@ -1,6 +1,7 @@
 ﻿using Monopoly.GameField.ViewModels;
 using Monopoly.Model.Abstract;
 using Monopoly.Model.Models;
+using Monopoly.Model.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,36 +15,42 @@ namespace Monopoly.GameField.Helpers
         public DataTemplate TopTownCard { get; set; }
         public DataTemplate RightTownCard { get; set; }
         public DataTemplate BottomTownCard { get; set; }
+        public DataTemplate MockTownCard { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item is CardViewModel)
             {
                 AbstractCard card = (item as CardViewModel).Card;
-
-                if (card is TownCard)
+                if (card != null)
                 {
-                    TownCard townCard = card as TownCard;
-
-                    switch (townCard.Orientation)
+                    if (card is TownCard)
                     {
-                        case CardOrientation.LEFT:
-                            return this.LeftTownCard;
-                        case CardOrientation.TOP:
-                            return this.TopTownCard;
-                        case CardOrientation.RIGHT:
-                            return this.RightTownCard;
-                        case CardOrientation.BOTTOM:
-                            return this.BottomTownCard;
-                        default:
-                            throw new Exception("Unavailable CardOrientation!");
+                        TownCard townCard = card as TownCard;
+
+                        switch (townCard.Orientation)
+                        {
+                            case CardOrientation.LEFT:
+                                return this.LeftTownCard;
+                            case CardOrientation.TOP:
+                                return this.TopTownCard;
+                            case CardOrientation.RIGHT:
+                                return this.RightTownCard;
+                            case CardOrientation.BOTTOM:
+                                return this.BottomTownCard;
+                            default:
+                                throw new Exception("Unavailable CardOrientation!");
+                        }
+                    }
+                    else
+                    {
+                        return null;
                     }
                 }
                 else
                 {
-                    return null;
+                    return this.MockTownCard;
                 }
-
             }
             else
             {

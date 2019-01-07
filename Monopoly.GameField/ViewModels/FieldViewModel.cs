@@ -1,5 +1,7 @@
 ﻿using Monopoly.Model.Abstract;
 using Monopoly.Model.Interfaces;
+using Monopoly.Model.ViewModels;
+using Prism.Commands;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -24,6 +26,10 @@ namespace Monopoly.GameField.ViewModels
 
             this.Cards = new ObservableCollection<CardViewModel>(this.GameManager.Cards.Select(c => new CardViewModel(c, this.GameManager)));
             Watch(this.GameManager.Cards, this.Cards, cvm => cvm.Card);
+
+            int order = 1;
+            this.Players = new ObservableCollection<PlayerViewModel>(this.GameManager.Players.Select(p => new PlayerViewModel(p, order++)));
+            //Watch(this.GameManager.Players, this.Players, cvm => cvm.Card);
         }
 
         #endregion
@@ -38,6 +44,17 @@ namespace Monopoly.GameField.ViewModels
                 if (a.OldItems?.Count == 1) collToUpdate.Remove(collToUpdate.First(mv => modelProperty(mv) == a.OldItems[0]));
             };
         }
+        #endregion
+
+        #region Commands
+        //private DelegateCommand _makeDrawCommand;
+        //public DelegateCommand MakeDrawCommand =>
+        //    _makeDrawCommand ?? (_makeDrawCommand = new DelegateCommand(ExecuteMakeDrawCommand));
+
+        //void ExecuteMakeDrawCommand()
+        //{
+        //    this.GameManager.MakeDraw();
+        //}
         #endregion
 
         #region Properties
@@ -59,6 +76,7 @@ namespace Monopoly.GameField.ViewModels
         #region Fields
 
         public ObservableCollection<CardViewModel> Cards { get; private set; }
+        public ObservableCollection<PlayerViewModel> Players { get; private set; }
 
         #endregion
 

@@ -3,9 +3,9 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Monopoly.GameField.Helpers
+namespace Monopoly.Model.Helpers
 {
-    class ColorToSolidBrushConverter : IValueConverter
+    public class ColorToSolidBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
