@@ -1,7 +1,9 @@
 ﻿using Monopoly.Model.Abstract;
 using Monopoly.Model.Interfaces;
+using Monopoly.Model.Models;
 using Prism.Commands;
 using Prism.Mvvm;
+using static Monopoly.Model.Models.TownCard;
 
 namespace Monopoly.Model.ViewModels
 {
@@ -13,6 +15,7 @@ namespace Monopoly.Model.ViewModels
         public CardViewModel(AbstractCard card, IGameManager manager)
         {
             this.Card = card;
+            this.RaisePropertyChanged("Card");
             if (this.Card != null)
             {
                 this.Card.PropertyChanged += (s, e) =>
@@ -32,7 +35,12 @@ namespace Monopoly.Model.ViewModels
 
         #region Fields
 
-        public AbstractCard Card { get; }
+        private AbstractCard _card;
+        public AbstractCard Card
+        {
+            get { return _card; }
+            set { SetProperty(ref _card, value); }
+        }
 
         //inner properties
         public CardType Type => this.Card.Type;
@@ -43,7 +51,8 @@ namespace Monopoly.Model.ViewModels
         public ICardGroup CardGroup => this.Card.CardGroup;
         public ITaxGroup TaxGroup => this.Card.TaxGroup;
         public int Houses => this.Card.Houses;
-        public IPlayer Owner => this.Card.Owner;
+        public AbstractPlayer Owner => this.Card.Owner;
+        public CardOrientation Orientation => (this.Card is TownCard) ? (this.Card as TownCard).Orientation : CardOrientation.TOP;
 
         #endregion
     }

@@ -2,84 +2,68 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Monopoly.GameField"
                     xmlns:viewModels="clr-namespace:Monopoly.Model.ViewModels;assembly=Monopoly.Model"
-                    xmlns:model="clr-namespace:Monopoly.Model.Models;assembly=Monopoly.Model"
+                    xmlns:models="clr-namespace:Monopoly.Model.Models;assembly=Monopoly.Model"
                     xmlns:abstractModel="clr-namespace:Monopoly.Model.Abstract;assembly=Monopoly.Model"
                     xmlns:helpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model">
-    <helpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="TownCardTemplates.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     
-    <DataTemplate x:Key="BottomTownCard" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1 2" DataContext="{Binding Card}">
-            <DockPanel>
-                <Label DockPanel.Dock="Top" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
+    <helpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+    <helpers:CardOrientationToDockConverter x:Key="CardOrientationToDockConverter"/>
+    <helpers:CardOrientationToYTranslateConverter x:Key="CardOrientationToYTranslateConverter"/>
+    <helpers:CardOrientationToXTranslateConverter x:Key="CardOrientationToXTranslateConverter"/>
+    <helpers:CardOrientationToVerticalAlignment x:Key="CardOrientationToVerticalAlignment"/>
+    <helpers:CardOrientationToHorizontalAlignment x:Key="CardOrientationToHorizontalAlignment"/>
+    <helpers:CardOrientationToLabelWidth x:Key="CardOrientationToLabelWidth"/>
+    <helpers:CardOrientationToLabelHeight x:Key="CardOrientationToLabelHeight"/>
+    
+    <DataTemplate x:Key="TownCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
+        <Border BorderBrush="Black" BorderThickness="1 2" Background="White">
+            <Border.ToolTip>
+                <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
+                                     x:Name="tooltip"
+                                     Content="{Binding }"
+                                     ContentTemplate="{StaticResource TownCard}"/>
+            </Border.ToolTip>
+            <Grid>
+                <Label Height="16" 
+                       VerticalAlignment="{Binding Orientation, Converter={StaticResource CardOrientationToVerticalAlignment}}"
+                       HorizontalAlignment="{Binding Orientation, Converter={StaticResource CardOrientationToHorizontalAlignment}}"
+                       Padding="0"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center">
+                    <Label.RenderTransform>
+                        <TranslateTransform Y="{Binding Orientation, Converter={StaticResource CardOrientationToYTranslateConverter}}"
+                                            X="{Binding Orientation, Converter={StaticResource CardOrientationToXTranslateConverter}}"/>
+                    </Label.RenderTransform>
+                    <Label.Content>
+                        <Image Source="{Binding Owner.Chip}"
+                               Opacity="0.7"/>
+                    </Label.Content>
                 </Label>
-                <TextBlock HorizontalAlignment="Center"
+                <DockPanel>
+                    <Label DockPanel.Dock="{Binding Orientation, Converter={StaticResource CardOrientationToDockConverter}}" 
+                           Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"
+                           Height="{Binding Orientation, Converter={StaticResource CardOrientationToLabelHeight}}"
+                           Width="{Binding Orientation, Converter={StaticResource CardOrientationToLabelWidth}}">
+                    </Label>
+                    <TextBlock HorizontalAlignment="Center"
                            DockPanel.Dock="Bottom">
-                    <TextBlock.Text>
-                        <Binding Path="Cost">
-                            <Binding.StringFormat>{0:C}</Binding.StringFormat>
-                        </Binding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-            </DockPanel>
+                        <TextBlock.Text>
+                            <Binding Path="Cost">
+                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                </DockPanel>
+            </Grid>
         </Border>
     </DataTemplate>
 
-    <DataTemplate x:Key="LeftTownCard" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="2 1">
-            <DockPanel>
-                <Label DockPanel.Dock="Right" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
-                </Label>
-                <TextBlock HorizontalAlignment="Center"
-                           DockPanel.Dock="Bottom">
-                    <TextBlock.Text>
-                        <Binding Path="Cost">
-                            <Binding.StringFormat>{0:C}</Binding.StringFormat>
-                        </Binding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-            </DockPanel>
-        </Border>
-    </DataTemplate>
-
-    <DataTemplate x:Key="TopTownCard" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1 2">
-            <DockPanel>
-                <Label DockPanel.Dock="Bottom" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
-                </Label>
-                <TextBlock HorizontalAlignment="Center"
-                           DockPanel.Dock="Bottom">
-                    <TextBlock.Text>
-                        <Binding Path="Cost">
-                            <Binding.StringFormat>{0:C}</Binding.StringFormat>
-                        </Binding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-            </DockPanel>
-        </Border>
-    </DataTemplate>
-
-    <DataTemplate x:Key="RightTownCard" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="2 1">
-            <DockPanel>
-                <Label DockPanel.Dock="Left" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
-                </Label>
-                <TextBlock HorizontalAlignment="Center"
-                           DockPanel.Dock="Bottom">
-                    <TextBlock.Text>
-                        <Binding Path="Cost">
-                            <Binding.StringFormat>{0:C}</Binding.StringFormat>
-                        </Binding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-            </DockPanel>
-        </Border>
-    </DataTemplate>
-
-    <DataTemplate x:Key="MockTownCard" DataType="{x:Type viewModels:CardViewModel}">
+    <DataTemplate x:Key="MockCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
         <Border BorderBrush="Black" BorderThickness="1">
             <DockPanel>
                 <TextBlock Text="Not Supported yet!"

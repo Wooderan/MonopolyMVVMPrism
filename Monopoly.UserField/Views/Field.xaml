@@ -35,7 +35,7 @@
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Top">
             <Button Command="{Binding MakeDrawCommand}"
-                    Content="Draw"/>
+                    Content="Roll the dice"/>
             <Button Command="{Binding NextPlayerCommand}"
                     Content="Next player"/>
         </StackPanel>

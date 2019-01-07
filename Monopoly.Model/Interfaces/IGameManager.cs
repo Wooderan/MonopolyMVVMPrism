@@ -20,7 +20,7 @@ namespace Monopoly.Model.Interfaces
         #endregion
 
         #region Event
-        event Action ShowBuyOrAuctionDialog;
+        event Action<AbstractCard> ShowBuyOrAuctionDialog;
         #endregion
 
         #region Fields

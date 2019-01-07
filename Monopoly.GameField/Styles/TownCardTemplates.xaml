@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Monopoly.UserField"
                     xmlns:viewModels="clr-namespace:Monopoly.Model.ViewModels;assembly=Monopoly.Model"
                     xmlns:model="clr-namespace:Monopoly.Model.Models;assembly=Monopoly.Model"
                     xmlns:abstractModel="clr-namespace:Monopoly.Model.Abstract;assembly=Monopoly.Model"
@@ -8,7 +7,7 @@
                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
     <helpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
     
-    <DataTemplate x:Key="TownCard" DataType="{x:Type abstractModel:AbstractCard}">
+    <DataTemplate x:Key="TownCard" DataType="{x:Type viewModels:CardViewModel}">
         <Border BorderBrush="Black" BorderThickness="1" Background="White" Margin="5">
             <StackPanel Margin="5">
                 <Label Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"

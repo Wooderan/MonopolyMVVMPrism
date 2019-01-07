@@ -31,7 +31,7 @@ namespace Monopoly.Model.Models
         #endregion
 
         #region Events
-        public event Action ShowBuyOrAuctionDialog;
+        public event Action<AbstractCard> ShowBuyOrAuctionDialog;
         #endregion
 
         #region Methods
@@ -73,7 +73,7 @@ namespace Monopoly.Model.Models
             {
                 if (currentCard.Owner == null)
                 {
-                    this.ShowBuyOrAuctionDialog?.Invoke();
+                    this.ShowBuyOrAuctionDialog?.Invoke(currentCard);
                 }
                 else
                 {

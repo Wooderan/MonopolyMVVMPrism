@@ -23,12 +23,12 @@ namespace Monopoly.ViewModels
             eventAggregator.GetEvent<ShowPlayerDetailEvent>().Subscribe(this.OpenLeftFlyout);
         }
 
-        private void GameManager_ShowBuyOrAuctionDialog()
+        private void GameManager_ShowBuyOrAuctionDialog(AbstractCard card)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
                 var dialog = new BuyOrAuctionDialog();
-                var viewModel = new BuyOrAuctionDialogViewModel(dr =>
+                var viewModel = new BuyOrAuctionDialogViewModel(card, dr =>
                 {
                     _dialogCoordinator.HideMetroDialogAsync(this, dialog);
                     if (dr == DialogResults.BUY)

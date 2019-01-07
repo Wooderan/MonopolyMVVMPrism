@@ -10,20 +10,19 @@
              mc:Ignorable="d" 
              xmlns:prism="http://prismlibrary.com/"
              d:DesignHeight="450" d:DesignWidth="800"
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             x:Name="window">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="..\Styles\AbstractCardTemplate.xaml"/>
                 <ResourceDictionary Source="..\Styles\PlayerTemplates.xaml"/>
+                <ResourceDictionary Source="..\Styles\TownCardTemplates.xaml"/>
                 <ResourceDictionary>
                     <sharedHelpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
                     <helpers:CardTemplateSelector x:Key="CardTemplateSelector"
-                                                  LeftTownCard="{StaticResource LeftTownCard}"
-                                                  TopTownCard="{StaticResource TopTownCard}"
-                                                  RightTownCard="{StaticResource RightTownCard}"
-                                                  BottomTownCard="{StaticResource BottomTownCard}"
-                                                  MockTownCard="{StaticResource MockTownCard}"/>
+                                                  TownCardTemplate="{StaticResource TownCardTemplate}"
+                                                  MockCardTemplate="{StaticResource MockCardTemplate}"/>
                     <helpers:PlayerTemplateSelector x:Key="PlayerTemplateSelector"
                                                     PlayerTemplate1="{StaticResource PlayerTemplate1}"
                                                     PlayerTemplate2="{StaticResource PlayerTemplate2}"

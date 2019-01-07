@@ -8,6 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <dialogs:CustomDialog.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles\CardTemplates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </dialogs:CustomDialog.Resources>
+
     <dialogs:CustomDialog.Style>
         <Style BasedOn="{StaticResource {x:Type dialogs:BaseMetroDialog}}" TargetType="{x:Type dialogs:CustomDialog}">
             <Setter Property="Template">
@@ -68,7 +76,9 @@
         <TextBlock Grid.Row="0"
                        FontSize="{DynamicResource DialogTitleFontSize}"
                        Text="{Binding Title}"
-                       TextWrapping="Wrap" />
+                       TextWrapping="Wrap" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
         <Grid Grid.Row="1" Margin="0 10 0 0">
 
@@ -77,15 +87,8 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!--<ScrollViewer FocusVisualStyle="{x:Null}"
-                              Focusable="False"
-                              HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto">
-                <TextBlock Margin="0 5 0 0"
-                               FontSize="30"
-                               Text="{Binding Message}"
-                               TextWrapping="Wrap" />
-            </ScrollViewer>-->
+            <ContentPresenter Grid.Row="0" Content="{Binding Card}" ContentTemplate="{StaticResource TownCard}"
+                              Width="150"/>
 
             <Grid Grid.Row="1" MinHeight="150">
                 <Grid.ColumnDefinitions>
@@ -110,7 +113,7 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             Command="{Binding CloseCommand}"
-                            CommandParameter="{x:Static local:DialogResults.BUY}"
+                            CommandParameter="{x:Static local:DialogResults.AUCTION}"
                             Content="Auction"
                             FontSize="30" />
             </Grid>

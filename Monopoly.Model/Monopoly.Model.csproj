@@ -76,6 +76,13 @@
     <Compile Include="Abstract\AbstractCard.cs" />
     <Compile Include="Abstract\AbstractPlayer.cs" />
     <Compile Include="Events\ShowPlayerDetailEvent.cs" />
+    <Compile Include="Helpers\CardOrientationToDockConverter.cs" />
+    <Compile Include="Helpers\CardOrientationToHorizontalAlignment.cs" />
+    <Compile Include="Helpers\CardOrientationToLabelHeight.cs" />
+    <Compile Include="Helpers\CardOrientationToLabelWidth.cs" />
+    <Compile Include="Helpers\CardOrientationToVerticalAlignment.cs" />
+    <Compile Include="Helpers\CardOrientationToXTranslateConverter.cs" />
+    <Compile Include="Helpers\CardOrientationToYTranslateConverter.cs" />
     <Compile Include="Helpers\ColorToSolidBrushConverter.cs" />
     <Compile Include="Images\DefaultImagesLocator.cs" />
     <Compile Include="Interfaces\ICard.cs" />
