@@ -13,7 +13,7 @@ namespace Monopoly.Model.Abstract
 
         #region Methods
 
-        public void AddHouse()
+        internal void AddHouse()
         {
             if (this.Houses < 5)
             {
@@ -21,7 +21,7 @@ namespace Monopoly.Model.Abstract
             }
         }
 
-        public void RemoveHouse()
+        internal void RemoveHouse()
         {
             if (this.Houses > 0)
             {

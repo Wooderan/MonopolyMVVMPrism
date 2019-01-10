@@ -1,7 +1,10 @@
 ﻿using Monopoly.Model.Abstract;
+using Monopoly.Model.Events;
 using Monopoly.Model.Interfaces;
+using Monopoly.Model.Models;
 using Monopoly.Model.ViewModels;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -19,7 +22,7 @@ namespace Monopoly.GameField.ViewModels
     {
         #region Constructors
 
-        public FieldViewModel(IRegionManager regionManager)
+        public FieldViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             this.Message = "Hello from view model!";
             this.GameManager = (IGameManager)regionManager.Regions["GameFieldRegion"].Context;
@@ -30,6 +33,9 @@ namespace Monopoly.GameField.ViewModels
             int order = 1;
             this.Players = new ObservableCollection<PlayerViewModel>(this.GameManager.Players.Select(p => new PlayerViewModel(p, order++)));
             //Watch(this.GameManager.Players, this.Players, cvm => cvm.Card);
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<ShowAvailableForBuildingTowns>().Subscribe(this.ShowAvailableForBuildingTowns);
+            _eventAggregator.GetEvent<StopShowAvailableForBuildingTowns>().Subscribe(this.StopShowAvailableForBuildingTowns);
         }
 
         #endregion
@@ -44,17 +50,45 @@ namespace Monopoly.GameField.ViewModels
                 if (a.OldItems?.Count == 1) collToUpdate.Remove(collToUpdate.First(mv => modelProperty(mv) == a.OldItems[0]));
             };
         }
+
+        private void ShowAvailableForBuildingTowns()
+        {
+            var availableForBuildingTowns = this.Cards.Where(cvm => (cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
+                                                                      && cvm.Card is TownCard) && cvm.CardGroup.IsMonopoly);
+            foreach (CardViewModel cvm in availableForBuildingTowns)
+            {
+                cvm.onClickAction = () =>
+              {
+                  _gameManager.BuildHouse(cvm.Card);
+              };
+            }
+
+            var unavailableTowns = this.Cards.Except(availableForBuildingTowns);
+            foreach (CardViewModel cvm in unavailableTowns)
+            {
+                cvm.Gray = true;
+            }
+        }
+
+        private void StopShowAvailableForBuildingTowns()
+        {
+            var availableForBuildingTowns = this.Cards.Where(cvm => (cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
+                                                                      && cvm.Card is TownCard) && cvm.CardGroup.IsMonopoly);
+            foreach (CardViewModel cvm in availableForBuildingTowns)
+            {
+                cvm.onClickAction = null;
+            }
+
+            var unavailableTowns = this.Cards.Except(availableForBuildingTowns);
+            foreach (CardViewModel cvm in unavailableTowns)
+            {
+                cvm.Gray = false;
+            }
+        }
         #endregion
 
         #region Commands
-        //private DelegateCommand _makeDrawCommand;
-        //public DelegateCommand MakeDrawCommand =>
-        //    _makeDrawCommand ?? (_makeDrawCommand = new DelegateCommand(ExecuteMakeDrawCommand));
 
-        //void ExecuteMakeDrawCommand()
-        //{
-        //    this.GameManager.MakeDraw();
-        //}
         #endregion
 
         #region Properties
@@ -77,6 +111,8 @@ namespace Monopoly.GameField.ViewModels
 
         public ObservableCollection<CardViewModel> Cards { get; private set; }
         public ObservableCollection<PlayerViewModel> Players { get; private set; }
+
+        private IEventAggregator _eventAggregator;
 
         #endregion
 

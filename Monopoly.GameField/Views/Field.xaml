@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Monopoly.GameField.Views"
              xmlns:helpers="clr-namespace:Monopoly.GameField.Helpers" 
              xmlns:sharedHelpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model" 
+             xmlns:viewModels="clr-namespace:Monopoly.Model.ViewModels;assembly=Monopoly.Model" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              mc:Ignorable="d" 
              xmlns:prism="http://prismlibrary.com/"
@@ -31,6 +32,7 @@
                                                     PlayerTemplate5="{StaticResource PlayerTemplate5}"
                                                     PlayerTemplate6="{StaticResource PlayerTemplate6}"
                                                     MockPlayerTemplate="{StaticResource MockPlayerTemplate}"/>
+                    
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

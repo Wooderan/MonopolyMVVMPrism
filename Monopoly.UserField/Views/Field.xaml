@@ -11,21 +11,31 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <ResourceDictionary Source="..\Styles\PlayerPreviewTemplates.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles\PlayerPreviewTemplates.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="relativeToStopBuildHouse"
+                           TargetType="{x:Type Button}" 
+                           BasedOn="{StaticResource MetroFlatButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=StopBuildHouseButton, Path=IsVisible}"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <DockPanel>
         <ListView x:Name="townCardsList"
                   DockPanel.Dock="Top"
                   ItemsSource="{Binding Players}" 
                   ItemTemplate="{StaticResource PlayerRegularPreview}"
                   SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding ShowPlayerDetailsCommand}"
-                                           CommandParameter="{Binding ElementName=townCardsList, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="PlayerClicked"/>
@@ -35,9 +45,28 @@
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Top">
             <Button Command="{Binding MakeDrawCommand}"
-                    Content="Roll the dice"/>
+                    Content="Roll the dice"
+                    x:Name="MakeDrawButton"
+                    Style="{StaticResource relativeToStopBuildHouse}"/>
             <Button Command="{Binding NextPlayerCommand}"
-                    Content="Next player"/>
+                    Content="Next player"
+                    x:Name="NextPlayerButton"
+                    Style="{StaticResource relativeToStopBuildHouse}"/>
+            <Grid>
+                <Button Command="{Binding BuildHouseCommand}"
+                        Content="Build House" 
+                        Click="onBuildHouseButton_Click"
+                        x:Name="BuildHouseButton"
+                        Style="{StaticResource MetroFlatButton}"/>
+                <Button Command="{Binding StopBuildHouseCommand}"
+                        Content="Stop Build House"
+                        Visibility="Collapsed"
+                        Click="onStopBuildHouseButton_Click"
+                        x:Name="StopBuildHouseButton"
+                        Style="{StaticResource MetroFlatButton}">
+                </Button>
+            </Grid>
         </StackPanel>
     </DockPanel>
+
 </UserControl>

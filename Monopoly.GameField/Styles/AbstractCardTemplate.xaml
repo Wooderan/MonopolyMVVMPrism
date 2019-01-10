@@ -4,7 +4,9 @@
                     xmlns:viewModels="clr-namespace:Monopoly.Model.ViewModels;assembly=Monopoly.Model"
                     xmlns:models="clr-namespace:Monopoly.Model.Models;assembly=Monopoly.Model"
                     xmlns:abstractModel="clr-namespace:Monopoly.Model.Abstract;assembly=Monopoly.Model"
-                    xmlns:helpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model">
+                    xmlns:helpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model"
+                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="TownCardTemplates.xaml"/>
@@ -18,16 +20,11 @@
     <helpers:CardOrientationToHorizontalAlignment x:Key="CardOrientationToHorizontalAlignment"/>
     <helpers:CardOrientationToLabelWidth x:Key="CardOrientationToLabelWidth"/>
     <helpers:CardOrientationToLabelHeight x:Key="CardOrientationToLabelHeight"/>
-    
+
     <DataTemplate x:Key="TownCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
         <Border BorderBrush="Black" BorderThickness="1 2" Background="White">
-            <Border.ToolTip>
-                <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
-                                     x:Name="tooltip"
-                                     Content="{Binding }"
-                                     ContentTemplate="{StaticResource TownCard}"/>
-            </Border.ToolTip>
             <Grid>
+                <Rectangle x:Name="grayRect" Fill="Gray" Visibility="Collapsed" Opacity="0.5"/>
                 <Label Height="16" 
                        VerticalAlignment="{Binding Orientation, Converter={StaticResource CardOrientationToVerticalAlignment}}"
                        HorizontalAlignment="{Binding Orientation, Converter={StaticResource CardOrientationToHorizontalAlignment}}"
@@ -44,13 +41,38 @@
                     </Label.Content>
                 </Label>
                 <DockPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding BuildHouse}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <DockPanel.ToolTip>
+                        <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
+                                     x:Name="tooltip"
+                                     Content="{Binding }"
+                                     ContentTemplate="{StaticResource TownCard}"/>
+                    </DockPanel.ToolTip>
                     <Label DockPanel.Dock="{Binding Orientation, Converter={StaticResource CardOrientationToDockConverter}}" 
                            Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"
                            Height="{Binding Orientation, Converter={StaticResource CardOrientationToLabelHeight}}"
-                           Width="{Binding Orientation, Converter={StaticResource CardOrientationToLabelWidth}}">
+                           Width="{Binding Orientation, Converter={StaticResource CardOrientationToLabelWidth}}"
+                           Padding="0">
+                        <Label.Content>
+                            <UniformGrid Rows="1"
+                                        HorizontalAlignment="Right"
+                                        Margin="5 0">
+                                <iconPacks:PackIconOcticons x:Name="house4" Kind="Home" Visibility="Hidden"/>
+                                <iconPacks:PackIconOcticons x:Name="house3" Kind="Home" Visibility="Hidden"/>
+                                <iconPacks:PackIconOcticons x:Name="house2" Kind="Home" Visibility="Hidden"/>
+                                <Grid>
+                                    <iconPacks:PackIconOcticons x:Name="house1" Kind="Home" Visibility="Hidden"/>
+                                    <iconPacks:PackIconFontAwesome x:Name="house5" Kind="BuildingRegular" Visibility="Hidden"/>
+                                </Grid>
+                            </UniformGrid>
+                        </Label.Content>
                     </Label>
                     <TextBlock HorizontalAlignment="Center"
-                           DockPanel.Dock="Bottom">
+                               DockPanel.Dock="Bottom">
                         <TextBlock.Text>
                             <Binding Path="Cost">
                                 <Binding.StringFormat>{0:C}</Binding.StringFormat>
@@ -61,6 +83,53 @@
                 </DockPanel>
             </Grid>
         </Border>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Gray}" Value="True">
+                <Setter TargetName="grayRect" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Houses}" Value="0">
+                <Setter TargetName="house1" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house2" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house3" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house4" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house5" Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Houses}" Value="1">
+                <Setter TargetName="house1" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house2" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house3" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house4" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house5" Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Houses}" Value="2">
+                <Setter TargetName="house1" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house2" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house3" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house4" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house5" Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Houses}" Value="3">
+                <Setter TargetName="house1" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house2" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house3" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house4" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house5" Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Houses}" Value="4">
+                <Setter TargetName="house1" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house2" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house3" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house4" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="house5" Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Houses}" Value="5">
+                <Setter TargetName="house1" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house2" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house3" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house4" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="house5" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="MockCardTemplate" DataType="{x:Type viewModels:CardViewModel}">

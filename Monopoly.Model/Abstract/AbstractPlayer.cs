@@ -2,6 +2,7 @@
 using Monopoly.Model.Interfaces;
 using Prism.Mvvm;
 using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 
@@ -76,6 +77,24 @@ namespace Monopoly.Model.Abstract
             }
         }
 
+        internal void BuyHouse(AbstractCard card)
+        {
+            if (this.RealtyCards.Where(ac => ac == card).Any())
+            {
+                if (this.Money >= card.HouseCost)
+                {
+                    card.AddHouse();
+                    this.Money -= card.HouseCost;
+                    this.MoneyDecreaseEvent?.Invoke(card.Cost);
+                }
+
+            }
+            else
+            {
+                throw new Exception("Can't build on enemies town!");
+            }
+        }
+
         #endregion
 
         #region Fields
@@ -115,6 +134,7 @@ namespace Monopoly.Model.Abstract
 
         public bool HaveMoney => this.Money > 0;
         public bool IsActive { get => _isActive; internal set => this.SetProperty(ref _isActive, value); }
+
 
         #endregion
 

@@ -46,7 +46,7 @@ namespace Monopoly.UserField.ViewModels
 
         void ExecuteMakeDrawCommand()
         {
-            this.GameManager.MakeDraw();
+            this.GameManager.MakeDiceRoll();
         }
 
         private DelegateCommand _nextPlayerCommand;
@@ -56,6 +56,24 @@ namespace Monopoly.UserField.ViewModels
         void ExecuteNextPlayerCommand()
         {
             this.GameManager.NextPlayer();
+        }
+
+        private DelegateCommand _buildHouseCommand;
+        public DelegateCommand BuildHouseCommand =>
+            _buildHouseCommand ?? (_buildHouseCommand = new DelegateCommand(ExecuteBuildHouseCommand).ObservesCanExecute(() => this.GameManager.HasMonopoly));
+
+        void ExecuteBuildHouseCommand()
+        {
+            _eventAggregator.GetEvent<ShowAvailableForBuildingTowns>().Publish();
+        }
+
+        private DelegateCommand _stopBuildHouseCommand;
+        public DelegateCommand StopBuildHouseCommand =>
+            _stopBuildHouseCommand ?? (_stopBuildHouseCommand = new DelegateCommand(ExecuteStopBuildHouseCommand));
+
+        void ExecuteStopBuildHouseCommand()
+        {
+            _eventAggregator.GetEvent<StopShowAvailableForBuildingTowns>().Publish();
         }
 
         #endregion

@@ -37,5 +37,17 @@ namespace Monopoly.UserField.Views
                 (this.DataContext as FieldViewModel).ShowPlayerDetailsCommand.Execute(pvm.Player);
             }
         }
+
+        private void onBuildHouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.BuildHouseButton.Visibility = Visibility.Collapsed;
+            this.StopBuildHouseButton.Visibility = Visibility.Visible;
+        }
+
+        private void onStopBuildHouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.StopBuildHouseButton.Visibility = Visibility.Collapsed;
+            this.BuildHouseButton.Visibility = Visibility.Visible;
+        }
     }
 }

@@ -27,8 +27,5 @@ namespace Monopoly.Model.Interfaces
         ITaxGroup TaxGroup { get; }
         AbstractPlayer Owner { get; set; }
         int CurrentTax { get; }
-
-        void AddHouse();
-        void RemoveHouse();
     }
 }

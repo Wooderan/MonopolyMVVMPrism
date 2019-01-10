@@ -18,14 +18,17 @@ namespace Monopoly.Model.Models
 
         #region Constructors
 
-        public GameManager(ICardLocator cardLocator, IPlayerProvider playerProvider)
+        public GameManager(ICardLocator cardLocator, IPlayerProvider playerProvider, IDiceProvider diceProvider)
         {
             _cards = cardLocator.GetCardSet();
             _players = playerProvider.GetPlayers();
+            _diceProvider = diceProvider;
             this.Cards = new ReadOnlyObservableCollection<AbstractCard>(_cards);
             this.CurrentPlayer = 0;
             this.Players[CurrentPlayer].IsActive = true;
             this.Draws = 1;
+
+            this.PrepareForTesting();
         }
 
         #endregion
@@ -35,6 +38,11 @@ namespace Monopoly.Model.Models
         #endregion
 
         #region Methods
+
+        private void PrepareForTesting()
+        {
+            this.Players[0].BuyTown(this.Cards[2]);
+        }
 
         public void NextPlayer()
         {
@@ -52,6 +60,7 @@ namespace Monopoly.Model.Models
                 } while (!this.Players[CurrentPlayer].HaveMoney);
                 this.Players[CurrentPlayer].IsActive = true;
                 this.Draws = 1;
+                this.RaisePropertyChanged("HasMonopoly");
             }
             else
             {
@@ -59,11 +68,14 @@ namespace Monopoly.Model.Models
             }
         }
 
-        public void MakeDraw()
+        public void MakeDiceRoll()
         {
-            Random rand = new Random();
-            this.MakeStep(rand.Next(2,12));
-            this.Draws--;
+            int result;
+            if (!_diceProvider.RollDice(out result))
+            {
+                this.Draws--;
+            }
+            this.MakeStep(result);
         }
 
         private void AfterStep()
@@ -111,6 +123,7 @@ namespace Monopoly.Model.Models
             if (currentCard is TownCard)
             {
                 this.Players[CurrentPlayer].BuyTown(currentCard);
+                this.RaisePropertyChanged("HasMonopoly");
             }
             else
             {
@@ -132,6 +145,14 @@ namespace Monopoly.Model.Models
             }
         }
 
+        public void BuildHouse(AbstractCard card)
+        {
+            if (card.Houses < 5)
+            {
+                this.Players[CurrentPlayer].BuyHouse(card);
+            }
+        }
+
         #endregion
 
         #region Fields
@@ -140,6 +161,7 @@ namespace Monopoly.Model.Models
         private ObservableCollection<AbstractPlayer> _players;
         private int _currentPlayer;
         private int _draws;
+        private IDiceProvider _diceProvider;
 
         public ReadOnlyObservableCollection<AbstractCard> Cards { get; protected set; }
         public ObservableCollection<AbstractPlayer> Players => _players;
@@ -148,6 +170,7 @@ namespace Monopoly.Model.Models
         public int Draws { get => _draws; private set { _draws = value; this.RaisePropertyChanged(); this.RaisePropertyChanged("HaveDraws"); this.RaisePropertyChanged("HaveNotDraws"); } }
         public bool HaveDraws { get => this.Draws > 0;}
         public bool HaveNotDraws { get => !this.HaveDraws;}
+        public bool HasMonopoly { get => this.Players[CurrentPlayer].RealtyCards.Where(ac => (ac is TownCard) && ac.CardGroup.IsMonopoly).Any(); }
 
         #endregion
     }

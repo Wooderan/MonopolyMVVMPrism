@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monopoly.Model.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,10 @@ namespace Monopoly.Model.Interfaces
 {
     public interface ICardGroup
     {
-        List<ICard> Cards { get; set; }
+        List<AbstractCard> Cards { get; set; }
         Color GroupColor { get; set; }
+        bool IsMonopoly { get; }
+
+        void AddCard(AbstractCard card);
     }
 }

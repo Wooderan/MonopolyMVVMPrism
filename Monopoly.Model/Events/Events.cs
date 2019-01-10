@@ -9,4 +9,6 @@ using System.Threading.Tasks;
 namespace Monopoly.Model.Events
 {
     public class ShowPlayerDetailEvent : PubSubEvent<AbstractPlayer>{}
+    public class ShowAvailableForBuildingTowns : PubSubEvent{}
+    public class StopShowAvailableForBuildingTowns : PubSubEvent{}
 }

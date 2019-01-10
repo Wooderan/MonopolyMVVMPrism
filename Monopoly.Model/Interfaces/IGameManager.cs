@@ -13,7 +13,7 @@ namespace Monopoly.Model.Interfaces
     {
         #region Methods
 
-        void MakeDraw();
+        void MakeDiceRoll();
         void NextPlayer();
         void Buy();
 
@@ -30,6 +30,9 @@ namespace Monopoly.Model.Interfaces
         int CurrentPlayer { get; }
         bool HaveDraws { get; }
         bool HaveNotDraws { get; }
+        bool HasMonopoly { get;}
+
+        void BuildHouse(AbstractCard card);
 
 
         #endregion

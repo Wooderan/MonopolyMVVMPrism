@@ -31,6 +31,7 @@ namespace Monopoly.Model.Models
             this.PledgeCost = pledgeCost;
             this.HouseCost = houseCost;
             this.CardGroup = cardGroup;
+            this.CardGroup.AddCard(this);
             this.TaxGroup = taxGroup;
             this.Orientation = orientation;
         }

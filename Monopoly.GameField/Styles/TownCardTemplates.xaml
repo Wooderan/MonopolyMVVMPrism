@@ -2,11 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewModels="clr-namespace:Monopoly.Model.ViewModels;assembly=Monopoly.Model"
                     xmlns:model="clr-namespace:Monopoly.Model.Models;assembly=Monopoly.Model"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                     xmlns:abstractModel="clr-namespace:Monopoly.Model.Abstract;assembly=Monopoly.Model"
                     xmlns:helpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model"
                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
     <helpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
-    
+
+    <ObjectDataProvider ObjectType="{x:Type viewModels:CardViewModel}"
+                                        x:Key="cardProvider">
+    </ObjectDataProvider>
+
     <DataTemplate x:Key="TownCard" DataType="{x:Type viewModels:CardViewModel}">
         <Border BorderBrush="Black" BorderThickness="1" Background="White" Margin="5">
             <StackPanel Margin="5">
@@ -62,18 +67,18 @@
                             <Setter Property="Foreground" Value="Black"/>
                         </Style>
                     </Grid.Resources>
-                    
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="0" Grid.Column="0"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="1" Grid.Column="0"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="1" Grid.Column="1"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="2" Grid.Column="0"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="2" Grid.Column="1"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="2" Grid.Column="2"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="3" Grid.Column="0"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="3" Grid.Column="1"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="3" Grid.Column="2"/>
-                    <iconPacks:PackIconMaterial Kind="Home" Grid.Row="3" Grid.Column="3"/>
-                    <iconPacks:PackIconMaterial Kind="HospitalBuilding" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="0" Grid.Column="0"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="1" Grid.Column="0"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="1" Grid.Column="1"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="0"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="1"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="2"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="0"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="1"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="2"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="3"/>
+                    <iconPacks:PackIconFontAwesome Kind="BuildingRegular" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
 
                     <TextBlock HorizontalAlignment="Right" Foreground="Black" Grid.Row="0" Grid.Column="4">
                         <TextBlock.Text >
