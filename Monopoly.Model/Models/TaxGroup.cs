@@ -22,5 +22,13 @@ namespace Monopoly.Model.Models
             FourHouses = fourHouses;
             Hotel = hotel;
         }
+
+        public TaxGroup(int station1, int station2, int station3, int station4)
+        {
+            Empty = station1;
+            Set = station2;
+            House = station3;
+            TwoHouses = station4;
+        }
     }
 }

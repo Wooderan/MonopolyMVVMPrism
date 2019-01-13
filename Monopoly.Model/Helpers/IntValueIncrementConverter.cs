@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using static Monopoly.Model.Models.TownCard;
 
 namespace Monopoly.Model.Helpers
 {
-    public class CardOrientationToLabelWidth : IValueConverter
+    public class IntValueIncrementConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,21 +16,9 @@ namespace Monopoly.Model.Helpers
             {
                 return null;
             }
-            if (value is CardOrientation)
+            if (value is int iVal)
             {
-                switch ((CardOrientation)value)
-                {
-                    case CardOrientation.LEFT:
-                        return 16;
-                    case CardOrientation.TOP:
-                        return null;
-                    case CardOrientation.RIGHT:
-                        return 16;
-                    case CardOrientation.BOTTOM:
-                        return null;
-                    default:
-                        throw new Exception("Unsupported card orientation");
-                }
+                return iVal + int.Parse((string)parameter);
             }
             else
             {

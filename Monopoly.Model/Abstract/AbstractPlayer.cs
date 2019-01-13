@@ -77,17 +77,89 @@ namespace Monopoly.Model.Abstract
             }
         }
 
+        internal void BuyTown(AbstractCard currentCard, int cost)
+        {
+            if (this.Money > cost)
+            {
+                this.RealtyCards.Add(currentCard);
+                currentCard.Owner = this;
+                this.Money -= cost;
+                this.MoneyDecreaseEvent?.Invoke(cost);
+            }
+        }
+
         internal void BuyHouse(AbstractCard card)
         {
-            if (this.RealtyCards.Where(ac => ac == card).Any())
+            if (this.CheckIfOwnCard(card))
             {
                 if (this.Money >= card.HouseCost)
                 {
                     card.AddHouse();
                     this.Money -= card.HouseCost;
-                    this.MoneyDecreaseEvent?.Invoke(card.Cost);
+                    this.MoneyDecreaseEvent?.Invoke(card.HouseCost);
                 }
 
+            }
+            else
+            {
+                throw new Exception("Can't build on enemies town!");
+            }
+        }
+
+
+        internal void DestroyHouse(AbstractCard card)
+        {
+            if (this.CheckIfOwnCard(card))
+            {
+                card.RemoveHouse();
+                this.Money += card.HouseCost/2;
+                this.MoneyIncreaseEvent?.Invoke(card.HouseCost/2);
+            }
+            else
+            {
+                throw new Exception("Can't build on enemies town!");
+            }
+        }
+
+        private bool CheckIfOwnCard(AbstractCard card)
+        {
+            if (this.RealtyCards.Where(ac => ac == card).Any())
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        internal void PledgeCard(AbstractCard card)
+        {
+            if (this.CheckIfOwnCard(card))
+            {
+                card.IsPleged = true;
+                this.Money += card.PledgeCost;
+                this.MoneyIncreaseEvent?.Invoke(card.PledgeCost);
+            }
+            else
+            {
+                throw new Exception("Can't build on enemies town!");
+            }
+        }
+
+
+        internal void BuyFromPledgeCard(AbstractCard card)
+        {
+            if (this.CheckIfOwnCard(card))
+            {
+                if (this.Money > card.PledgeCost)
+                {
+                    card.IsPleged = false;
+                    this.Money -= card.PledgeCost;
+                    this.MoneyDecreaseEvent?.Invoke(card.PledgeCost);
+                }
             }
             else
             {
@@ -134,7 +206,6 @@ namespace Monopoly.Model.Abstract
 
         public bool HaveMoney => this.Money > 0;
         public bool IsActive { get => _isActive; internal set => this.SetProperty(ref _isActive, value); }
-
 
         #endregion
 

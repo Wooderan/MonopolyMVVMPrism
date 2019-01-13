@@ -5,6 +5,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Windows.Media;
+using static Monopoly.Model.Abstract.AbstractCard;
 using static Monopoly.Model.Models.TownCard;
 
 namespace Monopoly.Model.ViewModels
@@ -45,11 +46,11 @@ namespace Monopoly.Model.ViewModels
 
         #region Commands
 
-        private DelegateCommand _buildHouse;
-        public DelegateCommand BuildHouse =>
-            _buildHouse ?? (_buildHouse = new DelegateCommand(ExecuteBuildHouse));
+        private DelegateCommand _clickCommand;
+        public DelegateCommand ClickCommand =>
+            _clickCommand ?? (_clickCommand = new DelegateCommand(ExecuteClickCommand));
 
-        void ExecuteBuildHouse()
+        void ExecuteClickCommand()
         {
             this.onClickAction?.Invoke();
         }
@@ -66,14 +67,16 @@ namespace Monopoly.Model.ViewModels
             set { SetProperty(ref _card, value); }
         }
 
-        private bool _gray;
         private IGameManager _gameManager;
 
+        private bool _gray;
         public bool Gray
         {
             get { return _gray; }
             set { SetProperty(ref _gray, value); }
         }
+
+
 
         //inner properties
         public CardType Type => this.Card.Type;
@@ -85,7 +88,8 @@ namespace Monopoly.Model.ViewModels
         public ITaxGroup TaxGroup => this.Card.TaxGroup;
         public int Houses => this.Card.Houses;
         public AbstractPlayer Owner => this.Card.Owner;
-        public CardOrientation Orientation => (this.Card is TownCard) ? (this.Card as TownCard).Orientation : CardOrientation.TOP;
+        public bool IsPleged => this.Card.IsPleged;
+        public CardOrientation Orientation => this.Card.Orientation;
 
         #endregion
     }

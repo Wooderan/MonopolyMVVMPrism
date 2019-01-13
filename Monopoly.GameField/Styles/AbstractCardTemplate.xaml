@@ -20,11 +20,25 @@
     <helpers:CardOrientationToHorizontalAlignment x:Key="CardOrientationToHorizontalAlignment"/>
     <helpers:CardOrientationToLabelWidth x:Key="CardOrientationToLabelWidth"/>
     <helpers:CardOrientationToLabelHeight x:Key="CardOrientationToLabelHeight"/>
+    <helpers:CardOrientationToRows x:Key="CardOrientationToRows"/>
+    <helpers:CardOrientationToColumns x:Key="CardOrientationToColumns"/>
 
     <DataTemplate x:Key="TownCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
         <Border BorderBrush="Black" BorderThickness="1 2" Background="White">
+            <Border.ToolTip>
+                <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
+                                     x:Name="tooltip"
+                                     Content="{Binding }"
+                                     ContentTemplate="{StaticResource TownCard}"/>
+            </Border.ToolTip>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ClickCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <Grid>
                 <Rectangle x:Name="grayRect" Fill="Gray" Visibility="Collapsed" Opacity="0.5"/>
+                <Rectangle x:Name="redRect" Fill="Red" Visibility="Collapsed" Opacity="0.5"/>
                 <Label Height="16" 
                        VerticalAlignment="{Binding Orientation, Converter={StaticResource CardOrientationToVerticalAlignment}}"
                        HorizontalAlignment="{Binding Orientation, Converter={StaticResource CardOrientationToHorizontalAlignment}}"
@@ -41,26 +55,16 @@
                     </Label.Content>
                 </Label>
                 <DockPanel>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding BuildHouse}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <DockPanel.ToolTip>
-                        <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
-                                     x:Name="tooltip"
-                                     Content="{Binding }"
-                                     ContentTemplate="{StaticResource TownCard}"/>
-                    </DockPanel.ToolTip>
                     <Label DockPanel.Dock="{Binding Orientation, Converter={StaticResource CardOrientationToDockConverter}}" 
                            Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"
                            Height="{Binding Orientation, Converter={StaticResource CardOrientationToLabelHeight}}"
                            Width="{Binding Orientation, Converter={StaticResource CardOrientationToLabelWidth}}"
                            Padding="0">
                         <Label.Content>
-                            <UniformGrid Rows="1"
-                                        HorizontalAlignment="Right"
-                                        Margin="5 0">
+                            <UniformGrid Rows="{Binding Orientation, Converter={StaticResource CardOrientationToRows}}"
+                                         Columns="{Binding Orientation, Converter={StaticResource CardOrientationToColumns}}"
+                                         HorizontalAlignment="Right"
+                                         Margin="0">
                                 <iconPacks:PackIconOcticons x:Name="house4" Kind="Home" Visibility="Hidden"/>
                                 <iconPacks:PackIconOcticons x:Name="house3" Kind="Home" Visibility="Hidden"/>
                                 <iconPacks:PackIconOcticons x:Name="house2" Kind="Home" Visibility="Hidden"/>
@@ -79,13 +83,17 @@
                             </Binding>
                         </TextBlock.Text>
                     </TextBlock>
-                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"
+                               TextWrapping="Wrap"/>
                 </DockPanel>
             </Grid>
         </Border>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Gray}" Value="True">
                 <Setter TargetName="grayRect" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPleged}" Value="True">
+                <Setter TargetName="redRect" Property="Visibility" Value="Visible"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Houses}" Value="0">
                 <Setter TargetName="house1" Property="Visibility" Value="Hidden"/>
@@ -132,11 +140,71 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
+    <DataTemplate x:Key="StationCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
+        <Border BorderBrush="Black" BorderThickness="1 2" Background="White">
+            <Border.ToolTip>
+                <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
+                                     x:Name="tooltip"
+                                     Content="{Binding }"
+                                     ContentTemplate="{StaticResource StationCard}"/>
+            </Border.ToolTip>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ClickCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Grid>
+                <Rectangle x:Name="grayRect" Fill="Gray" Visibility="Collapsed" Opacity="0.5"/>
+                <Rectangle x:Name="redRect" Fill="Red" Visibility="Collapsed" Opacity="0.5"/>
+                <Label Height="16" 
+                       VerticalAlignment="{Binding Orientation, Converter={StaticResource CardOrientationToVerticalAlignment}}"
+                       HorizontalAlignment="{Binding Orientation, Converter={StaticResource CardOrientationToHorizontalAlignment}}"
+                       Padding="0"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center">
+                    <Label.RenderTransform>
+                        <TranslateTransform Y="{Binding Orientation, Converter={StaticResource CardOrientationToYTranslateConverter}}"
+                                            X="{Binding Orientation, Converter={StaticResource CardOrientationToXTranslateConverter}}"/>
+                    </Label.RenderTransform>
+                    <Label.Content>
+                        <Image Source="{Binding Owner.Chip}"
+                               Opacity="0.7"/>
+                    </Label.Content>
+                </Label>
+                <DockPanel>
+                    <iconPacks:PackIconModern Kind="Train" Width="35" Height="35"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              DockPanel.Dock="{Binding Orientation, Converter={StaticResource CardOrientationToDockConverter}}"/>
+                    <TextBlock HorizontalAlignment="Center"
+                               DockPanel.Dock="Bottom">
+                        <TextBlock.Text>
+                            <Binding Path="Cost">
+                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"
+                               TextWrapping="Wrap"/>
+                </DockPanel>
+            </Grid>
+        </Border>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Gray}" Value="True">
+                <Setter TargetName="grayRect" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPleged}" Value="True">
+                <Setter TargetName="redRect" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <DataTemplate x:Key="MockCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
         <Border BorderBrush="Black" BorderThickness="1">
             <DockPanel>
                 <TextBlock Text="Not Supported yet!"
-                           HorizontalAlignment="Center"/>
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"/>
             </DockPanel>
         </Border>
     </DataTemplate>

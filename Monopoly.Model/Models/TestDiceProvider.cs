@@ -18,6 +18,15 @@ namespace Monopoly.Model.Models
                 case 0:
                     result = 3;
                     break;
+                case 1:
+                    result = 3;
+                    break;
+                case 2:
+                    result = 5;
+                    break;
+                case 3:
+                    result = 5;
+                    break;
                 default:
                     Random rand1 = new Random();
                     Random rand2 = new Random();

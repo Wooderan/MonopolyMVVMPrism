@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Dialogs
 {
-    public enum DialogResults
+    public enum BuyOrAuctionDialogResults
     {
         BUY,
         AUCTION

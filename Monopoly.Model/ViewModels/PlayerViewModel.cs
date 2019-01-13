@@ -41,30 +41,30 @@ namespace Monopoly.Model.ViewModels
 
         private void OnMoneyIncrease(int money)
         {
-            Thread.Sleep(400);
+            //Thread.Sleep(400);
             System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 this.IncreaseText = "+" + money.ToString() + "$";
             }), DispatcherPriority.Background);
-            Thread.Sleep(3000);
-            System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                this.IncreaseText = string.Empty;
-            }), DispatcherPriority.Background);
+            //Thread.Sleep(3000);
+            //System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            //{
+            //    this.IncreaseText = string.Empty;
+            //}), DispatcherPriority.Background);
         }
 
         private void OnMoneyDecrease(int money)
         {
-            Thread.Sleep(400);
+           // Thread.Sleep(400);
             System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 this.DecreaseText = "-" + money.ToString() + "$";
             }), DispatcherPriority.Background);
-            Thread.Sleep(3000);
-            System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                this.DecreaseText = string.Empty;
-            }), DispatcherPriority.Background);
+            //Thread.Sleep(3000);
+            //System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            //{
+            //    this.DecreaseText = string.Empty;
+            //}), DispatcherPriority.Background);
         }
 
         private void UpdatePos()
@@ -137,18 +137,18 @@ namespace Monopoly.Model.ViewModels
             set { SetProperty(ref _order, value); }
         }
 
-        private string _deceaseText;
+        private string _decreaseText;
         public string DecreaseText
         {
-            get { return _deceaseText; }
-            set { SetProperty(ref _deceaseText, value); }
+            get { return _decreaseText; }
+            set { _decreaseText = value; RaisePropertyChanged("DecreaseText"); }
         }
 
         private string _increaseText;
         public string IncreaseText
         {
             get { return _increaseText; }
-            set { SetProperty(ref _increaseText, value); }
+            set { _increaseText = value;RaisePropertyChanged("IncreaseText"); }
         }
 
         #endregion

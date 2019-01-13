@@ -20,18 +20,18 @@
                             </Binding>
                         </TextBlock.Text>
                     </TextBlock>
-                    <Grid>
+                    <Grid x:Name="AnimatedTextContainer">
                         <TextBlock x:Name="decreaseText"
                                    FontSize="20"
                                    FontWeight="Heavy"
                                    Foreground="Red"
                                    Text="{Binding DecreaseText, NotifyOnTargetUpdated=True}"
-                                   Opacity="1">
+                                   Opacity="0">
                             <TextBlock.RenderTransform>
                                 <ScaleTransform/>
                             </TextBlock.RenderTransform>
                             <i:Interaction.Behaviors>
-                                    <helpers:PlayerPreviewBehavior/>
+                                <helpers:PlayerPreviewBehavior/>
                             </i:Interaction.Behaviors>
                         </TextBlock>
                         <TextBlock x:Name="increaseText"
@@ -39,14 +39,19 @@
                                    FontWeight="Heavy"
                                    Foreground="Green"
                                    Text="{Binding IncreaseText, NotifyOnTargetUpdated=True}"
-                                   Opacity="1">
+                                   Opacity="0">
                             <TextBlock.RenderTransform>
                                 <ScaleTransform/>
                             </TextBlock.RenderTransform>
                             <i:Interaction.Behaviors>
-                                    <helpers:PlayerPreviewBehavior/>
+                                <helpers:PlayerPreviewBehavior/>
                             </i:Interaction.Behaviors>
                         </TextBlock>
+                        <!--<Grid>
+                            <i:Interaction.Behaviors>
+                                <helpers:AnimatedTextContainerBehavior/>
+                            </i:Interaction.Behaviors>
+                        </Grid>-->
                     </Grid>
                 </StackPanel>
                 <Image DockPanel.Dock="Bottom" Source="{Binding Chip}" Width="30" Height="30"/>

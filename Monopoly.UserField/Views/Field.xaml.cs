@@ -49,5 +49,41 @@ namespace Monopoly.UserField.Views
             this.StopBuildHouseButton.Visibility = Visibility.Collapsed;
             this.BuildHouseButton.Visibility = Visibility.Visible;
         }
+
+        private void onDestroyHouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DestroyHouseButton.Visibility = Visibility.Collapsed;
+            this.StopDestroyHouseButton.Visibility = Visibility.Visible;
+        }
+
+        private void onStopDestroyHouseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.StopDestroyHouseButton.Visibility = Visibility.Collapsed;
+            this.DestroyHouseButton.Visibility = Visibility.Visible;
+        }
+
+        private void onMortgageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.MortgageButton.Visibility = Visibility.Collapsed;
+            this.StopMortgageButton.Visibility = Visibility.Visible;
+        }
+
+        private void onStopMortgageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.StopMortgageButton.Visibility = Visibility.Collapsed;
+            this.MortgageButton.Visibility = Visibility.Visible;
+        }
+
+        private void onBuyFromMortgageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.BuyFromMortgageButton.Visibility = Visibility.Collapsed;
+            this.StopBuyFromMortgageButton.Visibility = Visibility.Visible;
+        }
+
+        private void onStopBuyFromMortgageButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.StopBuyFromMortgageButton.Visibility = Visibility.Collapsed;
+            this.BuyFromMortgageButton.Visibility = Visibility.Visible;
+        }
     }
 }

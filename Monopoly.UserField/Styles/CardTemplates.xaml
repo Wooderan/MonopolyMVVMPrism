@@ -140,6 +140,100 @@
         </Border>
     </DataTemplate>
 
+    <DataTemplate x:Key="StationCard" DataType="{x:Type abstractModel:AbstractCard}">
+        <Border BorderBrush="Black" BorderThickness="1" Background="White" Margin="5">
+            <StackPanel Margin="5">
+                <Label Content="{Binding Name}" 
+                       FontSize="16" FontWeight="Black" Height="35"
+                       Foreground="Black">
+                </Label>
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="Black">
+                    <TextBlock.Text >
+                        <Binding Path="Cost">
+                            <Binding.StringFormat>Cost {0:C}</Binding.StringFormat>
+                        </Binding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="0" Grid.Column="0"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="1" Grid.Column="0"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="1" Grid.Column="1"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="0"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="1"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="2"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="0"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="1"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="2"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="3"/>
+
+                    <TextBlock HorizontalAlignment="Right" Foreground="Black" Grid.Row="0" Grid.Column="4">
+                        <TextBlock.Text >
+                            <Binding Path="TaxGroup.Empty">
+                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                    <TextBlock HorizontalAlignment="Right" Foreground="Black" Grid.Row="1" Grid.Column="4">
+                        <TextBlock.Text >
+                            <Binding Path="TaxGroup.Set">
+                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                    <TextBlock HorizontalAlignment="Right" Foreground="Black" Grid.Row="2" Grid.Column="4">
+                        <TextBlock.Text >
+                            <Binding Path="TaxGroup.House">
+                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                    <TextBlock HorizontalAlignment="Right" Foreground="Black" Grid.Row="3" Grid.Column="4">
+                        <TextBlock.Text >
+                            <Binding Path="TaxGroup.TwoHouses">
+                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                </Grid>
+
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="Black">
+                    <TextBlock.Text >
+                        <Binding Path="PledgeCost">
+                            <Binding.StringFormat>Collateral cost {0:C}</Binding.StringFormat>
+                        </Binding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+            </StackPanel>
+        </Border>
+    </DataTemplate>
+
     <DataTemplate x:Key="ActionCard" DataType="{x:Type abstractModel:AbstractCard}">
         <Border BorderBrush="Black" BorderThickness="1 2" DataContext="{Binding Card}">
             <DockPanel>

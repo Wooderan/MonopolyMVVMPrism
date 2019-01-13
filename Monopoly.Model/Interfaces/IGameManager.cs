@@ -16,11 +16,18 @@ namespace Monopoly.Model.Interfaces
         void MakeDiceRoll();
         void NextPlayer();
         void Buy();
+        void Buy(AbstractPlayer winner, int cost);
+        void BuildHouse(AbstractCard card);
+        void DestroyHouse(AbstractCard card);
+        void PledgeCard(AbstractCard card);
+        void BuyFromPledgeCard(AbstractCard card);
+        void ShowAuction();
 
         #endregion
 
         #region Event
         event Action<AbstractCard> ShowBuyOrAuctionDialog;
+        event Action<AbstractCard, ObservableCollection<AbstractPlayer>> ShowAuctionDialog;
         #endregion
 
         #region Fields
@@ -30,9 +37,11 @@ namespace Monopoly.Model.Interfaces
         int CurrentPlayer { get; }
         bool HaveDraws { get; }
         bool HaveNotDraws { get; }
+        bool HasTowns { get;}
         bool HasMonopoly { get;}
+        bool HasBuildings { get; }
+        bool HasMortgageCards { get; }
 
-        void BuildHouse(AbstractCard card);
 
 
         #endregion

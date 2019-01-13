@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameFieldModule.cs" />
-    <Compile Include="Helpers\CardTemplateSelector.cs" />
     <Compile Include="Helpers\PlayerTemplateSelector.cs" />
     <Compile Include="Helpers\PlayerViewModelBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -21,8 +21,9 @@
                 <ResourceDictionary Source="..\Styles\TownCardTemplates.xaml"/>
                 <ResourceDictionary>
                     <sharedHelpers:ColorToSolidBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
-                    <helpers:CardTemplateSelector x:Key="CardTemplateSelector"
+                    <sharedHelpers:CardTemplateSelector x:Key="CardTemplateSelector"
                                                   TownCardTemplate="{StaticResource TownCardTemplate}"
+                                                  StationCardTemplate="{StaticResource StationCardTemplate}"
                                                   MockCardTemplate="{StaticResource MockCardTemplate}"/>
                     <helpers:PlayerTemplateSelector x:Key="PlayerTemplateSelector"
                                                     PlayerTemplate1="{StaticResource PlayerTemplate1}"

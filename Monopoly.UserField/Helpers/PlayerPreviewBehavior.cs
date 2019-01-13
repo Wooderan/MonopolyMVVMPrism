@@ -17,10 +17,11 @@ namespace Monopoly.UserField.Helpers
 {
     class PlayerPreviewBehavior : Behavior<TextBlock>
     {
+        private bool AnimationInProcess;
+
         protected override void OnAttached()
         {
             base.OnAttached();
-            //this.AssociatedObject.SourceUpdated += this.OnSourceUpdated;
             this.AssociatedObject.TargetUpdated += this.OnSourceUpdated;
         }
 
@@ -34,6 +35,7 @@ namespace Monopoly.UserField.Helpers
 
         private void BubleGumAnimate()
         {
+
             DoubleAnimation animationScaleX = new DoubleAnimation();
             DoubleAnimation animationScaleY = new DoubleAnimation();
             DoubleAnimation animationOpacity = new DoubleAnimation();
@@ -60,13 +62,28 @@ namespace Monopoly.UserField.Helpers
             animateBubleGumStoryboard.Children.Add(animationScaleX);
             animateBubleGumStoryboard.Children.Add(animationScaleY);
             animateBubleGumStoryboard.Children.Add(animationOpacity);
+            animateBubleGumStoryboard.Completed += (s, e) => {
+                this.AnimationInProcess = false;
+            };
 
             Task.Factory.StartNew(() =>
             {
-                System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                if (this.AnimationInProcess)
                 {
-                    animateBubleGumStoryboard.Begin(this.AssociatedObject);
-                }), DispatcherPriority.Background);
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        animateBubleGumStoryboard.Begin(this.AssociatedObject, null);
+                    }), DispatcherPriority.Normal);
+                }
+                else
+                {
+                    this.AnimationInProcess = true;
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        animateBubleGumStoryboard.Begin(this.AssociatedObject);
+                    }), DispatcherPriority.Background);
+
+                }
             });
         }
 

@@ -6,7 +6,7 @@ using Monopoly.Model.Abstract;
 
 namespace Monopoly.Model.Models
 {
-    public class CardGroup : ICardGroup
+    public class TownCardGroup : ICardGroup
     {
         public List<AbstractCard> Cards { get; set; } = new List<AbstractCard>();
         public Color GroupColor { get; set; }
@@ -15,7 +15,7 @@ namespace Monopoly.Model.Models
         {
             get
             {
-                if ( this.Cards.Count > 0)
+                if (this.Cards.All(ac => !ac.IsPleged) && this.Cards.Count > 0)
                 {
                     var first = this.Cards[0].Owner;
                     return this.Cards.Select(c => c.Owner).All(ap => ap != null && ap == first);
@@ -27,7 +27,7 @@ namespace Monopoly.Model.Models
             }
         }
 
-        public CardGroup(Color groupColor)
+        public TownCardGroup(Color groupColor)
         {
             GroupColor = groupColor;
         }

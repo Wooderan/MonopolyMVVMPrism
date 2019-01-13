@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Monopoly.UserField.Views"
+             xmlns:sharedHelpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model" 
              xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d" 
              prism:ViewModelLocator.AutoWireViewModel="True"
@@ -14,6 +15,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="..\Styles\CardTemplates.xaml"/>
                 <ResourceDictionary Source="..\Styles\PlayerPreviewTemplates.xaml"/>
+                <ResourceDictionary>
+                    <sharedHelpers:CardTemplateSelector x:Key="CardTemplateSelector"
+                                                  TownCardTemplate="{StaticResource TownCard}"
+                                                  StationCardTemplate="{StaticResource StationCard}"/>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -42,10 +48,10 @@
                    FontSize="20"/>
 
         <ListView ItemsSource="{Binding RealtyCards}"
-                 ItemTemplate="{StaticResource TownCard}"
+                 ItemTemplateSelector="{StaticResource CardTemplateSelector}"
                  Grid.Row="2"/>
         <ListView ItemsSource="{Binding ActionCards}"
-                 ItemTemplate="{StaticResource ActionCard}"
+                 ItemTemplateSelector="{StaticResource CardTemplateSelector}"
                  Grid.Row="4"/>
     </Grid>
 </UserControl>

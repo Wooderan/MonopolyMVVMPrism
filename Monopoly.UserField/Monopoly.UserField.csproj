@@ -49,6 +49,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AnimatedTextContainerBehavior.cs" />
     <Compile Include="Helpers\PlayerPreviewBehavior.cs" />
     <Compile Include="UserFieldModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

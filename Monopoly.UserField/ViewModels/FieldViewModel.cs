@@ -76,6 +76,60 @@ namespace Monopoly.UserField.ViewModels
             _eventAggregator.GetEvent<StopShowAvailableForBuildingTowns>().Publish();
         }
 
+        private DelegateCommand _destroyHouseCommand;
+        public DelegateCommand DestroyHouseCommand =>
+            _destroyHouseCommand ?? (_destroyHouseCommand = new DelegateCommand(ExecuteDestroyHouseCommand).ObservesCanExecute(() => this.GameManager.HasBuildings));
+
+        void ExecuteDestroyHouseCommand()
+        {
+            _eventAggregator.GetEvent<ShowAvailableForDestroyingTowns>().Publish();
+        }
+
+        private DelegateCommand _stopDestroyHouseCommand;
+        public DelegateCommand StopDestroyHouseCommand =>
+            _stopDestroyHouseCommand ?? (_stopDestroyHouseCommand = new DelegateCommand(ExecuteStopDestroyHouseCommand));
+
+        void ExecuteStopDestroyHouseCommand()
+        {
+            _eventAggregator.GetEvent<StopShowAvailableForDestroyingTowns>().Publish();
+        }
+
+        private DelegateCommand _mortgageCommand;
+        public DelegateCommand MortgageCommand =>
+            _mortgageCommand ?? (_mortgageCommand = new DelegateCommand(ExecuteMortgageCommand).ObservesCanExecute(() => this.GameManager.HasTowns));
+
+        void ExecuteMortgageCommand()
+        {
+            _eventAggregator.GetEvent<ShowAvailableForMortgageTowns>().Publish();
+        }
+
+        private DelegateCommand _stopMortgageCommand;
+        public DelegateCommand StopMortgageCommand =>
+            _stopMortgageCommand ?? (_stopMortgageCommand = new DelegateCommand(ExecuteStopMortgageCommand));
+
+        void ExecuteStopMortgageCommand()
+        {
+            _eventAggregator.GetEvent<StopShowAvailableForMortgageTowns>().Publish();
+        }
+
+        private DelegateCommand _buyFromMortgageCommand;
+        public DelegateCommand BuyFromMortgageCommand =>
+            _buyFromMortgageCommand ?? (_buyFromMortgageCommand = new DelegateCommand(ExecuteBuyFromMortgageCommand).ObservesCanExecute(() => this.GameManager.HasMortgageCards));
+
+        void ExecuteBuyFromMortgageCommand()
+        {
+            _eventAggregator.GetEvent<ShowAvailableForBuyFromMortgageTowns>().Publish();
+        }
+
+        private DelegateCommand _stopBuyFromMortgageCommand;
+        public DelegateCommand StopBuyFromMortgageCommand =>
+            _stopBuyFromMortgageCommand ?? (_stopBuyFromMortgageCommand = new DelegateCommand(ExecuteStopBuyFromMortgageCommand));
+
+        void ExecuteStopBuyFromMortgageCommand()
+        {
+            _eventAggregator.GetEvent<StopShowAvailableForBuyFromMortgageTowns>().Publish();
+        }
+
         #endregion
 
         #region Properties

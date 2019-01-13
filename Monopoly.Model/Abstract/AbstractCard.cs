@@ -7,6 +7,14 @@ namespace Monopoly.Model.Abstract
 
     public abstract class AbstractCard : BindableBase, ICard
     {
+        public enum CardOrientation
+        {
+            LEFT,
+            TOP,
+            RIGHT,
+            BOTTOM
+        }
+
         #region Constructors
 
         #endregion
@@ -32,30 +40,39 @@ namespace Monopoly.Model.Abstract
 
         #region Properties
 
-        public int CurrentTax
+        public virtual int CurrentTax
         {
             get
             {
-                switch (this.Houses)
+                if (this.IsPleged)
                 {
-                    case 0:
-                        return this.TaxGroup.Empty;
-                    case 1:
-                        return this.TaxGroup.House;
-                    case 2:
-                        return this.TaxGroup.TwoHouses;
-                    case 3:
-                        return this.TaxGroup.ThreeHouses;
-                    case 4:
-                        return this.TaxGroup.FourHouses;
-                    case 5:
-                        return this.TaxGroup.Hotel;
-                    default:
-                        throw new Exception("Unaccepted count of houses! Can't return CurrentTax!");
+                    return 0;
+                }
+                else
+                {
+                    switch (this.Houses)
+                    {
+                        case 0:
+                            return this.TaxGroup.Empty;
+                        case 1:
+                            return this.TaxGroup.House;
+                        case 2:
+                            return this.TaxGroup.TwoHouses;
+                        case 3:
+                            return this.TaxGroup.ThreeHouses;
+                        case 4:
+                            return this.TaxGroup.FourHouses;
+                        case 5:
+                            return this.TaxGroup.Hotel;
+                        default:
+                            throw new Exception("Unaccepted count of houses! Can't return CurrentTax!");
+                    }
                 }
             }
         }
 
+        private CardOrientation _orientation;
+        public CardOrientation Orientation { get => _orientation; set => _orientation = value; }
 
         #endregion
 
@@ -70,7 +87,7 @@ namespace Monopoly.Model.Abstract
         protected ITaxGroup _taxGroup;
         protected int _houses;
         protected AbstractPlayer _owner;
-
+        private bool _isPleged;
 
         public CardType Type { get => _type; protected set => _type = value; }
         public string Name { get => _name; protected set => _name = value; }
@@ -79,10 +96,12 @@ namespace Monopoly.Model.Abstract
         public int HouseCost { get => _houseCost; protected set => _houseCost = value; }
         public ICardGroup CardGroup { get => _cardGroup; protected set => _cardGroup = value; }
         public ITaxGroup TaxGroup { get => _taxGroup; protected set => _taxGroup = value; }
+        
 
         //bindable
         public int Houses { get => _houses; set => this.SetProperty(ref _houses, value); }
         public AbstractPlayer Owner { get => _owner; set => this.SetProperty(ref _owner, value); }
+        public bool IsPleged { get => _isPleged; set => this.SetProperty(ref _isPleged, value); }
 
         #endregion // Fields
     }

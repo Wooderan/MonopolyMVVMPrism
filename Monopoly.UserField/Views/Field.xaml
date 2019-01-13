@@ -15,11 +15,27 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="..\Styles\PlayerPreviewTemplates.xaml"/>
                 <ResourceDictionary>
-                    <Style x:Key="relativeToStopBuildHouse"
+                    <Style x:Key="commonButtonStyle"
                            TargetType="{x:Type Button}" 
                            BasedOn="{StaticResource MetroFlatButton}">
+                    </Style>
+                    <Style x:Key="relativeButtonStyle"
+                           TargetType="{x:Type Button}"
+                           BasedOn="{StaticResource commonButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=StopBuildHouseButton, Path=IsVisible}"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=StopDestroyHouseButton, Path=IsVisible}"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=StopMortgageButton, Path=IsVisible}"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=StopBuyFromMortgageButton, Path=IsVisible}"
                                          Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
@@ -47,23 +63,71 @@
             <Button Command="{Binding MakeDrawCommand}"
                     Content="Roll the dice"
                     x:Name="MakeDrawButton"
-                    Style="{StaticResource relativeToStopBuildHouse}"/>
+                    Style="{StaticResource relativeButtonStyle}">
+            </Button>
             <Button Command="{Binding NextPlayerCommand}"
                     Content="Next player"
                     x:Name="NextPlayerButton"
-                    Style="{StaticResource relativeToStopBuildHouse}"/>
+                    Style="{StaticResource relativeButtonStyle}">
+            </Button>
             <Grid>
                 <Button Command="{Binding BuildHouseCommand}"
                         Content="Build House" 
                         Click="onBuildHouseButton_Click"
                         x:Name="BuildHouseButton"
-                        Style="{StaticResource MetroFlatButton}"/>
+                        Style="{StaticResource relativeButtonStyle}">
+                </Button>
                 <Button Command="{Binding StopBuildHouseCommand}"
                         Content="Stop Build House"
                         Visibility="Collapsed"
                         Click="onStopBuildHouseButton_Click"
                         x:Name="StopBuildHouseButton"
-                        Style="{StaticResource MetroFlatButton}">
+                        Style="{StaticResource commonButtonStyle}">
+                </Button>
+            </Grid>
+            <Grid>
+                <Button Command="{Binding DestroyHouseCommand}"
+                        Content="Desytroy House" 
+                        Click="onDestroyHouseButton_Click"
+                        x:Name="DestroyHouseButton"
+                        Style="{StaticResource relativeButtonStyle}">
+                </Button>
+                <Button Command="{Binding StopDestroyHouseCommand}"
+                        Content="Stop Destroy House"
+                        Visibility="Collapsed"
+                        Click="onStopDestroyHouseButton_Click"
+                        x:Name="StopDestroyHouseButton"
+                        Style="{StaticResource commonButtonStyle}">
+                </Button>
+            </Grid>
+            <Grid>
+                <Button Command="{Binding MortgageCommand}"
+                        Content="Mortgage" 
+                        Click="onMortgageButton_Click"
+                        x:Name="MortgageButton"
+                        Style="{StaticResource relativeButtonStyle}">
+                </Button>
+                <Button Command="{Binding StopMortgageCommand}"
+                        Content="Stop Mortgage"
+                        Visibility="Collapsed"
+                        Click="onStopMortgageButton_Click"
+                        x:Name="StopMortgageButton"
+                        Style="{StaticResource commonButtonStyle}">
+                </Button>
+            </Grid>
+            <Grid>
+                <Button Command="{Binding BuyFromMortgageCommand}"
+                        Content="Buy From Mortgage" 
+                        Click="onBuyFromMortgageButton_Click"
+                        x:Name="BuyFromMortgageButton"
+                        Style="{StaticResource relativeButtonStyle}">
+                </Button>
+                <Button Command="{Binding StopBuyFromMortgageCommand}"
+                        Content="Stop Buy From Mortgage"
+                        Visibility="Collapsed"
+                        Click="onStopBuyFromMortgageButton_Click"
+                        x:Name="StopBuyFromMortgageButton"
+                        Style="{StaticResource commonButtonStyle}">
                 </Button>
             </Grid>
         </StackPanel>

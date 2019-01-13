@@ -14,10 +14,10 @@ namespace Monopoly.Dialogs
 
         #region Constructors
 
-        public BuyOrAuctionDialogViewModel(AbstractCard card, Action<DialogResults?> closeAction)
+        public BuyOrAuctionDialogViewModel(AbstractCard card, Action<BuyOrAuctionDialogResults?> closeAction)
         {
             this.Card = card;
-            this.CloseCommand = new DelegateCommand<DialogResults?>((dr) => closeAction(dr));
+            this.CloseCommand = new DelegateCommand<BuyOrAuctionDialogResults?>((dr) => closeAction(dr));
             this.Title = "Buy or Auction";
         }
 
@@ -25,8 +25,8 @@ namespace Monopoly.Dialogs
 
         #region Commands
 
-        private DelegateCommand<DialogResults?> _closeCommand;
-        public DelegateCommand<DialogResults?> CloseCommand { get; private set; }
+        private DelegateCommand<BuyOrAuctionDialogResults?> _closeCommand;
+        public DelegateCommand<BuyOrAuctionDialogResults?> CloseCommand { get; private set; }
 
 
         #endregion

@@ -3,6 +3,7 @@ using Monopoly.Model.Interfaces;
 using Monopoly.Model.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
+using static Monopoly.Model.Abstract.AbstractCard;
 using static Monopoly.Model.Models.TownCard;
 
 namespace Monopoly.Model.Services
@@ -11,15 +12,16 @@ namespace Monopoly.Model.Services
     {
         public ObservableCollection<AbstractCard> GetCardSet()
         {
-            var blueCardGroup = new CardGroup(Colors.Blue);
-            var brownCardGroup = new CardGroup(Colors.Brown);
-            var aquaCardGroup = new CardGroup(Colors.Aquamarine);
-            var grayCardGroup = new CardGroup(Colors.Gray);
-            var greenCardGroup = new CardGroup(Colors.Green);
-            var yellowCardGroup = new CardGroup(Colors.Yellow);
-            var pinkCardGroup = new CardGroup(Colors.Pink);
-            var orangeCardGroup = new CardGroup(Colors.Orange);
-            var redCardGroup = new CardGroup(Colors.Red);
+            var blueCardGroup = new TownCardGroup(Colors.Blue);
+            var brownCardGroup = new TownCardGroup(Colors.Brown);
+            var aquaCardGroup = new TownCardGroup(Colors.Aquamarine);
+            var grayCardGroup = new TownCardGroup(Colors.Gray);
+            var greenCardGroup = new TownCardGroup(Colors.Green);
+            var yellowCardGroup = new TownCardGroup(Colors.Yellow);
+            var pinkCardGroup = new TownCardGroup(Colors.Pink);
+            var orangeCardGroup = new TownCardGroup(Colors.Orange);
+            var redCardGroup = new TownCardGroup(Colors.Red);
+            var stationsGroup = new StationCardGroup();
 
 
             return new ObservableCollection<AbstractCard>()
@@ -31,14 +33,14 @@ namespace Monopoly.Model.Services
                 null,
 
                 //blue group
-                new TownCard("Livia", 50, 25, 50, blueCardGroup, new TaxGroup(5, 10, 18, 30, 90, 160, 250), CardOrientation.BOTTOM),
+                new TownCard("Livia", 50, 25, 45, blueCardGroup, new TaxGroup(5, 10, 18, 30, 90, 160, 250), CardOrientation.BOTTOM),
                 new TownCard("Sudan", 60, 30, 50, blueCardGroup, new TaxGroup(10, 20, 30, 60, 180, 320, 450), CardOrientation.BOTTOM),
 
                 //some event card
                 null,
 
                 //station card
-                null,
+                new StationCard("Japan station", 200, 100, stationsGroup, new TaxGroup(50, 100, 150, 200), CardOrientation.BOTTOM),
 
                 //some event card
                 null,
@@ -60,7 +62,7 @@ namespace Monopoly.Model.Services
                 new TownCard("Vatican", 0, 100, 100, grayCardGroup, new TaxGroup(22, 44, 44, 88, 555, 666, 777), CardOrientation.LEFT),
 
                 //station card
-                null,
+                new StationCard("Spain station", 200, 100, stationsGroup, new TaxGroup(60, 110, 160, 210), CardOrientation.LEFT),
 
                 //chest
                 null,
@@ -82,7 +84,7 @@ namespace Monopoly.Model.Services
                 null,
 
                 //station card
-                null,
+                new StationCard("USA station", 200, 100, stationsGroup, new TaxGroup(70, 120, 170, 220), CardOrientation.TOP),
 
                 //event
                 null,
@@ -104,7 +106,7 @@ namespace Monopoly.Model.Services
                 null,
 
                 //station
-                null,
+                new StationCard("UK station", 200, 100, stationsGroup, new TaxGroup(100, 150, 200, 250), CardOrientation.RIGHT),
 
                 //event
                 null,

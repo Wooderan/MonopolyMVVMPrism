@@ -10,5 +10,11 @@ namespace Monopoly.Model.Events
 {
     public class ShowPlayerDetailEvent : PubSubEvent<AbstractPlayer>{}
     public class ShowAvailableForBuildingTowns : PubSubEvent{}
+    public class ShowAvailableForDestroyingTowns : PubSubEvent{}
+    public class ShowAvailableForMortgageTowns : PubSubEvent{}
+    public class ShowAvailableForBuyFromMortgageTowns : PubSubEvent{}
+    public class StopShowAvailableForDestroyingTowns : PubSubEvent{}
     public class StopShowAvailableForBuildingTowns : PubSubEvent{}
+    public class StopShowAvailableForMortgageTowns : PubSubEvent{}
+    public class StopShowAvailableForBuyFromMortgageTowns : PubSubEvent{}
 }

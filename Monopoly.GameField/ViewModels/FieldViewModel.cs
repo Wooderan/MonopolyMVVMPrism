@@ -35,7 +35,13 @@ namespace Monopoly.GameField.ViewModels
             //Watch(this.GameManager.Players, this.Players, cvm => cvm.Card);
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<ShowAvailableForBuildingTowns>().Subscribe(this.ShowAvailableForBuildingTowns);
+            _eventAggregator.GetEvent<ShowAvailableForDestroyingTowns>().Subscribe(this.ShowAvailableForDestoyingTowns);
+            _eventAggregator.GetEvent<ShowAvailableForMortgageTowns>().Subscribe(this.ShowAvailableForMortgageTowns);
+            _eventAggregator.GetEvent<ShowAvailableForBuyFromMortgageTowns>().Subscribe(this.ShowAvailableForBuyFromMortgageTowns);
             _eventAggregator.GetEvent<StopShowAvailableForBuildingTowns>().Subscribe(this.StopShowAvailableForBuildingTowns);
+            _eventAggregator.GetEvent<StopShowAvailableForDestroyingTowns>().Subscribe(this.StopShowAvailableForDestroyingTowns);
+            _eventAggregator.GetEvent<StopShowAvailableForMortgageTowns>().Subscribe(this.StopShowAvailableForMortgageTowns);
+            _eventAggregator.GetEvent<StopShowAvailableForBuyFromMortgageTowns>().Subscribe(this.StopShowAvailableForBuyFromMortgageTowns);
         }
 
         #endregion
@@ -70,6 +76,63 @@ namespace Monopoly.GameField.ViewModels
             }
         }
 
+        private void ShowAvailableForDestoyingTowns()
+        {
+            var availableForDestroyingTowns = this.Cards.Where(cvm => cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
+                                                                      && cvm.Card is TownCard && cvm.Houses > 0 && !cvm.IsPleged);
+            foreach (CardViewModel cvm in availableForDestroyingTowns)
+            {
+                cvm.onClickAction = () =>
+                {
+                    _gameManager.DestroyHouse(cvm.Card);
+                };
+            }
+
+            var unavailableTowns = this.Cards.Except(availableForDestroyingTowns);
+            foreach (CardViewModel cvm in unavailableTowns)
+            {
+                cvm.Gray = true;
+            }
+        }
+
+        private void ShowAvailableForMortgageTowns()
+        {
+            var availableTowns = this.Cards.Where(cvm => cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
+                                                                      && (cvm.Card is TownCard || cvm.Card is StationCard) && !cvm.IsPleged);
+            foreach (CardViewModel cvm in availableTowns)
+            {
+                cvm.onClickAction = () =>
+                {
+                    _gameManager.PledgeCard(cvm.Card);
+                };
+            }
+
+            var unavailableTowns = this.Cards.Except(availableTowns);
+            foreach (CardViewModel cvm in unavailableTowns)
+            {
+                cvm.Gray = true;
+            }
+        }
+
+        private void ShowAvailableForBuyFromMortgageTowns()
+        {
+            var availableTowns = this.Cards.Where(cvm => cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
+                                                                      && (cvm.Card is TownCard || cvm.Card is StationCard) && cvm.IsPleged);
+            foreach (CardViewModel cvm in availableTowns)
+            {
+                cvm.onClickAction = () =>
+                {
+                    _gameManager.BuyFromPledgeCard(cvm.Card);
+                };
+            }
+
+            var unavailableTowns = this.Cards.Except(availableTowns);
+            foreach (CardViewModel cvm in unavailableTowns)
+            {
+                cvm.Gray = true;
+            }
+        }
+
         private void StopShowAvailableForBuildingTowns()
         {
             var availableForBuildingTowns = this.Cards.Where(cvm => (cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
@@ -79,12 +142,59 @@ namespace Monopoly.GameField.ViewModels
                 cvm.onClickAction = null;
             }
 
-            var unavailableTowns = this.Cards.Except(availableForBuildingTowns);
+            foreach (CardViewModel cvm in this.Cards)
+            {
+                cvm.Gray = false;
+            }
+        }
+
+        private void StopShowAvailableForDestroyingTowns()
+        {
+            var availableForDestroyingTowns = this.Cards.Where(cvm => cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
+                                                                      && cvm.Card is TownCard && cvm.CardGroup.IsMonopoly);
+            foreach (CardViewModel cvm in availableForDestroyingTowns)
+            {
+                cvm.onClickAction = null;
+            }
+
+            var unavailableTowns = this.Cards.Except(availableForDestroyingTowns);
             foreach (CardViewModel cvm in unavailableTowns)
             {
                 cvm.Gray = false;
             }
         }
+
+        private void StopShowAvailableForMortgageTowns()
+        {
+            var availableTowns = this.Cards.Where(cvm => (cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
+                                                                      && (cvm.Card is TownCard || cvm.Card is StationCard)));
+            foreach (CardViewModel cvm in availableTowns)
+            {
+                cvm.onClickAction = null;
+            }
+
+            foreach (CardViewModel cvm in this.Cards)
+            {
+                cvm.Gray = false;
+            }
+        }
+
+
+        private void StopShowAvailableForBuyFromMortgageTowns()
+        {
+            var availableTowns = this.Cards.Where(cvm => (cvm.Card != null && cvm.Owner == this.Players[this.GameManager.CurrentPlayer].Player
+                                                                      && (cvm.Card is TownCard || cvm.Card is StationCard)));
+            foreach (CardViewModel cvm in availableTowns)
+            {
+                cvm.onClickAction = null;
+            }
+
+            foreach (CardViewModel cvm in this.Cards)
+            {
+                cvm.Gray = false;
+            }
+        }
+
         #endregion
 
         #region Commands

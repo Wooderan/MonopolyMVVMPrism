@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using MahApps.Metro.Controls.Dialogs;
 using Monopoly.Dialogs;
@@ -19,8 +20,18 @@ namespace Monopoly.ViewModels
         {
             this.GameManager = gameManager;
             this.GameManager.ShowBuyOrAuctionDialog += GameManager_ShowBuyOrAuctionDialog;
+            this.GameManager.ShowAuctionDialog += GameManager_ShowAuctionDialog;
 
             eventAggregator.GetEvent<ShowPlayerDetailEvent>().Subscribe(this.OpenLeftFlyout);
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void OpenLeftFlyout(AbstractPlayer player)
+        {
+            this.IsLeftFlyoutOpened = true;
         }
 
         private void GameManager_ShowBuyOrAuctionDialog(AbstractCard card)
@@ -31,13 +42,13 @@ namespace Monopoly.ViewModels
                 var viewModel = new BuyOrAuctionDialogViewModel(card, dr =>
                 {
                     _dialogCoordinator.HideMetroDialogAsync(this, dialog);
-                    if (dr == DialogResults.BUY)
+                    if (dr == BuyOrAuctionDialogResults.BUY)
                     {
                         this.GameManager.Buy();
                     }
-                    else if (dr == DialogResults.AUCTION)
+                    else if (dr == BuyOrAuctionDialogResults.AUCTION)
                     {
-
+                        this.GameManager.ShowAuction();
                     }
                 });
                 dialog.DataContext = viewModel;
@@ -47,13 +58,21 @@ namespace Monopoly.ViewModels
 
         }
 
-        #endregion
 
-        #region Methods
-
-        private void OpenLeftFlyout(AbstractPlayer player)
+        private void GameManager_ShowAuctionDialog(AbstractCard card, ObservableCollection<AbstractPlayer> players)
         {
-            this.IsLeftFlyoutOpened = true;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var dialog = new AuctionDialog();
+                var viewModel = new AuctionDialogViewModel(card, players, (winner, cost) =>
+                {
+                    _dialogCoordinator.HideMetroDialogAsync(this, dialog);
+                    this.GameManager.Buy(winner, cost);
+                });
+                dialog.DataContext = viewModel;
+
+                _dialogCoordinator.ShowMetroDialogAsync(this, dialog);
+            });
         }
 
         #endregion
