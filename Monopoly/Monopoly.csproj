@@ -59,11 +59,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\AuctionDialog.xaml">
+    <Page Include="Dialogs\AuctionDialog\AuctionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\BuyOrAuctionDialog.xaml">
+    <Page Include="Dialogs\BuyOrAuctionDialog\BuyOrAuctionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ChooseTradeOpponentDialog\ChooseTradeOpponentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\TradeAcceptDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\TradeDialog\TradeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,6 +87,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\PlayerTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,15 +99,29 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Dialogs\AuctionDialog.xaml.cs">
+    <Compile Include="Dialogs\AuctionDialog\AuctionDialog.xaml.cs">
       <DependentUpon>AuctionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\AuctionDialogViewModel.cs" />
-    <Compile Include="Dialogs\BuyOrAuctionDialog.xaml.cs">
+    <Compile Include="Dialogs\AuctionDialog\AuctionDialogViewModel.cs" />
+    <Compile Include="Dialogs\BuyOrAuctionDialog\BuyOrAuctionDialog.xaml.cs">
       <DependentUpon>BuyOrAuctionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\BuyOrAuctionDialogViewModel.cs" />
-    <Compile Include="Dialogs\BuyOrAuctionDialogResults.cs" />
+    <Compile Include="Dialogs\BuyOrAuctionDialog\BuyOrAuctionDialogViewModel.cs" />
+    <Compile Include="Dialogs\BuyOrAuctionDialog\BuyOrAuctionDialogResults.cs" />
+    <Compile Include="Dialogs\ChooseTradeOpponentDialog\ChooseTradeOpponentDialog.xaml.cs">
+      <DependentUpon>ChooseTradeOpponentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ChooseTradeOpponentDialog\ChooseTradeOpponentDialogViewModel.cs" />
+    <Compile Include="Dialogs\TradeAcceptDialog.xaml.cs">
+      <DependentUpon>TradeAcceptDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TradeAcceptDialogViewModel.cs" />
+    <Compile Include="Dialogs\TradeAcceptResults.cs" />
+    <Compile Include="Dialogs\TradeDialog\TradeDialog.xaml.cs">
+      <DependentUpon>TradeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TradeDialog\TradeDialogResults.cs" />
+    <Compile Include="Dialogs\TradeDialog\TradeDialogViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

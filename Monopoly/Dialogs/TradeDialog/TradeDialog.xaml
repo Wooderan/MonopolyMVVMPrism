@@ -1,0 +1,337 @@
+﻿<dialogs:CustomDialog x:Class="Monopoly.Dialogs.TradeDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:helpers="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model"
+             xmlns:packIcon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:Monopoly.Dialogs"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="window">
+
+    <dialogs:CustomDialog.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\..\Styles\CardTemplates.xaml"/>
+                <ResourceDictionary Source="..\..\Styles\BetsTemplates.xaml"/>
+                <ResourceDictionary Source="..\..\Styles\PlayerTemplates.xaml"/>
+                <ResourceDictionary>
+                    <helpers:CardTemplateSelector x:Key="CardTemplateSelector"
+                                                  TownCardTemplate="{StaticResource TownCardExchangeTemplate}"
+                                                  StationCardTemplate="{StaticResource StationCardExchangeTemplate}"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </dialogs:CustomDialog.Resources>
+
+    <dialogs:CustomDialog.Style>
+        <Style BasedOn="{StaticResource {x:Type dialogs:BaseMetroDialog}}" TargetType="{x:Type dialogs:CustomDialog}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type dialogs:CustomDialog}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Border FocusVisualStyle="{x:Null}" Focusable="False">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <ContentPresenter Grid.Row="0" Content="{TemplateBinding DialogTop}" />
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10*" />
+                                            <ColumnDefinition Width="80*" />
+                                            <ColumnDefinition Width="10*" />
+                                        </Grid.ColumnDefinitions>
+                                        <!--  Content area  -->
+                                        <Grid Grid.Column="1" Margin="0 10 0 0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0"
+                                                       FontSize="{DynamicResource DialogTitleFontSize}"
+                                                       Foreground="{TemplateBinding Foreground}"
+                                                       Text="{TemplateBinding Title}"
+                                                       TextWrapping="Wrap" />
+                                            <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" />
+                                        </Grid>
+                                    </Grid>
+                                    <ContentPresenter Grid.Row="2" Content="{TemplateBinding DialogBottom}" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard Storyboard="{StaticResource DialogShownStoryboard}" />
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </dialogs:CustomDialog.Style>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!--main part-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--left player-->
+            <Border Grid.Column="0"
+                    Margin="0 0 1 0"
+                    BorderBrush="Black"
+                    BorderThickness="1">
+                <DockPanel >
+                    
+                    <!--header-->
+                    <ContentPresenter DockPanel.Dock="Top"
+                                  Content="{Binding PlayerLeft}"
+                                  ContentTemplate="{StaticResource PlayerWideTemplate}"/>
+
+                    <!--cards view-->
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="1">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!--cards player have-->
+                            <Border BorderBrush="Black"
+                                    BorderThickness="0 0 1 0">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top"
+                                               FontSize="18"
+                                               Text="Have:"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+
+                                    <ListView DockPanel.Dock="Top"
+                                              Height="250"
+                                              ItemsSource="{Binding PlayerLeftCardsHave}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <DockPanel>
+                                                    <Button DockPanel.Dock="Right"
+                                                            Width="40"
+                                                            Command="{Binding ElementName=window, Path=DataContext.AddCardToLeftTrade}"
+                                                            CommandParameter="{Binding}">
+                                                        <Button.Content>
+                                                            <packIcon:PackIconMaterial Kind="ArrowRight"
+                                                                                       Width="30"
+                                                                                       Height="30"/>
+                                                        </Button.Content>
+                                                    </Button>
+                                                    <ContentPresenter DockPanel.Dock="Left"
+                                                                      Content="{Binding}"
+                                                                      ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    
+                                </DockPanel>
+                            </Border>
+
+                            <!--cards player to Trade-->
+                            <Border Grid.Column="1"
+                                    BorderBrush="Black"
+                                    BorderThickness="1 0 0 0">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top"
+                                               FontSize="18"
+                                               Text="To trade:"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+
+                                    <ListView DockPanel.Dock="Top"
+                                              Height="250"
+                                              ItemsSource="{Binding PlayerLeftCardsToTrade}"
+                                              ItemTemplateSelector="{StaticResource CardTemplateSelector}">
+                                    </ListView>
+
+                                </DockPanel>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <!--slider-->
+                    <Grid DockPanel.Dock="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                               Text="{Binding ElementName=BetSliderLeft, Path=Value, StringFormat=Money {0:C0}}"
+                               HorizontalAlignment="Center"/>
+                        <Slider Grid.Row="1"
+                            x:Name="BetSliderLeft"
+                            Margin="4"
+                            Controls:SliderHelper.ChangeValueBy="LargeChange"
+                            Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                            AutoToolTipPlacement="TopLeft"
+                            LargeChange="10"
+                            Maximum="{Binding PlayerLeft.Money}"
+                            Minimum="0"
+                            Orientation="Horizontal"
+                            SmallChange="1"
+                            Value="{Binding LeftMoney}"/>
+                    </Grid>
+
+                </DockPanel>
+            </Border>
+
+            <!--right player-->
+            <Border Grid.Column="1"
+                    Margin="1 0 0 0"
+                    BorderBrush="Black"
+                    BorderThickness="1">
+                <DockPanel>
+                    <ContentPresenter DockPanel.Dock="Top"
+                                  Content="{Binding PlayerRight}"
+                                  ContentTemplate="{StaticResource PlayerWideTemplate}"/>
+
+                    <!--cards view-->
+                    <Border DockPanel.Dock="Top"
+                            BorderThickness="1">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--cards player have-->
+                            <Border Grid.Column="1"
+                                    BorderBrush="Black"
+                                    BorderThickness="1 0 0 0">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top"
+                                               FontSize="18"
+                                               Text="Have:"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+
+                                    <ListView DockPanel.Dock="Top"
+                                              Height="250"
+                                              ItemsSource="{Binding PlayerRightCardsHave}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <DockPanel>
+                                                    <Button DockPanel.Dock="Left"
+                                                            Width="40"
+                                                            Command="{Binding ElementName=window, Path=DataContext.AddCardToRightTrade}"
+                                                            CommandParameter="{Binding}">
+                                                        <Button.Content>
+                                                            <packIcon:PackIconMaterial Kind="ArrowLeft"
+                                                                                       Width="30"
+                                                                                       Height="30"/>
+                                                        </Button.Content>
+                                                    </Button>
+                                                    <ContentPresenter DockPanel.Dock="Left"
+                                                                      Content="{Binding}"
+                                                                      ContentTemplateSelector="{StaticResource CardTemplateSelector}"/>
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+
+                                </DockPanel>
+                            </Border>
+
+                            <!--cards player to Trade-->
+                            <Border Grid.Column="0"
+                                    BorderBrush="Black"
+                                    BorderThickness="0 0 1 0">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top"
+                                               FontSize="18"
+                                               Text="To trade:"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+
+                                    <ListView DockPanel.Dock="Top"
+                                              Height="250"
+                                              ItemsSource="{Binding PlayerRightCardsToTrade}"
+                                              ItemTemplateSelector="{StaticResource CardTemplateSelector}">
+                                    </ListView>
+
+                                </DockPanel>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <Grid DockPanel.Dock="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                               Text="{Binding ElementName=BetSliderRight, Path=Value, StringFormat=Money {0:C0}}"
+                               HorizontalAlignment="Center"/>
+                        <Slider Grid.Row="1"
+                            x:Name="BetSliderRight"
+                            Margin="4"
+                            Controls:SliderHelper.ChangeValueBy="LargeChange"
+                            Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                            AutoToolTipPlacement="TopLeft"
+                            LargeChange="10"
+                            Maximum="{Binding PlayerRight.Money}"
+                            Minimum="0"
+                            Orientation="Horizontal"
+                            SmallChange="1"
+                            Value="{Binding RightMoney}"/>
+                    </Grid>
+                </DockPanel>
+            </Border>
+
+        </Grid>
+        
+        <!--buttons-->
+        <Grid Grid.Row="1" MinHeight="150">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="200" />
+                <ColumnDefinition Width="*" MinWidth="200" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="OfferButton"
+                            Grid.Column="0"
+                            Height="75"
+                            Margin="5 0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Command="{Binding TradeCommand}"
+                            CommandParameter="{x:Static local:TradeDialogResults.OFFER}"
+                            Content="Offer"
+                            FontSize="30" />
+            <Button x:Name="CancelButton"
+                            Grid.Column="1"
+                            Height="75"
+                            Margin="5 0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Command="{Binding TradeCommand}"
+                            CommandParameter="{x:Static local:TradeDialogResults.CANCEL}"
+                            Content="Cancel"
+                            FontSize="30" />
+        </Grid>
+    
+    </Grid>
+</dialogs:CustomDialog>

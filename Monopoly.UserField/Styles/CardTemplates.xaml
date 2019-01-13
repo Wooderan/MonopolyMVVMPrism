@@ -64,17 +64,17 @@
                         </Style>
                     </Grid.Resources>
                     
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="0" Grid.Column="0"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="1" Grid.Column="0"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="1" Grid.Column="1"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="0"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="1"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="2"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="0"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="1"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="2"/>
-                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="3"/>
-                    <iconPacks:PackIconFontAwesome Kind="BuildingRegular" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="0" Grid.Column="0" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="1" Grid.Column="0" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="1" Grid.Column="1" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="0" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="1" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="2" Grid.Column="2" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="0" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="1" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="2" Foreground="Black"/>
+                    <iconPacks:PackIconOcticons Kind="Home" Grid.Row="3" Grid.Column="3" Foreground="Black"/>
+                    <iconPacks:PackIconFontAwesome Kind="BuildingRegular" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  Foreground="Black"/>
 
                     <TextBlock HorizontalAlignment="Right" Foreground="Black" Grid.Row="0" Grid.Column="4">
                         <TextBlock.Text >
@@ -176,16 +176,16 @@
                         </Style>
                     </Grid.Resources>
 
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="0" Grid.Column="0"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="1" Grid.Column="0"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="1" Grid.Column="1"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="0"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="1"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="2"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="0"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="1"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="2"/>
-                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="3"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="0" Grid.Column="0" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="1" Grid.Column="0" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="1" Grid.Column="1" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="0" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="1" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="2" Grid.Column="2" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="0" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="1" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="2" Foreground="Black"/>
+                    <iconPacks:PackIconModern Kind="Train" Grid.Row="3" Grid.Column="3" Foreground="Black"/>
 
                     <TextBlock HorizontalAlignment="Right" Foreground="Black" Grid.Row="0" Grid.Column="4">
                         <TextBlock.Text >

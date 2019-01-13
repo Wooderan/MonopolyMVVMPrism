@@ -130,6 +130,11 @@
                         Style="{StaticResource commonButtonStyle}">
                 </Button>
             </Grid>
+            <Button Command="{Binding TradeCommand}"
+                        Content="Trade"
+                        x:Name="TradeButton"
+                        Style="{StaticResource relativeButtonStyle}">
+            </Button>
         </StackPanel>
     </DockPanel>
 

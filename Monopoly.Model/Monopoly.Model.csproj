@@ -100,10 +100,12 @@
     <Compile Include="Interfaces\ICardGroup.cs" />
     <Compile Include="Interfaces\ICardLocator.cs" />
     <Compile Include="Interfaces\IDiceProvider.cs" />
+    <Compile Include="Interfaces\IExchangeManager.cs" />
     <Compile Include="Interfaces\IGameManager.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IPlayerProvider.cs" />
     <Compile Include="Interfaces\ITaxGroup.cs" />
+    <Compile Include="Models\ExchangeManager.cs" />
     <Compile Include="Models\StationCardGroup.cs" />
     <Compile Include="Models\TownCardGroup.cs" />
     <Compile Include="Models\GameManager.cs" />

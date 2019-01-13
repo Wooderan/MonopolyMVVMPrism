@@ -47,23 +47,54 @@ namespace Monopoly.Model.Abstract
 
         #region Events
 
-        public event Action<int> MoneyDecreaseEvent;
-        public event Action<int> MoneyIncreaseEvent;
+        public event Action<int,int> MoneyDecreaseEvent;
+
+        public event Action<int,int> MoneyIncreaseEvent;
 
         #endregion
 
         #region Methods
 
+        internal void ThrowMoney(int money, int delay)
+        {
+            this.Money -= money;
+            this.MoneyDecreaseEvent?.Invoke(money, delay);
+        }
+
+        internal void PickUpMoney(int money, int delay)
+        {
+            this.Money += money;
+            this.MoneyIncreaseEvent?.Invoke(money, delay);
+        }
+
+        internal void PickUpCard(AbstractCard card)
+        {
+            if (card.Type == CardType.STATION || card.Type == CardType.TOWN)
+            {
+                this.RealtyCards.Add(card);
+                card.Owner = this;
+            }
+        }
+
+        internal void ThrowCard(AbstractCard card)
+        {
+            if (card.Type == CardType.STATION || card.Type == CardType.TOWN)
+            {
+                this.RealtyCards.Remove(card);
+                card.Owner = null;
+            }
+        }
+
         internal void GetTax(int currentTax)
         {
             this.Money += currentTax;
-            this.MoneyIncreaseEvent?.Invoke(currentTax);
+            this.MoneyIncreaseEvent?.Invoke(currentTax, 0);
         }
 
         internal void PayTax(int currentTax)
         {
             this.Money -= currentTax;
-            this.MoneyDecreaseEvent?.Invoke(currentTax);
+            this.MoneyDecreaseEvent?.Invoke(currentTax, 0);
         }
 
         internal void BuyTown(AbstractCard currentCard)
@@ -73,7 +104,7 @@ namespace Monopoly.Model.Abstract
                 this.RealtyCards.Add(currentCard);
                 currentCard.Owner = this;
                 this.Money -= currentCard.Cost;
-                this.MoneyDecreaseEvent?.Invoke(currentCard.Cost);
+                this.MoneyDecreaseEvent?.Invoke(currentCard.Cost, 0);
             }
         }
 
@@ -84,7 +115,7 @@ namespace Monopoly.Model.Abstract
                 this.RealtyCards.Add(currentCard);
                 currentCard.Owner = this;
                 this.Money -= cost;
-                this.MoneyDecreaseEvent?.Invoke(cost);
+                this.MoneyDecreaseEvent?.Invoke(cost, 0);
             }
         }
 
@@ -96,7 +127,7 @@ namespace Monopoly.Model.Abstract
                 {
                     card.AddHouse();
                     this.Money -= card.HouseCost;
-                    this.MoneyDecreaseEvent?.Invoke(card.HouseCost);
+                    this.MoneyDecreaseEvent?.Invoke(card.HouseCost, 0);
                 }
 
             }
@@ -113,7 +144,7 @@ namespace Monopoly.Model.Abstract
             {
                 card.RemoveHouse();
                 this.Money += card.HouseCost/2;
-                this.MoneyIncreaseEvent?.Invoke(card.HouseCost/2);
+                this.MoneyIncreaseEvent?.Invoke(card.HouseCost/2, 0);
             }
             else
             {
@@ -141,7 +172,7 @@ namespace Monopoly.Model.Abstract
             {
                 card.IsPleged = true;
                 this.Money += card.PledgeCost;
-                this.MoneyIncreaseEvent?.Invoke(card.PledgeCost);
+                this.MoneyIncreaseEvent?.Invoke(card.PledgeCost, 0);
             }
             else
             {
@@ -158,7 +189,7 @@ namespace Monopoly.Model.Abstract
                 {
                     card.IsPleged = false;
                     this.Money -= card.PledgeCost;
-                    this.MoneyDecreaseEvent?.Invoke(card.PledgeCost);
+                    this.MoneyDecreaseEvent?.Invoke(card.PledgeCost, 0);
                 }
             }
             else

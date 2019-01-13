@@ -14,8 +14,8 @@ namespace Monopoly.Model.Interfaces
 
         #region Events
 
-        event Action<int> MoneyDecreaseEvent;
-        event Action<int> MoneyIncreaseEvent;
+        event Action<int,int> MoneyDecreaseEvent;
+        event Action<int,int> MoneyIncreaseEvent;
 
         #endregion
 

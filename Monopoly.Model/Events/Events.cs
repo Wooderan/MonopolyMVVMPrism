@@ -17,4 +17,5 @@ namespace Monopoly.Model.Events
     public class StopShowAvailableForBuildingTowns : PubSubEvent{}
     public class StopShowAvailableForMortgageTowns : PubSubEvent{}
     public class StopShowAvailableForBuyFromMortgageTowns : PubSubEvent{}
+    public class TradeEvent : PubSubEvent{}
 }

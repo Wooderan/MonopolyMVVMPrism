@@ -130,6 +130,15 @@ namespace Monopoly.UserField.ViewModels
             _eventAggregator.GetEvent<StopShowAvailableForBuyFromMortgageTowns>().Publish();
         }
 
+        private DelegateCommand _tradeCommand;
+        public DelegateCommand TradeCommand =>
+            _tradeCommand ?? (_tradeCommand = new DelegateCommand(ExecuteTradeCommand));
+
+        void ExecuteTradeCommand()
+        {
+            _eventAggregator.GetEvent<TradeEvent>().Publish();
+        }
+
         #endregion
 
         #region Properties

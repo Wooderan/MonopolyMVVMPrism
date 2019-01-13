@@ -26,6 +26,7 @@ namespace Monopoly
             containerRegistry.RegisterInstance<IPlayerProvider>(playerProvider);
             ICardLocator cardLocator = this.Container.Resolve<ICardLocator>();
             containerRegistry.RegisterInstance<IDiceProvider>(new TestDiceProvider());
+            containerRegistry.RegisterInstance<IExchangeManager>(new ExchangeManager());
             containerRegistry.RegisterInstance<IGameManager>(new GameManager(cardLocator, playerProvider, this.Container.Resolve<IDiceProvider>()));
         }
 

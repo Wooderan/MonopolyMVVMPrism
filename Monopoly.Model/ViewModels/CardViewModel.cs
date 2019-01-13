@@ -55,11 +55,12 @@ namespace Monopoly.Model.ViewModels
             this.onClickAction?.Invoke();
         }
 
+        public Action onClickAction { get; set; }
+
         #endregion
 
         #region Fields
 
-        public Action onClickAction { get; set; }
         private AbstractCard _card;
         public AbstractCard Card
         {

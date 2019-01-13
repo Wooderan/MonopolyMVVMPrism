@@ -1,5 +1,6 @@
 ﻿using Monopoly.Model.Abstract;
 using Monopoly.Model.Interfaces;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
@@ -13,7 +14,7 @@ namespace Monopoly.Model.ViewModels
     public class PlayerViewModel : BindableBase
     {
         #region Constructors
-        public PlayerViewModel(AbstractPlayer player, int order)
+        public PlayerViewModel(AbstractPlayer player, int order = 1)
         {
             this.Player = player;
             if (this.Player != null)
@@ -27,8 +28,8 @@ namespace Monopoly.Model.ViewModels
                     this.RaisePropertyChanged(e.PropertyName);
                 };
 
-                this.Player.MoneyDecreaseEvent += (i) => Task.Factory.StartNew(() => this.OnMoneyDecrease(i));
-                this.Player.MoneyIncreaseEvent += (i) => Task.Factory.StartNew(() => this.OnMoneyIncrease(i));
+                this.Player.MoneyDecreaseEvent += (i, d) => Task.Factory.StartNew(() => this.OnMoneyDecrease(i, d));
+                this.Player.MoneyIncreaseEvent += (i, d) => Task.Factory.StartNew(() => this.OnMoneyIncrease(i, d));
             }
 
             this.Order = order;
@@ -39,10 +40,11 @@ namespace Monopoly.Model.ViewModels
 
         #region Methods
 
-        private void OnMoneyIncrease(int money)
+        private async void OnMoneyIncrease(int money, int delay)
         {
-            //Thread.Sleep(400);
-            System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            await Task.Delay(TimeSpan.FromSeconds(delay));
+            //Thread.Sleep(TimeSpan.FromSeconds(delay));
+            await System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 this.IncreaseText = "+" + money.ToString() + "$";
             }), DispatcherPriority.Background);
@@ -53,10 +55,11 @@ namespace Monopoly.Model.ViewModels
             //}), DispatcherPriority.Background);
         }
 
-        private void OnMoneyDecrease(int money)
+        private async void OnMoneyDecrease(int money, int delay)
         {
-           // Thread.Sleep(400);
-            System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            await Task.Delay(TimeSpan.FromSeconds(delay));
+            //Thread.Sleep(TimeSpan.FromSeconds(delay));
+            await System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 this.DecreaseText = "-" + money.ToString() + "$";
             }), DispatcherPriority.Background);
@@ -153,6 +156,19 @@ namespace Monopoly.Model.ViewModels
 
         #endregion
 
+        #region Commands
+
+        private DelegateCommand<object> _clickCommand;
+        public DelegateCommand<object> ClickCommand =>
+            _clickCommand ?? (_clickCommand = new DelegateCommand<object>(ExecuteClickCommand));
+
+        void ExecuteClickCommand(object obj)
+        {
+            this.clickAction?.Invoke(obj);
+        }
+
+        #endregion
+
         #region Fields
 
         //own
@@ -165,6 +181,8 @@ namespace Monopoly.Model.ViewModels
         public ObservableCollection<AbstractCard> RealtyCards => this.Player.RealtyCards;
         public ObservableCollection<AbstractCard> ActionCards => this.Player.ActionCards;
         public bool IsActive => this.Player.IsActive;
+
+        public Action<object> clickAction;
 
         #endregion
     }

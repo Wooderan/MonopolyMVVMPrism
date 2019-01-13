@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModels="clr-namespace:Monopoly.Model.ViewModels;assembly=Monopoly.Model"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+
+
+    <DataTemplate x:Key="PlayerTemplate" DataType="{x:Type viewModels:PlayerViewModel}">
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10"
+                Background="White">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding ClickCommand}"
+                                           CommandParameter="{Binding}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <DockPanel Width="150" Height="75">
+                <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70"/>
+                <StackPanel DockPanel.Dock="Left">
+                    <TextBlock Text="{Binding Nickname}" HorizontalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <Binding Path="Money">
+                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PlayerWideTemplate" DataType="{x:Type viewModels:PlayerViewModel}">
+        <Border BorderBrush="Black">
+            <DockPanel>
+                <Viewbox DockPanel.Dock="Left" 
+                         Stretch="Uniform"
+                         MaxHeight="100">
+                    <Image Source="{Binding Avatar}"/>
+                </Viewbox>
+                <Viewbox DockPanel.Dock="Left"
+                         Stretch="Uniform"
+                         MaxHeight="70">
+                    <TextBlock Text="{Binding Nickname}" HorizontalAlignment="Center"/>
+                </Viewbox>
+            </DockPanel>
+        </Border>
+    </DataTemplate>
+
+</ResourceDictionary>

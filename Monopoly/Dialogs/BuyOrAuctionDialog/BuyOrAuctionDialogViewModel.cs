@@ -25,7 +25,6 @@ namespace Monopoly.Dialogs
 
         #region Commands
 
-        private DelegateCommand<BuyOrAuctionDialogResults?> _closeCommand;
         public DelegateCommand<BuyOrAuctionDialogResults?> CloseCommand { get; private set; }
 
 
