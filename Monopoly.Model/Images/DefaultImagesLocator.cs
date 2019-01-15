@@ -26,5 +26,15 @@ namespace Monopoly.Model.Images
         {
             return $"pack://application:,,,/Monopoly.Model;component/Images/Chips/{chipName}";
         }
+
+        public static string GetDefaultEventPicture()
+        {
+            return "pack://application:,,,/Monopoly.Model;component/Images/Events/default.png";
+        }
+
+        public static string GetEventPicture(string eventName)
+        {
+            return $"pack://application:,,,/Monopoly.Model;component/Images/Events/{eventName}";
+        }
     }
 }

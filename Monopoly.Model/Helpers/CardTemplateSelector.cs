@@ -12,7 +12,7 @@ namespace Monopoly.Model.Helpers
     {
         public DataTemplate TownCardTemplate { get; set; }
         public DataTemplate StationCardTemplate { get; set; }
-        public DataTemplate ActionCardTemplate { get; set; }
+        public DataTemplate EventCardTemplate { get; set; }
         public DataTemplate MockCardTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
@@ -28,8 +28,8 @@ namespace Monopoly.Model.Helpers
                             return this.TownCardTemplate;
                         case Model.Interfaces.CardType.STATION:
                             return this.StationCardTemplate;
-                        case Model.Interfaces.CardType.ACTION:
-                            return this.ActionCardTemplate;
+                        case Model.Interfaces.CardType.EVENT:
+                            return this.EventCardTemplate;
                         default:
                             throw new Exception("Unsupported CardType!");
                     }
@@ -47,15 +47,15 @@ namespace Monopoly.Model.Helpers
                         return this.TownCardTemplate;
                     case Model.Interfaces.CardType.STATION:
                         return this.StationCardTemplate;
-                    case Model.Interfaces.CardType.ACTION:
-                        return this.ActionCardTemplate;
+                    case Model.Interfaces.CardType.EVENT:
+                        return this.EventCardTemplate;
                     default:
                         throw new Exception("Unsupported CardType!");
                 }
             }
             else
             {
-                return null;
+                return this.MockCardTemplate;
             }
         }
     }

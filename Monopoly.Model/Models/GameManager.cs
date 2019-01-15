@@ -19,11 +19,12 @@ namespace Monopoly.Model.Models
 
         #region Constructors
 
-        public GameManager(ICardLocator cardLocator, IPlayerProvider playerProvider, IDiceProvider diceProvider)
+        public GameManager(ICardLocator cardLocator, IPlayerProvider playerProvider, IDiceProvider diceProvider, IActionProvider actionProvider)
         {
             _cards = cardLocator.GetCardSet();
             _players = playerProvider.GetPlayers();
             _diceProvider = diceProvider;
+            _actionProvider = actionProvider;
             this.Cards = new ReadOnlyObservableCollection<AbstractCard>(_cards);
             this.CurrentPlayer = 0;
             this.Players[CurrentPlayer].IsActive = true;
@@ -43,11 +44,7 @@ namespace Monopoly.Model.Models
 
         private void PrepareForTesting()
         {
-            this.Players[0].BuyTown(this.Cards[2]);
-            this.Cards[12].AddHouse();
-            this.Cards[12].AddHouse();
-            this.Cards[12].AddHouse();
-            this.Cards[12].AddHouse();
+            this.Players[0].BuyRealty(this.Cards[2]);
         }
 
         public void NextPlayer()
@@ -90,23 +87,27 @@ namespace Monopoly.Model.Models
         private void AfterStep()
         {
             AbstractCard currentCard = this.Cards[this.Players[CurrentPlayer].CardPosition];
-            if (currentCard is TownCard || currentCard is StationCard)
+            if (currentCard is AbstractRealtyCard realtyCard)
             {
-                if (currentCard.Owner == null)
+                if (realtyCard.Owner == null)
                 {
-                    if (currentCard.CardGroup.GroupColor == Colors.Gray)
+                    if (realtyCard.CardGroup.GroupColor == Colors.Gray)
                     {
-                        this.ShowAuctionDialog?.Invoke(currentCard, this.Players);
+                        this.ShowAuctionDialog?.Invoke(realtyCard, this.Players);
                     }
                     else
                     {
-                        this.ShowBuyOrAuctionDialog?.Invoke(currentCard);
+                        this.ShowBuyOrAuctionDialog?.Invoke(realtyCard);
                     }
                 }
                 else
                 {
                     this.PayTax();
                 }
+            }
+            else if (currentCard is EventCard eventCard)
+            {
+                eventCard.EventAction?.Invoke(this);
             }
         }
 
@@ -138,7 +139,7 @@ namespace Monopoly.Model.Models
             AbstractCard currentCard = this.Cards[this.Players[CurrentPlayer].CardPosition];
             if (currentCard is TownCard || currentCard is StationCard)
             {
-                this.Players[CurrentPlayer].BuyTown(currentCard);
+                this.Players[CurrentPlayer].BuyRealty(currentCard);
                 this.RaisePropertyChanged("HasMonopoly");
                 this.RaisePropertyChanged("HasBuildings");
                 this.RaisePropertyChanged("HasTowns");
@@ -154,7 +155,7 @@ namespace Monopoly.Model.Models
             AbstractCard currentCard = this.Cards[this.Players[CurrentPlayer].CardPosition];
             if (currentCard is TownCard || currentCard is StationCard)
             {
-                winner.BuyTown(currentCard, cost);
+                winner.BuyRealty(currentCard, cost);
                 this.RaisePropertyChanged("HasMonopoly");
                 this.RaisePropertyChanged("HasBuildings");
                 this.RaisePropertyChanged("HasTowns");
@@ -168,10 +169,10 @@ namespace Monopoly.Model.Models
         private void PayTax()
         {
             AbstractCard currentCard = this.Cards[this.Players[CurrentPlayer].CardPosition];
-            if (currentCard is TownCard || currentCard is StationCard)
+            if (currentCard is AbstractRealtyCard realtyCard)
             {
-                this.Players[CurrentPlayer].PayTax(currentCard.CurrentTax);
-                currentCard.Owner.GetTax(currentCard.CurrentTax);
+                this.Players[CurrentPlayer].PayTax(realtyCard.CurrentTax);
+                realtyCard.Owner.GetTax(realtyCard.CurrentTax);
             }
             else
             {
@@ -179,45 +180,57 @@ namespace Monopoly.Model.Models
             }
         }
 
-        public void BuildHouse(AbstractCard card)
+        public void BuildHouse(AbstractCard acard)
         {
-            if (card.Houses < 5)
+            if (acard is TownCard card)
             {
-                this.Players[CurrentPlayer].BuyHouse(card);
-                this.RaisePropertyChanged("HasBuildings");
+                if (card.Houses < 5)
+                {
+                    this.Players[CurrentPlayer].BuyHouse(card);
+                    this.RaisePropertyChanged("HasBuildings");
+                }
             }
         }
 
-        public void DestroyHouse(AbstractCard card)
+        public void DestroyHouse(AbstractCard acard)
         {
-            if (card.Houses > 0)
+            if (acard is TownCard card)
             {
-                this.Players[CurrentPlayer].DestroyHouse(card);
-                this.RaisePropertyChanged("HasBuildings");
+                if (card.Houses > 0)
+                {
+                    this.Players[CurrentPlayer].DestroyHouse(card);
+                    this.RaisePropertyChanged("HasBuildings");
+                }
             }
         }
 
-        public void PledgeCard(AbstractCard card)
+        public void PledgeCard(AbstractCard acard)
         {
-            if (!card.IsPleged)
+            if (acard is AbstractRealtyCard card)
             {
-                this.Players[CurrentPlayer].PledgeCard(card);
+                if (!card.IsPleged)
+                {
+                    this.Players[CurrentPlayer].PledgeCard(card);
 
-                this.RaisePropertyChanged("HasTowns");
-                this.RaisePropertyChanged("HasMortgageCards");
-                this.RaisePropertyChanged("HasMonopoly");
+                    this.RaisePropertyChanged("HasTowns");
+                    this.RaisePropertyChanged("HasMortgageCards");
+                    this.RaisePropertyChanged("HasMonopoly");
+                }
             }
         }
 
-        public void BuyFromPledgeCard(AbstractCard card)
+        public void BuyFromPledgeCard(AbstractCard acard)
         {
-            if (card.IsPleged)
+            if (acard is AbstractRealtyCard card)
             {
-                this.Players[CurrentPlayer].BuyFromPledgeCard(card);
+                if (card.IsPleged)
+                {
+                    this.Players[CurrentPlayer].BuyFromPledgeCard(card);
 
-                this.RaisePropertyChanged("HasTowns");
-                this.RaisePropertyChanged("HasMortgageCards");
-                this.RaisePropertyChanged("HasMonopoly");
+                    this.RaisePropertyChanged("HasTowns");
+                    this.RaisePropertyChanged("HasMortgageCards");
+                    this.RaisePropertyChanged("HasMonopoly");
+                }
             }
         }
 
@@ -225,6 +238,28 @@ namespace Monopoly.Model.Models
         {
             AbstractCard currentCard = this.Cards[this.Players[CurrentPlayer].CardPosition];
             this.ShowAuctionDialog?.Invoke(currentCard, this.Players);
+        }
+
+        public void GiveMoney(int money)
+        {
+            this.Players[CurrentPlayer].PickUpMoney(money, 0);
+        }
+
+        public void TakeMoney(int money)
+        {
+            this.Players[CurrentPlayer].ThrowMoney(money, 0);
+        }
+
+        public void ChestAction()
+        {
+            GameAction action = _actionProvider.GetRandomChestAction();
+            action.Action?.Invoke(this);
+        }
+
+        public void LuckyAction()
+        {
+            GameAction action = _actionProvider.GetRandomLuckyAction();
+            action.Action?.Invoke(this);
         }
 
         #endregion
@@ -236,6 +271,7 @@ namespace Monopoly.Model.Models
         private int _currentPlayer;
         private int _draws;
         private IDiceProvider _diceProvider;
+        private IActionProvider _actionProvider;
 
         public ReadOnlyObservableCollection<AbstractCard> Cards { get; protected set; }
         public ObservableCollection<AbstractPlayer> Players => _players;
@@ -244,10 +280,10 @@ namespace Monopoly.Model.Models
         public int Draws { get => _draws; private set { _draws = value; this.RaisePropertyChanged(); this.RaisePropertyChanged("HaveDraws"); this.RaisePropertyChanged("HaveNotDraws"); } }
         public bool HaveDraws { get => this.Draws > 0;}
         public bool HaveNotDraws { get => !this.HaveDraws;}
-        public bool HasMonopoly { get => this.Players[CurrentPlayer].RealtyCards.Where(ac => (ac is TownCard) && ac.CardGroup.IsMonopoly).Any(); }
-        public bool HasBuildings { get => this.Players[CurrentPlayer].RealtyCards.Where(ac => (ac is TownCard) && ac.Houses > 0).Any(); }
+        public bool HasMonopoly { get => this.Players[CurrentPlayer].RealtyCards.Where(ac => (ac is TownCard) && (ac as TownCard).CardGroup.IsMonopoly).Any(); }
+        public bool HasBuildings { get => this.Players[CurrentPlayer].RealtyCards.Where(ac => (ac is TownCard) && (ac as TownCard).Houses > 0).Any(); }
         public bool HasTowns { get => this.Players[CurrentPlayer].RealtyCards.Count > 0; }
-        public bool HasMortgageCards { get => this.Players[CurrentPlayer].RealtyCards.Where(ac => (ac is TownCard || ac is StationCard) && ac.IsPleged).Any(); }
+        public bool HasMortgageCards { get => this.Players[CurrentPlayer].RealtyCards.Where(ac => (ac is AbstractRealtyCard) && (ac as AbstractRealtyCard).IsPleged).Any(); }
 
 
 

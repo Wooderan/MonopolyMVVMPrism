@@ -12,20 +12,12 @@ namespace Monopoly.Model.Interfaces
     {
         TOWN,
         STATION,
-        ACTION,
+        EVENT,
     }
 
     public interface ICard
     {
         CardType Type { get; }
         string Name { get; }
-        int Cost { get; }
-        int PledgeCost { get; }
-        int Houses { get; }
-        int HouseCost { get; }
-        ICardGroup CardGroup { get; }
-        ITaxGroup TaxGroup { get; }
-        AbstractPlayer Owner { get; set; }
-        int CurrentTax { get; }
     }
 }

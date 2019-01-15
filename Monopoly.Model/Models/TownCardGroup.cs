@@ -8,7 +8,7 @@ namespace Monopoly.Model.Models
 {
     public class TownCardGroup : ICardGroup
     {
-        public List<AbstractCard> Cards { get; set; } = new List<AbstractCard>();
+        public List<AbstractRealtyCard> Cards { get; set; } = new List<AbstractRealtyCard>();
         public Color GroupColor { get; set; }
 
         public bool IsMonopoly
@@ -32,7 +32,7 @@ namespace Monopoly.Model.Models
             GroupColor = groupColor;
         }
 
-        public void AddCard(AbstractCard card)
+        public void AddCard(AbstractRealtyCard card)
         {
             this.Cards.Add(card);
         }

@@ -16,7 +16,7 @@ namespace Monopoly.Model.Models
             switch (_step)
             {
                 case 0:
-                    result = 3;
+                    result = 1;
                     break;
                 case 1:
                     result = 3;

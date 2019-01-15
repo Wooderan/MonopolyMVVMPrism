@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Model.Models
 {
-    public class StationCard : AbstractCard
+    public class StationCard : AbstractRealtyCard
     {
         public StationCard(string name, int Cost, int pledgeCost, StationCardGroup cardGroup, TaxGroup taxGroup, CardOrientation orientation)
         {

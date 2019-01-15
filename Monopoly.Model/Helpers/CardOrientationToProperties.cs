@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using static Monopoly.Model.Abstract.AbstractCard;
+using static Monopoly.Model.Abstract.AbstractRealtyCard;
 using static Monopoly.Model.Models.TownCard;
 
 namespace Monopoly.Model.Helpers

@@ -1,9 +1,11 @@
 ﻿using Monopoly.Model.Abstract;
+using Monopoly.Model.Images;
 using Monopoly.Model.Interfaces;
 using Monopoly.Model.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using static Monopoly.Model.Abstract.AbstractCard;
+using static Monopoly.Model.Abstract.AbstractRealtyCard;
 using static Monopoly.Model.Models.TownCard;
 
 namespace Monopoly.Model.Services
@@ -27,23 +29,23 @@ namespace Monopoly.Model.Services
             return new ObservableCollection<AbstractCard>()
             {
                 //start corner
-                null,
+                new EventCard("Chest", DefaultImagesLocator.GetEventPicture("start.png"), (gm) => { }),
 
                 //chest
-                null,
+                new EventCard("Chest", DefaultImagesLocator.GetEventPicture("chest.png"), (gm) => gm.ChestAction()),
 
                 //blue group
                 new TownCard("Livia", 50, 25, 45, blueCardGroup, new TaxGroup(5, 10, 18, 30, 90, 160, 250), CardOrientation.BOTTOM),
                 new TownCard("Sudan", 60, 30, 50, blueCardGroup, new TaxGroup(10, 20, 30, 60, 180, 320, 450), CardOrientation.BOTTOM),
 
                 //some event card
-                null,
+                new EventCard("LuckyWheel", DefaultImagesLocator.GetEventPicture("luckwheel.png"), (gm) => { gm.GiveMoney(200); }),
 
                 //station card
                 new StationCard("Japan station", 200, 100, stationsGroup, new TaxGroup(50, 100, 150, 200), CardOrientation.BOTTOM),
 
                 //some event card
-                null,
+                new EventCard("Lucky", DefaultImagesLocator.GetEventPicture("luck.png"), (gm) => gm.LuckyAction()),
 
                 //brown group
                 new TownCard("Turkey", 100, 50, 50, brownCardGroup, new TaxGroup(10, 20, 40, 90, 270, 400, 550), CardOrientation.BOTTOM),
@@ -65,7 +67,7 @@ namespace Monopoly.Model.Services
                 new StationCard("Spain station", 200, 100, stationsGroup, new TaxGroup(60, 110, 160, 210), CardOrientation.LEFT),
 
                 //chest
-                null,
+                new EventCard("Chest", DefaultImagesLocator.GetEventPicture("chest.png"), (gm) => gm.ChestAction()),
 
                 //green group
                 new TownCard("Litva", 200, 100, 100, greenCardGroup, new TaxGroup(20, 40, 70, 200, 550, 750, 950), CardOrientation.LEFT),
@@ -81,13 +83,13 @@ namespace Monopoly.Model.Services
                 new TownCard("Finland", 220, 110, 150, yellowCardGroup, new TaxGroup(40, 80, 100, 300, 750, 925, 1100), CardOrientation.TOP),
                 
                 //event
-                null,
+                new EventCard("Lucky", DefaultImagesLocator.GetEventPicture("luck.png"), (gm) => gm.LuckyAction()),
 
                 //station card
                 new StationCard("USA station", 200, 100, stationsGroup, new TaxGroup(70, 120, 170, 220), CardOrientation.TOP),
 
                 //event
-                null,
+                new EventCard("LuckyWheel", DefaultImagesLocator.GetEventPicture("luckwheel.png"), (gm) => { gm.GiveMoney(200); }),
 
                 //pink group
                 new TownCard("Germany", 280, 140, 150, pinkCardGroup, new TaxGroup(40, 80, 110, 330, 800, 975, 1150), CardOrientation.TOP),
@@ -103,20 +105,20 @@ namespace Monopoly.Model.Services
                 new TownCard("USA", 320, 160, 200, orangeCardGroup, new TaxGroup(60, 120, 150, 450, 1000, 1200, 1400), CardOrientation.RIGHT),
                 
                 //chest
-                null,
+                new EventCard("Chest", DefaultImagesLocator.GetEventPicture("chest.png"), (gm) => gm.ChestAction()),
 
                 //station
                 new StationCard("UK station", 200, 100, stationsGroup, new TaxGroup(100, 150, 200, 250), CardOrientation.RIGHT),
 
                 //event
-                null,
+                new EventCard("Lucky", DefaultImagesLocator.GetEventPicture("luck.png"), (gm) => gm.LuckyAction()),
 
                 //orange group
                 new TownCard("Katar", 360, 180, 200, redCardGroup, new TaxGroup(60, 120, 175, 500, 1100, 1300, 1500), CardOrientation.RIGHT),
                 new TownCard("China", 400, 200, 200, redCardGroup, new TaxGroup(80, 160, 200, 600, 1400, 1700, 2000), CardOrientation.RIGHT),
 
                 //tax pay
-                null,
+                new EventCard("Tax", DefaultImagesLocator.GetEventPicture("tax.png"), (gm) => { gm.TakeMoney(200); }),
             };
         }
     }

@@ -22,6 +22,10 @@ namespace Monopoly.Model.Interfaces
         void PledgeCard(AbstractCard card);
         void BuyFromPledgeCard(AbstractCard card);
         void ShowAuction();
+        void GiveMoney(int money);
+        void TakeMoney(int money);
+        void ChestAction();
+        void LuckyAction();
 
         #endregion
 

@@ -6,6 +6,7 @@ using Prism.Mvvm;
 using System;
 using System.Windows.Media;
 using static Monopoly.Model.Abstract.AbstractCard;
+using static Monopoly.Model.Abstract.AbstractRealtyCard;
 using static Monopoly.Model.Models.TownCard;
 
 namespace Monopoly.Model.ViewModels
@@ -82,15 +83,16 @@ namespace Monopoly.Model.ViewModels
         //inner properties
         public CardType Type => this.Card.Type;
         public string Name => this.Card.Name;
-        public int Cost => this.Card.Cost;
-        public int PledgeCost => this.Card.PledgeCost;
-        public int HouseCost => this.Card.HouseCost;
-        public ICardGroup CardGroup => this.Card.CardGroup;
-        public ITaxGroup TaxGroup => this.Card.TaxGroup;
-        public int Houses => this.Card.Houses;
-        public AbstractPlayer Owner => this.Card.Owner;
-        public bool IsPleged => this.Card.IsPleged;
-        public CardOrientation Orientation => this.Card.Orientation;
+        public int Cost => (this.Card as AbstractRealtyCard)?.Cost ?? 0;
+        public int PledgeCost => (this.Card as AbstractRealtyCard)?.PledgeCost ?? 0;
+        public int HouseCost => (this.Card as TownCard)?.HouseCost ?? 0;
+        public ICardGroup CardGroup => (this.Card as AbstractRealtyCard)?.CardGroup ?? null;
+        public ITaxGroup TaxGroup => (this.Card as AbstractRealtyCard)?.TaxGroup ?? null;
+        public int Houses => (this.Card as TownCard)?.Houses ?? 0;
+        public AbstractPlayer Owner => (this.Card as AbstractRealtyCard)?.Owner ?? null;
+        public bool IsPleged => (this.Card as AbstractRealtyCard)?.IsPleged ?? false;
+        public CardOrientation Orientation => (this.Card as AbstractRealtyCard)?.Orientation ?? CardOrientation.RIGHT;
+        public string EventPicture => (this.Card as EventCard)?.EventPicture ?? string.Empty;
 
         #endregion
     }

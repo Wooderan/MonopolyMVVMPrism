@@ -199,6 +199,26 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
+    <DataTemplate x:Key="EventCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
+        <Border BorderBrush="Black" BorderThickness="1 2" Background="White">
+            <Grid>
+                <Rectangle x:Name="grayRect" Fill="Gray" Visibility="Collapsed" Opacity="0.5"/>
+                <Rectangle x:Name="redRect" Fill="Red" Visibility="Collapsed" Opacity="0.5"/>
+                <Viewbox Margin="5" Stretch="Uniform">
+                    <Image Source="{Binding EventPicture}" Width="35" Height="35" />
+                </Viewbox>
+            </Grid>
+        </Border>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Gray}" Value="True">
+                <Setter TargetName="grayRect" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsPleged}" Value="True">
+                <Setter TargetName="redRect" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <DataTemplate x:Key="MockCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
         <Border BorderBrush="Black" BorderThickness="1">
             <DockPanel>

@@ -24,6 +24,7 @@
                     <sharedHelpers:CardTemplateSelector x:Key="CardTemplateSelector"
                                                   TownCardTemplate="{StaticResource TownCardTemplate}"
                                                   StationCardTemplate="{StaticResource StationCardTemplate}"
+                                                  EventCardTemplate="{StaticResource EventCardTemplate}"
                                                   MockCardTemplate="{StaticResource MockCardTemplate}"/>
                     <helpers:PlayerTemplateSelector x:Key="PlayerTemplateSelector"
                                                     PlayerTemplate1="{StaticResource PlayerTemplate1}"

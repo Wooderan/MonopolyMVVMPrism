@@ -27,7 +27,9 @@ namespace Monopoly
             ICardLocator cardLocator = this.Container.Resolve<ICardLocator>();
             containerRegistry.RegisterInstance<IDiceProvider>(new TestDiceProvider());
             containerRegistry.RegisterInstance<IExchangeManager>(new ExchangeManager());
-            containerRegistry.RegisterInstance<IGameManager>(new GameManager(cardLocator, playerProvider, this.Container.Resolve<IDiceProvider>()));
+            containerRegistry.RegisterInstance<IActionProvider>(new ActionProvider());
+            containerRegistry.RegisterInstance<IGameManager>(new GameManager(cardLocator, playerProvider, 
+                                                                this.Container.Resolve<IDiceProvider>(), this.Container.Resolve<IActionProvider>()));
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

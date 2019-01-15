@@ -11,12 +11,12 @@ namespace Monopoly.Model.Models
 {
     public class StationCardGroup : ICardGroup
     {
-        public List<AbstractCard> Cards { get; set; } = new List<AbstractCard>();
+        public List<AbstractRealtyCard> Cards { get; set; } = new List<AbstractRealtyCard>();
         public Color GroupColor { get; set; }
 
         public bool IsMonopoly => false;
 
-        public void AddCard(AbstractCard card)
+        public void AddCard(AbstractRealtyCard card)
         {
             this.Cards.Add(card);
         }

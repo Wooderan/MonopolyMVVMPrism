@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
+using Monopoly.Model.Models;
 
 namespace Monopoly.Model.Abstract
 {
@@ -67,21 +68,27 @@ namespace Monopoly.Model.Abstract
             this.MoneyIncreaseEvent?.Invoke(money, delay);
         }
 
-        internal void PickUpCard(AbstractCard card)
+        internal void PickUpCard(AbstractCard acard)
         {
-            if (card.Type == CardType.STATION || card.Type == CardType.TOWN)
+            if (acard is AbstractRealtyCard card)
             {
-                this.RealtyCards.Add(card);
-                card.Owner = this;
+                if (card.Type == CardType.STATION || card.Type == CardType.TOWN)
+                {
+                    this.RealtyCards.Add(card);
+                    card.Owner = this;
+                }
             }
         }
 
-        internal void ThrowCard(AbstractCard card)
+        internal void ThrowCard(AbstractCard acard)
         {
-            if (card.Type == CardType.STATION || card.Type == CardType.TOWN)
+            if (acard is AbstractRealtyCard card)
             {
-                this.RealtyCards.Remove(card);
-                card.Owner = null;
+                if (card.Type == CardType.STATION || card.Type == CardType.TOWN)
+                {
+                    this.RealtyCards.Remove(card);
+                    card.Owner = null;
+                }
             }
         }
 
@@ -97,58 +104,70 @@ namespace Monopoly.Model.Abstract
             this.MoneyDecreaseEvent?.Invoke(currentTax, 0);
         }
 
-        internal void BuyTown(AbstractCard currentCard)
+        internal void BuyRealty(AbstractCard acurrentCard)
         {
-            if (this.Money > currentCard.Cost)
+            if (acurrentCard is AbstractRealtyCard currentCard)
             {
-                this.RealtyCards.Add(currentCard);
-                currentCard.Owner = this;
-                this.Money -= currentCard.Cost;
-                this.MoneyDecreaseEvent?.Invoke(currentCard.Cost, 0);
-            }
-        }
-
-        internal void BuyTown(AbstractCard currentCard, int cost)
-        {
-            if (this.Money > cost)
-            {
-                this.RealtyCards.Add(currentCard);
-                currentCard.Owner = this;
-                this.Money -= cost;
-                this.MoneyDecreaseEvent?.Invoke(cost, 0);
-            }
-        }
-
-        internal void BuyHouse(AbstractCard card)
-        {
-            if (this.CheckIfOwnCard(card))
-            {
-                if (this.Money >= card.HouseCost)
+                if (this.Money > currentCard.Cost)
                 {
-                    card.AddHouse();
-                    this.Money -= card.HouseCost;
-                    this.MoneyDecreaseEvent?.Invoke(card.HouseCost, 0);
+                    this.RealtyCards.Add(currentCard);
+                    currentCard.Owner = this;
+                    this.Money -= currentCard.Cost;
+                    this.MoneyDecreaseEvent?.Invoke(currentCard.Cost, 0);
                 }
-
             }
-            else
+        }
+
+        internal void BuyRealty(AbstractCard acurrentCard, int cost)
+        {
+            if (acurrentCard is AbstractRealtyCard currentCard)
             {
-                throw new Exception("Can't build on enemies town!");
+                if (this.Money > cost)
+                {
+                    this.RealtyCards.Add(currentCard);
+                    currentCard.Owner = this;
+                    this.Money -= cost;
+                    this.MoneyDecreaseEvent?.Invoke(cost, 0);
+                }
+            }
+        }
+
+        internal void BuyHouse(AbstractCard acard)
+        {
+            if (acard is TownCard card)
+            {
+                if (this.CheckIfOwnCard(card))
+                {
+                    if (this.Money >= card.HouseCost)
+                    {
+                        card.AddHouse();
+                        this.Money -= card.HouseCost;
+                        this.MoneyDecreaseEvent?.Invoke(card.HouseCost, 0);
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("Can't build on enemies town!");
+                }
             }
         }
 
 
-        internal void DestroyHouse(AbstractCard card)
+        internal void DestroyHouse(AbstractCard acard)
         {
-            if (this.CheckIfOwnCard(card))
+            if (acard is TownCard card)
             {
-                card.RemoveHouse();
-                this.Money += card.HouseCost/2;
-                this.MoneyIncreaseEvent?.Invoke(card.HouseCost/2, 0);
-            }
-            else
-            {
-                throw new Exception("Can't build on enemies town!");
+                if (this.CheckIfOwnCard(card))
+                {
+                    card.RemoveHouse();
+                    this.Money += card.HouseCost/2;
+                    this.MoneyIncreaseEvent?.Invoke(card.HouseCost/2, 0);
+                }
+                else
+                {
+                    throw new Exception("Can't build on enemies town!");
+                }
             }
         }
 
@@ -166,35 +185,41 @@ namespace Monopoly.Model.Abstract
         }
 
 
-        internal void PledgeCard(AbstractCard card)
+        internal void PledgeCard(AbstractCard acard)
         {
-            if (this.CheckIfOwnCard(card))
+            if (acard is AbstractRealtyCard card)
             {
-                card.IsPleged = true;
-                this.Money += card.PledgeCost;
-                this.MoneyIncreaseEvent?.Invoke(card.PledgeCost, 0);
-            }
-            else
-            {
-                throw new Exception("Can't build on enemies town!");
+                if (this.CheckIfOwnCard(card))
+                {
+                    card.IsPleged = true;
+                    this.Money += card.PledgeCost;
+                    this.MoneyIncreaseEvent?.Invoke(card.PledgeCost, 0);
+                }
+                else
+                {
+                    throw new Exception("Can't build on enemies town!");
+                }
             }
         }
 
 
-        internal void BuyFromPledgeCard(AbstractCard card)
+        internal void BuyFromPledgeCard(AbstractCard acard)
         {
-            if (this.CheckIfOwnCard(card))
+            if (acard is AbstractRealtyCard card)
             {
-                if (this.Money > card.PledgeCost)
+                if (this.CheckIfOwnCard(card))
                 {
-                    card.IsPleged = false;
-                    this.Money -= card.PledgeCost;
-                    this.MoneyDecreaseEvent?.Invoke(card.PledgeCost, 0);
+                    if (this.Money > card.PledgeCost)
+                    {
+                        card.IsPleged = false;
+                        this.Money -= card.PledgeCost;
+                        this.MoneyDecreaseEvent?.Invoke(card.PledgeCost, 0);
+                    }
                 }
-            }
-            else
-            {
-                throw new Exception("Can't build on enemies town!");
+                else
+                {
+                    throw new Exception("Can't build on enemies town!");
+                }
             }
         }
 
