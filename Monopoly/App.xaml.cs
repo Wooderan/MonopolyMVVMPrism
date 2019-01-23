@@ -6,6 +6,7 @@ using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
 using Unity.Injection;
+using Prism.Events;
 
 namespace Monopoly
 {
@@ -29,7 +30,9 @@ namespace Monopoly
             containerRegistry.RegisterInstance<IExchangeManager>(new ExchangeManager());
             containerRegistry.RegisterInstance<IActionProvider>(new ActionProvider());
             containerRegistry.RegisterInstance<IGameManager>(new GameManager(cardLocator, playerProvider, 
-                                                                this.Container.Resolve<IDiceProvider>(), this.Container.Resolve<IActionProvider>()));
+                                                                this.Container.Resolve<IDiceProvider>(), 
+                                                                this.Container.Resolve<IActionProvider>(),
+                                                                this.Container.Resolve<IEventAggregator>()));
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

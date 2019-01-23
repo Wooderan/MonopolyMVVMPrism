@@ -3,7 +3,7 @@ using System.Windows.Media.Imaging;
 
 namespace Monopoly.Model.Models
 {
-    class LocalPlayer : AbstractPlayer
+    public class LocalPlayer : AbstractPlayer
     {
         public LocalPlayer(string nickname, string avatar, string chip, int money) : base()
         {

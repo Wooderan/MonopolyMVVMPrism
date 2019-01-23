@@ -1,0 +1,300 @@
+﻿<UserControl x:Class="Monopoly.Settings.Views.SettingsField"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Monopoly.Settings.Views"
+             xmlns:abstract="clr-namespace:Monopoly.Model.Abstract;assembly=Monopoly.Model"
+             xmlns:model="clr-namespace:Monopoly.Model.Model;assembly=Monopoly.Model"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True" 
+             Visibility="{Binding Visibility}"
+             x:Name="window">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Teal.xaml" />
+                <ResourceDictionary>
+                    <ObjectDataProvider x:Key="PlayerType" MethodName="GetValues"
+                            ObjectType="{x:Type Sys:Enum}">
+                        <ObjectDataProvider.MethodParameters>
+                            <x:Type TypeName="abstract:PlayerType"/>
+                        </ObjectDataProvider.MethodParameters>
+                    </ObjectDataProvider>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Background="White">
+        <Grid >
+            <Grid.Resources>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+            </Grid.Resources>
+            <TabControl Background="Transparent"
+                        SelectedIndex="{Binding CurrentTab}">
+                <!--<TabControl.Resources>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </TabControl.Resources>-->
+                <Controls:MetroTabItem x:Name="MainMenu">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Metro.Styles.MetroButton}">
+                                <Setter Property="Height" Value="50"/>
+                                <Setter Property="Width" Value="200"/>
+                                <Setter Property="FontSize" Value="20"/>
+                                <Setter Property="Margin" Value="0 0 0 20"/>
+                            </Style>
+                        </Grid.Resources>
+
+                        <Viewbox Margin="20 10">
+                            <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="MONOPOLY"
+                               FontWeight="Bold"/>
+                        </Viewbox>
+
+                        <StackPanel Grid.Row="1"
+                            Grid.RowSpan="3"
+                            VerticalAlignment="Center">
+                            <Button 
+                        Content="New Game"
+                        Command="{Binding ShowTabCommand}">
+                                <Button.CommandParameter>
+                                    <Sys:Double>1</Sys:Double>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button 
+                        Content="Settings"
+                        Command="{Binding ShowTabCommand}">
+                                <Button.CommandParameter>
+                                    <Sys:Double>2</Sys:Double>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button 
+                        Content="Exit"
+                        Command="{Binding ExitCommand}"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Created by EugenKr"
+                           Grid.Row="4"
+                           HorizontalAlignment="Center"/>
+                    </Grid>
+                </Controls:MetroTabItem>
+                <Controls:MetroTabItem x:Name="GameCreating">
+                    <Grid Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!--heading-->
+                        <TextBlock Text="Game Settings"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" 
+                           FontWeight="Bold"
+                           FontSize="20"
+                           Margin="0 20"/>
+
+                        <!--players buttons-->
+                        <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"
+                            Margin="0 0 0 20">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Metro.Styles.MetroButton}">
+                                    <Setter Property="MinWidth" Value="30"/>
+                                    <Setter Property="Margin" Value="5 0"/>
+                                    <Setter Property="FontSize" Value="16"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="Players:"
+                               FontSize="16"
+                               VerticalAlignment="Center"/>
+                            <Button Content="2"
+                            Command="{Binding PlayersCountCommand}">
+                                <Button.CommandParameter>
+                                    <Sys:Int32>2</Sys:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Content="3"
+                            Command="{Binding PlayersCountCommand}">
+                                <Button.CommandParameter>
+                                    <Sys:Int32>3</Sys:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Content="4"
+                            Command="{Binding PlayersCountCommand}">
+                                <Button.CommandParameter>
+                                    <Sys:Int32>4</Sys:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Content="5"
+                            Command="{Binding PlayersCountCommand}">
+                                <Button.CommandParameter>
+                                    <Sys:Int32>5</Sys:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Content="6"
+                            Command="{Binding PlayersCountCommand}">
+                                <Button.CommandParameter>
+                                    <Sys:Int32>6</Sys:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                        </StackPanel>
+
+                        <!--list of players-->
+                        <ListView ItemsSource="{Binding Players}"
+                          Grid.Row="2"
+                          Width="600"
+                          HorizontalAlignment="Center"
+                          Background="Transparent"
+                          Padding="0"
+                          Style="{StaticResource VirtualisedMetroListBox}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <!--<Setter Property="Background" Value="AliceBlue"/>-->
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type model:PlayerParameters}">
+                                    <Border BorderThickness="0" CornerRadius="2"
+                                    Margin="5 5 5 10"
+                                    Background="{StaticResource AccentColorBrush}"
+                                    Padding="5">
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <ComboBox Grid.Column="0"
+                                          ItemsSource="{Binding Source={StaticResource PlayerType}}"
+                                          SelectedItem="{Binding Type}"
+                                          Controls:TextBoxHelper.UseFloatingWatermark="True"
+                                          Controls:TextBoxHelper.Watermark="Type"
+                                          Style="{DynamicResource VirtualisedMetroComboBox}"
+                                          IsEditable="False"
+                                          FontSize="20"
+                                          Margin="5"
+                                              MinWidth="160"/>
+
+                                            <Viewbox Grid.Column="1" Stretch="Uniform">
+                                                <TextBox Text="{Binding Nickname}"
+                                                 Controls:TextBoxHelper.UseFloatingWatermark="True"
+                                                 Controls:TextBoxHelper.Watermark="Nickname"/>
+                                            </Viewbox>
+
+                                            <Viewbox Grid.Column="2">
+                                                <Image Source="{Binding Avatar}"
+                                           MaxHeight="70"
+                                           MaxWidth="70"
+                                               Margin="5"
+                                                       RenderOptions.BitmapScalingMode="HighQuality">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseDown">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=window, Path=DataContext.ShowAvatarsCommand}"
+                                                                       CommandParameter="{Binding}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Image>
+                                            </Viewbox>
+                                            <Viewbox Grid.Column="3">
+                                                <Image Source="{Binding Chip}"
+                                           MaxHeight="70"
+                                           MaxWidth="70"
+                                               Margin="5"
+                                                       RenderOptions.BitmapScalingMode="HighQuality">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseDown">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=window, Path=DataContext.ShowChipsCommand}"
+                                                                       CommandParameter="{Binding}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Image>
+                                            </Viewbox>
+
+                                        </Grid>
+                                    </Border>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <!--start sum-->
+                        <StackPanel Grid.Row="3" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="0 20">
+                            <!--<TextBlock Text="Start sum: "
+                               FontSize="16"/>-->
+                            <TextBox Text="{Binding StartMoney, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}"
+                             FontSize="16"
+                             MinWidth="100"
+                             Controls:TextBoxHelper.Watermark="Start sum for every player"
+                             Controls:TextBoxHelper.UseFloatingWatermark="True"
+                             Controls:TextBoxHelper.WatermarkAlignment="Center"/>
+                        </StackPanel>
+
+                        <!--control buttons-->
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Metro.Styles.MetroButton}">
+                                    <Setter Property="Height" Value="50"/>
+                                    <Setter Property="Margin" Value="10 20"/>
+                                    <Setter Property="FontSize" Value="26"/>
+                                </Style>
+                            </Grid.Resources>
+
+                            <Button Grid.Column="0"
+                            Content="Back"
+                            Command="{Binding ShowTabCommand}">
+                                <Button.CommandParameter>
+                                    <Sys:Double>0</Sys:Double>
+                                </Button.CommandParameter>
+                            </Button>
+
+                            <Button Grid.Column="1"
+                            Content="Start"
+                            Command="{Binding StartCommand}">
+                            </Button>
+
+                        </Grid>
+
+                    </Grid>
+                </Controls:MetroTabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</UserControl>

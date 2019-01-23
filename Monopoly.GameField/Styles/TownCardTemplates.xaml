@@ -17,6 +17,7 @@
             <StackPanel Margin="5">
                 <Label Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"
                        Content="{Binding Name}" 
+                       HorizontalContentAlignment="Center"
                        FontSize="16" FontWeight="Black" Height="35"
                        Foreground="Black">
                 </Label>
@@ -148,6 +149,7 @@
         <Border BorderBrush="Black" BorderThickness="1" Background="White" Margin="5">
             <StackPanel Margin="5">
                 <Label Content="{Binding Name}" 
+                       HorizontalContentAlignment="Center"
                        FontSize="16" FontWeight="Black" Height="35"
                        Foreground="Black">
                 </Label>

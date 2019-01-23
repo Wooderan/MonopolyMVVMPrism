@@ -31,8 +31,16 @@ namespace Monopoly.GameField.ViewModels
             Watch(this.GameManager.Cards, this.Cards, cvm => cvm.Card);
 
             int order = 1;
+            (this.GameManager as GameManager).PropertyChanged += (s, e) => {
+                if (e.PropertyName == "Players")
+                {
+                    order = 1;
+                    this.Players = new ObservableCollection<PlayerViewModel>(this.GameManager.Players.Select(p => new PlayerViewModel(p, order++)));
+                    this.RaisePropertyChanged("Players");
+                }
+            };
             this.Players = new ObservableCollection<PlayerViewModel>(this.GameManager.Players.Select(p => new PlayerViewModel(p, order++)));
-            //Watch(this.GameManager.Players, this.Players, cvm => cvm.Card);
+            //Watch(this.GameManager.Players, this.Players, pvm => pvm.Player);
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<ShowAvailableForBuildingTowns>().Subscribe(this.ShowAvailableForBuildingTowns);
             _eventAggregator.GetEvent<ShowAvailableForDestroyingTowns>().Subscribe(this.ShowAvailableForDestoyingTowns);
@@ -48,6 +56,15 @@ namespace Monopoly.GameField.ViewModels
 
         #region Methods
         private static void Watch<T, T2>(ReadOnlyObservableCollection<T> collToWatch, ObservableCollection<T2> collToUpdate,
+            Func<T2, object> modelProperty)
+        {
+            ((INotifyCollectionChanged)collToWatch).CollectionChanged += (s, a) =>
+            {
+                if (a.NewItems?.Count == 1) collToUpdate.Add((T2)Activator.CreateInstance(typeof(T2), (T)a.NewItems[0], null));
+                if (a.OldItems?.Count == 1) collToUpdate.Remove(collToUpdate.First(mv => modelProperty(mv) == a.OldItems[0]));
+            };
+        }
+        private static void Watch<T, T2>(ObservableCollection<T> collToWatch, ObservableCollection<T2> collToUpdate,
             Func<T2, object> modelProperty)
         {
             ((INotifyCollectionChanged)collToWatch).CollectionChanged += (s, a) =>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Model.Models
 {
-    class EventCard : AbstractCard
+    public class EventCard : AbstractCard
     {
         public EventCard(string name, string eventPicture, Action<IGameManager> eventAction)
         {

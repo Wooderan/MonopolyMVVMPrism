@@ -25,6 +25,10 @@ namespace Monopoly.Model.ViewModels
                     {
                         this.UpdatePos();
                     }
+                    else if (e.PropertyName == "CantAct")
+                    {
+                        this.RaisePropertyChanged("IsJailed");
+                    }
                     this.RaisePropertyChanged(e.PropertyName);
                 };
 
@@ -72,53 +76,50 @@ namespace Monopoly.Model.ViewModels
 
         private void UpdatePos()
         {
-            if (this.Player.CardPosition == 0)
+            switch (this.Player.CardPosition)
             {
-                this.Pos = new Point(11.5, 11.5);
-            }
-            else if (this.Player.CardPosition == 1)
-            {
-                this.Pos = new Point(10, 11.5);
-            }
-            else if (this.Player.CardPosition > 1 && this.Player.CardPosition < 10)
-            {
-                this.Pos = new Point(this.Pos.X - 1, this.Pos.Y);
-            }
-            else if (this.Player.CardPosition == 10)
-            {
-                this.Pos = new Point(0.5, 11.5);
-            }
-            else if (this.Player.CardPosition == 11)
-            {
-                this.Pos = new Point(0.5, 10);
-            }
-            else if (this.Player.CardPosition > 11 && this.Player.CardPosition < 20)
-            {
-                this.Pos = new Point(this.Pos.X, this.Pos.Y - 1);
-            }
-            else if (this.Player.CardPosition == 20)
-            {
-                this.Pos = new Point(0.5, 0.5);
-            }
-            else if (this.Player.CardPosition == 21)
-            {
-                this.Pos = new Point(2, 0.5);
-            }
-            else if (this.Player.CardPosition > 21 && this.Player.CardPosition < 30)
-            {
-                this.Pos = new Point(this.Pos.X + 1, this.Pos.Y);
-            }
-            else if (this.Player.CardPosition == 30)
-            {
-                this.Pos = new Point(11.5, 0.5);
-            }
-            else if (this.Player.CardPosition == 31)
-            {
-                this.Pos = new Point(11.5, 2);
-            }
-            else if (this.Player.CardPosition > 31 && this.Player.CardPosition < 40)
-            {
-                this.Pos = new Point(this.Pos.X, this.Pos.Y + 1);
+                case 0: this.Pos = new Point(11.5, 11.5); break;
+                case 1: this.Pos = new Point(10, 11.5); break;
+                case 2: this.Pos = new Point(9, 11.5); break;
+                case 3: this.Pos = new Point(8, 11.5); break;
+                case 4: this.Pos = new Point(7, 11.5); break;
+                case 5: this.Pos = new Point(6, 11.5); break;
+                case 6: this.Pos = new Point(5, 11.5); break;
+                case 7: this.Pos = new Point(4, 11.5); break;
+                case 8: this.Pos = new Point(3, 11.5); break;
+                case 9: this.Pos = new Point(2, 11.5); break;
+                case 10: this.Pos = new Point(0.5, 11.5); break;
+                case 11: this.Pos = new Point(0.5, 10); break;
+                case 12: this.Pos = new Point(0.5, 9); break;
+                case 13: this.Pos = new Point(0.5, 8); break;
+                case 14: this.Pos = new Point(0.5, 7); break;
+                case 15: this.Pos = new Point(0.5, 6); break;
+                case 16: this.Pos = new Point(0.5, 5); break;
+                case 17: this.Pos = new Point(0.5, 4); break;
+                case 18: this.Pos = new Point(0.5, 3); break;
+                case 19: this.Pos = new Point(0.5, 2); break;
+                case 20: this.Pos = new Point(0.5, 0.5); break;
+                case 21: this.Pos = new Point(2, 0.5); break;
+                case 22: this.Pos = new Point(3, 0.5); break;
+                case 23: this.Pos = new Point(4, 0.5); break;
+                case 24: this.Pos = new Point(5, 0.5); break;
+                case 25: this.Pos = new Point(6, 0.5); break;
+                case 26: this.Pos = new Point(7, 0.5); break;
+                case 27: this.Pos = new Point(8, 0.5); break;
+                case 28: this.Pos = new Point(9, 0.5); break;
+                case 29: this.Pos = new Point(10, 0.5); break;
+                case 30: this.Pos = new Point(11.5, 0.5); break;
+                case 31: this.Pos = new Point(11.5, 2); break;
+                case 32: this.Pos = new Point(11.5, 3); break;
+                case 33: this.Pos = new Point(11.5, 4); break;
+                case 34: this.Pos = new Point(11.5, 5); break;
+                case 35: this.Pos = new Point(11.5, 6); break;
+                case 36: this.Pos = new Point(11.5, 7); break;
+                case 37: this.Pos = new Point(11.5, 8); break;
+                case 38: this.Pos = new Point(11.5, 9); break;
+                case 39: this.Pos = new Point(11.5, 10); break;
+                default:
+                    break;
             }
         }
 
@@ -153,6 +154,8 @@ namespace Monopoly.Model.ViewModels
             get { return _increaseText; }
             set { _increaseText = value;RaisePropertyChanged("IncreaseText"); }
         }
+
+        public bool IsJailed { get => this.Player.CantAct > 0; }
 
         #endregion
 

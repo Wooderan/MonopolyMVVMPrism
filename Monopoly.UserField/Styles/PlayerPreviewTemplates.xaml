@@ -2,75 +2,116 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Monopoly.UserField"
                     xmlns:helpers="clr-namespace:Monopoly.UserField.Helpers"
+                    xmlns:helpersModel="clr-namespace:Monopoly.Model.Helpers;assembly=Monopoly.Model"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:viewModels="clr-namespace:Monopoly.Model.ViewModels;assembly=Monopoly.Model"
                     xmlns:abstract="clr-namespace:Monopoly.Model.Abstract;assembly=Monopoly.Model">
 
+    <ResourceDictionary.MergedDictionaries>
+        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <!-- Accent and AppTheme setting -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Teal.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+    
+    <helpersModel:BoolToVisibility x:Key="BoolToVisibility"/>
 
     <DataTemplate x:Key="PlayerRegularPreview" DataType="{x:Type viewModels:PlayerViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" x:Name="border">
-            <DockPanel Width="250">
-                <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70"/>
+        <Border BorderBrush="{StaticResource GrayBrush2}" BorderThickness="1" CornerRadius="2" x:Name="border"
+                Background="White">
+            <DockPanel Width="230">
+                <!--chip-->
+                <Image DockPanel.Dock="Right" Source="{Binding Chip}" Width="30" Height="30"
+                       Margin="3" RenderOptions.BitmapScalingMode="HighQuality"/>
+                
+                <!--avatar-->
+                <Grid DockPanel.Dock="Left" Width="35" Height="35" Margin="3">
+                    <Image Source="{Binding Avatar}" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="pack://application:,,,/Monopoly.Model;component/Images/Avatars/Cell.png" 
+                           Visibility="{Binding IsJailed, Converter={StaticResource BoolToVisibility}}"
+                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Grid>
+                
+                <!--nickname-->
                 <StackPanel DockPanel.Dock="Left">
-                    <TextBlock Text="{Binding Nickname}" HorizontalAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Center">
-                        <TextBlock.Text>
-                            <Binding Path="Money">
-                                <Binding.StringFormat>{0:C}</Binding.StringFormat>
-                            </Binding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                    <Grid x:Name="AnimatedTextContainer">
-                        <TextBlock x:Name="decreaseText"
+                    <TextBlock Text="{Binding Nickname}" 
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Black"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="14">
+                            <TextBlock.Text>
+                                <Binding Path="Money">
+                                    <Binding.StringFormat>{0:C}</Binding.StringFormat>
+                                </Binding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    
+                        <!--animated text-->
+                        <Grid x:Name="AnimatedTextContainer">
+
+                            <!--decreasetxt-->
+                            <TextBlock x:Name="decreaseText"
                                    FontSize="20"
                                    FontWeight="Heavy"
                                    Foreground="Red"
                                    Text="{Binding DecreaseText, NotifyOnTargetUpdated=True}"
                                    Opacity="0">
-                            <TextBlock.RenderTransform>
-                                <ScaleTransform/>
-                            </TextBlock.RenderTransform>
+                                <TextBlock.RenderTransform>
+                                    <ScaleTransform/>
+                                </TextBlock.RenderTransform>
                             <i:Interaction.Behaviors>
                                 <helpers:PlayerPreviewBehavior/>
                             </i:Interaction.Behaviors>
-                        </TextBlock>
-                        <TextBlock x:Name="increaseText"
+                            </TextBlock>
+
+                            <!--increasetxt-->
+                            <TextBlock x:Name="increaseText"
                                    FontSize="20"
                                    FontWeight="Heavy"
                                    Foreground="Green"
                                    Text="{Binding IncreaseText, NotifyOnTargetUpdated=True}"
                                    Opacity="0">
-                            <TextBlock.RenderTransform>
-                                <ScaleTransform/>
-                            </TextBlock.RenderTransform>
+                                <TextBlock.RenderTransform>
+                                    <ScaleTransform/>
+                                </TextBlock.RenderTransform>
                             <i:Interaction.Behaviors>
                                 <helpers:PlayerPreviewBehavior/>
                             </i:Interaction.Behaviors>
-                        </TextBlock>
-                        <!--<Grid>
-                            <i:Interaction.Behaviors>
-                                <helpers:AnimatedTextContainerBehavior/>
-                            </i:Interaction.Behaviors>
-                        </Grid>-->
-                    </Grid>
+                            </TextBlock>
+                        </Grid>
+                        
+                    </StackPanel>
+                    
                 </StackPanel>
-                <Image DockPanel.Dock="Bottom" Source="{Binding Chip}" Width="30" Height="30"/>
+                
+            
             </DockPanel>
         </Border>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding IsActive}" Value="True">
                 <Setter TargetName="border" Property="Border.BorderThickness" Value="2"/>
-                <Setter TargetName="border" Property="Border.BorderBrush" Value="OrangeRed"/>
+                <Setter TargetName="border" Property="Background" Value="{StaticResource AccentColorBrush3}"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="PlayerDetailsPreview" DataType="{x:Type abstract:AbstractPlayer}">
-        <DockPanel Width="250">
-            <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70"/>
+        <DockPanel >
+            <Image DockPanel.Dock="Right" Source="{Binding Chip}" Width="30" Height="30" Margin="3"
+                   RenderOptions.BitmapScalingMode="HighQuality"/>
+            <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="50" Height="50" Margin="3"
+                   RenderOptions.BitmapScalingMode="HighQuality"/>
             <StackPanel DockPanel.Dock="Left">
-                <TextBlock Text="{Binding Nickname}" HorizontalAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Nickname}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="16" FontWeight="Black"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="14">
                     <TextBlock.Text>
                         <Binding Path="Money">
                             <Binding.StringFormat>{0:C}</Binding.StringFormat>
@@ -78,7 +119,6 @@
                     </TextBlock.Text>
                 </TextBlock>
             </StackPanel>
-            <Image DockPanel.Dock="Bottom" Source="{Binding Chip}" Width="30" Height="30"/>
         </DockPanel>
     </DataTemplate>
 

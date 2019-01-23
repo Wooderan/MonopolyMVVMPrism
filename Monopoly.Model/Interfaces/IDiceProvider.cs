@@ -8,6 +8,10 @@ namespace Monopoly.Model.Interfaces
 {
     public interface IDiceProvider
     {
-        bool RollDice(out int result);
+        void RollDice();
+
+        int LeftCube { get; }
+        int RightCube { get; }
+        int Result { get; }
     }
 }

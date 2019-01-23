@@ -22,17 +22,22 @@
             </mahApps:Flyout>
         </mahApps:FlyoutsControl>
     </mahApps:MetroWindow.Flyouts>
-    
-    <DockPanel>
-        
-        <ContentControl prism:RegionManager.RegionName="PlayerInfoRegion" 
-                        prism:RegionManager.RegionContext="{Binding GameManager}"
-                        DockPanel.Dock="Left"/>
-        <Grid>
-            <ContentControl prism:RegionManager.RegionName="GameFieldRegion"
+
+    <Grid Background="White">
+
+        <DockPanel>
+
+            <ContentControl prism:RegionManager.RegionName="PlayerInfoRegion" 
                             prism:RegionManager.RegionContext="{Binding GameManager}"
-                            Width="900" Height="700"/>
-            
-        </Grid>
-    </DockPanel>
+                            DockPanel.Dock="Left"/>
+            <Grid>
+                <ContentControl prism:RegionManager.RegionName="GameFieldRegion"
+                                prism:RegionManager.RegionContext="{Binding GameManager}"
+                                    />
+            </Grid>
+
+        </DockPanel>
+        <ContentControl prism:RegionManager.RegionName="SettingsRegion"
+                    prism:RegionManager.RegionContext="{Binding GameManager}"/>
+    </Grid>
 </mahApps:MetroWindow>

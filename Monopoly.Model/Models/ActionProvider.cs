@@ -20,7 +20,9 @@ namespace Monopoly.Model.Models
 
             _luckyActions = new List<GameAction>
             {
-                new GameAction("It's mock lucky action", (gm) => { })
+                new GameAction("You got an escape plan!", (gm) => { gm.GiveEventCard(
+                    new EventCard("Escape Plan", "pack://application:,,,/Monopoly.Model;component/Images/Events/escape.png", (manager) => manager.FreeFromJail())
+                );})
             };
         }
 

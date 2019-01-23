@@ -13,6 +13,12 @@
     <dialogs:CustomDialog.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Teal.xaml" />
+
                 <ResourceDictionary Source="..\..\Styles\CardTemplates.xaml"/>
                 <ResourceDictionary Source="..\..\Styles\BetsTemplates.xaml"/>
                 <ResourceDictionary>
@@ -73,7 +79,7 @@
         </Style>
     </dialogs:CustomDialog.Style>
 
-    <Grid>
+    <Grid Margin="0 0 0 30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -94,15 +100,21 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <!--card and table-->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ContentPresenter Grid.Column="0" Content="{Binding Card}" ContentTemplate="{StaticResource TownCardTemplate}" Width="150" HorizontalAlignment="Left"/>
+                <ContentPresenter Grid.Column="0" 
+                                  Content="{Binding Card}" 
+                                  ContentTemplate="{StaticResource TownCardTemplate}" 
+                                  Width="150" HorizontalAlignment="Right"
+                                  Margin="10"/>
                 <Border Name="ActualHeightHelper" Grid.Column="1">
                     <ListView ItemsSource="{Binding Bets}"
                               BorderThickness="1"
+                              Width="405"
                               Height="{Binding ElementName=ActualHeightHelper, Path=ActualHeight}">
                         <ListView.View>
                             <GridView >
@@ -114,16 +126,25 @@
                 </Border>
             </Grid>
 
+            <!--slider-->
             <Grid Grid.Row="1" MinHeight="150">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <DockPanel Width="250" Grid.Column="0" DataContext="{Binding Player}">
-                    <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70"/>
-                    <StackPanel DockPanel.Dock="Left">
-                        <TextBlock Text="{Binding Nickname}" HorizontalAlignment="Center"/>
-                        <TextBlock HorizontalAlignment="Center">
+                    <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70"
+                           Margin="5"/>
+                    <StackPanel DockPanel.Dock="Left"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Nickname}" 
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   FontWeight="Black"/>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="14">
                             <TextBlock.Text>
                                 <Binding Path="Money">
                                     <Binding.StringFormat>{0:C}</Binding.StringFormat>
@@ -134,12 +155,14 @@
                 </DockPanel>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
                                Text="{Binding ElementName=BetSlider, Path=Value, StringFormat=Your bet {0:C0}}"
-                               HorizontalAlignment="Center"/>
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               FontSize="16"/>
                     <Slider Grid.Row="1"
                             x:Name="BetSlider"
                             Margin="4"
@@ -155,6 +178,7 @@
                 </Grid>
             </Grid>
 
+            <!--buttons-->
             <Grid Grid.Row="2" MinHeight="150">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" MinWidth="200" />

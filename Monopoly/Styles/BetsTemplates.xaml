@@ -6,15 +6,8 @@
 
     <DataTemplate x:Key="PlayersTemplate" >
         <DockPanel DataContext="{Binding Path=Player}">
-            <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70"/>
+            <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70" RenderOptions.BitmapScalingMode="HighQuality"/>
             <TextBlock DockPanel.Dock="Left" Text="{Binding Nickname}" HorizontalAlignment="Right"/>
-            <!--<TextBlock DockPanel.Dock="Left" HorizontalAlignment="Left">
-                <TextBlock.Text>
-                    <Binding Path="Bet">
-                        <Binding.StringFormat>{0:C2}</Binding.StringFormat>
-                    </Binding>
-                </TextBlock.Text>
-            </TextBlock>-->
         </DockPanel>
     </DataTemplate>
 

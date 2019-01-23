@@ -15,17 +15,42 @@ namespace Monopoly.GameField.Helpers
 {
     class PlayerViewModelBehavior : Behavior<ContentPresenter>
     {
+        public static DependencyProperty IsAttachedProperty = DependencyProperty.RegisterAttached("IsAttached", typeof(bool), typeof(PlayerViewModelBehavior), new FrameworkPropertyMetadata(false, OnIsAttachedChanged));
+
+        private static void OnIsAttachedChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            var el = o as UIElement;
+            if (el != null)
+            {
+                var behColl = Interaction.GetBehaviors(el);
+                var existingBehavior = behColl.FirstOrDefault(b => b.GetType() == typeof(PlayerViewModelBehavior)) as PlayerViewModelBehavior;
+                if ((bool)e.NewValue == false && existingBehavior != null)
+                {
+                    behColl.Remove(existingBehavior);
+                }
+                else if ((bool)e.NewValue == true && existingBehavior == null)
+                {
+                    behColl.Add(new PlayerViewModelBehavior());
+                }
+            }
+        }
+
+        public static bool GetIsAttached(DependencyObject o) { return (bool)o.GetValue(IsAttachedProperty); }
+        public static void SetIsAttached(DependencyObject o, bool value) { o.SetValue(IsAttachedProperty, value); }
+
         protected override void OnAttached()
         {
             base.OnAttached();
-            PlayerViewModel playerViewModel = this.AssociatedObject.Content as PlayerViewModel;
+            //PlayerViewModel playerViewModel = this.AssociatedObject.Content as PlayerViewModel;
+            PlayerViewModel playerViewModel = this.AssociatedObject.DataContext as PlayerViewModel;
+
+            NameScope.SetNameScope(this.AssociatedObject, new NameScope());
+            this.AssociatedObject.Name = "p" + playerViewModel.Order.ToString();
+            this.AssociatedObject.RegisterName(this.AssociatedObject.Name, this.AssociatedObject);
+
             if (playerViewModel != null)
             {
                 playerViewModel.PropertyChanged += this.OnPVMPropertyChanged;
-            }
-            else
-            {
-                throw new Exception("Content is not PlayerViewModel!");
             }
         }
 

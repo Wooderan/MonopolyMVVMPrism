@@ -71,7 +71,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\TradeAcceptDialog.xaml">
+    <Page Include="Dialogs\GameActionDialog\GameActionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ImagesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\JailDialog\JailDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ShowDiceRollingDialog\ShowDiceRollingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\TradeAccept\TradeAcceptDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,11 +128,28 @@
       <DependentUpon>ChooseTradeOpponentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ChooseTradeOpponentDialog\ChooseTradeOpponentDialogViewModel.cs" />
-    <Compile Include="Dialogs\TradeAcceptDialog.xaml.cs">
+    <Compile Include="Dialogs\GameActionDialog\GameActionDialog.xaml.cs">
+      <DependentUpon>GameActionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\GameActionDialog\GameActionDialogViewModel.cs" />
+    <Compile Include="Dialogs\ImagesDialogViewModel.cs" />
+    <Compile Include="Dialogs\ImagesDialog.xaml.cs">
+      <DependentUpon>ImagesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\JailDialog\JailDialog.xaml.cs">
+      <DependentUpon>JailDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\JailDialog\JailDialogResults.cs" />
+    <Compile Include="Dialogs\JailDialog\JailDialogViewModel.cs" />
+    <Compile Include="Dialogs\ShowDiceRollingDialog\ShowDiceRollingDialog.xaml.cs">
+      <DependentUpon>ShowDiceRollingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ShowDiceRollingDialog\ShowDiceRollingDialogViewModel.cs" />
+    <Compile Include="Dialogs\TradeAccept\TradeAcceptDialog.xaml.cs">
       <DependentUpon>TradeAcceptDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\TradeAcceptDialogViewModel.cs" />
-    <Compile Include="Dialogs\TradeAcceptResults.cs" />
+    <Compile Include="Dialogs\TradeAccept\TradeAcceptDialogViewModel.cs" />
+    <Compile Include="Dialogs\TradeAccept\TradeAcceptResults.cs" />
     <Compile Include="Dialogs\TradeDialog\TradeDialog.xaml.cs">
       <DependentUpon>TradeDialog.xaml</DependentUpon>
     </Compile>
@@ -160,7 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MahApps.Metro">
-      <Version>2.0.0-alpha0186</Version>
+      <Version>2.0.0-alpha0212</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro.IconPacks">
       <Version>3.0.0-alpha0096</Version>

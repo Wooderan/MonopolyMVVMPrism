@@ -1,4 +1,6 @@
 ﻿using Monopoly.Model.Abstract;
+using Monopoly.Model.Model;
+using Monopoly.Model.Models;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
@@ -18,4 +20,9 @@ namespace Monopoly.Model.Events
     public class StopShowAvailableForMortgageTowns : PubSubEvent{}
     public class StopShowAvailableForBuyFromMortgageTowns : PubSubEvent{}
     public class TradeEvent : PubSubEvent{}
+    public class GameActionEvent : PubSubEvent<GameAction>{}
+    public class ShowDiceRollingEvent : PubSubEvent<Action>{}
+    public class JailDialogEvent : PubSubEvent<AbstractPlayer>{}
+    public class ShowAvatarsEvent : PubSubEvent<PlayerParameters>{}
+    public class ShowChipsEvent : PubSubEvent<PlayerParameters>{}
 }

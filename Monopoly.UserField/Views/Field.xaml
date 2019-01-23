@@ -13,11 +13,20 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Teal.xaml" />
+
                 <ResourceDictionary Source="..\Styles\PlayerPreviewTemplates.xaml"/>
                 <ResourceDictionary>
                     <Style x:Key="commonButtonStyle"
                            TargetType="{x:Type Button}" 
-                           BasedOn="{StaticResource MetroFlatButton}">
+                           BasedOn="{StaticResource MahApps.Metro.Styles.MetroButton}">
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="Margin" Value="3"/>
                     </Style>
                     <Style x:Key="relativeButtonStyle"
                            TargetType="{x:Type Button}"
@@ -46,20 +55,29 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DockPanel>
-        <ListView x:Name="townCardsList"
-                  DockPanel.Dock="Top"
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!--players-->
+        <ListView Grid.Row="0"
                   ItemsSource="{Binding Players}" 
                   ItemTemplate="{StaticResource PlayerRegularPreview}"
-                  SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}">
+                  SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}"
+                  HorizontalContentAlignment="Center">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="PlayerClicked"/>
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <StackPanel Orientation="Vertical"
-                    DockPanel.Dock="Top">
+        
+        <!--buttons-->
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical"
+                    VerticalAlignment="Bottom">
             <Button Command="{Binding MakeDrawCommand}"
                     Content="Roll the dice"
                     x:Name="MakeDrawButton"
@@ -136,6 +154,6 @@
                         Style="{StaticResource relativeButtonStyle}">
             </Button>
         </StackPanel>
-    </DockPanel>
+    </Grid>
 
 </UserControl>

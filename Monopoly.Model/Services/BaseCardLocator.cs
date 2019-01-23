@@ -14,7 +14,7 @@ namespace Monopoly.Model.Services
     {
         public ObservableCollection<AbstractCard> GetCardSet()
         {
-            var blueCardGroup = new TownCardGroup(Colors.Blue);
+            var blueCardGroup = new TownCardGroup(Colors.LightBlue);
             var brownCardGroup = new TownCardGroup(Colors.Brown);
             var aquaCardGroup = new TownCardGroup(Colors.Aquamarine);
             var grayCardGroup = new TownCardGroup(Colors.Gray);
@@ -39,7 +39,7 @@ namespace Monopoly.Model.Services
                 new TownCard("Sudan", 60, 30, 50, blueCardGroup, new TaxGroup(10, 20, 30, 60, 180, 320, 450), CardOrientation.BOTTOM),
 
                 //some event card
-                new EventCard("LuckyWheel", DefaultImagesLocator.GetEventPicture("luckwheel.png"), (gm) => { gm.GiveMoney(200); }),
+                new EventCard("LuckyWheel", DefaultImagesLocator.GetEventPicture("luckwheel.png"), (gm) => {gm.GameAction( new GameAction("You won prize!", man => man.GiveMoney(200))); }),
 
                 //station card
                 new StationCard("Japan station", 200, 100, stationsGroup, new TaxGroup(50, 100, 150, 200), CardOrientation.BOTTOM),
@@ -53,7 +53,7 @@ namespace Monopoly.Model.Services
                 new TownCard("Bolgaria", 120, 60, 50, brownCardGroup, new TaxGroup(16, 32, 50, 100, 300, 450, 600), CardOrientation.BOTTOM),
 
                 //jail corner
-                null,
+                new EventCard("Jail", DefaultImagesLocator.GetEventPicture("jail.png"), null),
 
                 //aquamarine group
                 new TownCard("Poland", 150, 75, 100, aquaCardGroup, new TaxGroup(16, 32, 50, 150, 450, 625, 750), CardOrientation.LEFT),
@@ -75,7 +75,7 @@ namespace Monopoly.Model.Services
                 new TownCard("Estonya", 220, 110, 100, greenCardGroup, new TaxGroup(30, 60, 80, 220, 600, 800, 1000), CardOrientation.LEFT),
                 
                 //parking corner
-                null,
+                new EventCard("Parking", DefaultImagesLocator.GetEventPicture("parking.png"), null),
 
                 //yellow group
                 new TownCard("Norvey", 220, 110, 150, yellowCardGroup, new TaxGroup(30, 60, 90, 250, 700, 875, 1050), CardOrientation.TOP),
@@ -89,7 +89,7 @@ namespace Monopoly.Model.Services
                 new StationCard("USA station", 200, 100, stationsGroup, new TaxGroup(70, 120, 170, 220), CardOrientation.TOP),
 
                 //event
-                new EventCard("LuckyWheel", DefaultImagesLocator.GetEventPicture("luckwheel.png"), (gm) => { gm.GiveMoney(200); }),
+                new EventCard("LuckyWheel", DefaultImagesLocator.GetEventPicture("luckwheel.png"), (gm) => {gm.GameAction( new GameAction("You won prize!", man => man.GiveMoney(200))); }),
 
                 //pink group
                 new TownCard("Germany", 280, 140, 150, pinkCardGroup, new TaxGroup(40, 80, 110, 330, 800, 975, 1150), CardOrientation.TOP),
@@ -97,7 +97,7 @@ namespace Monopoly.Model.Services
                 new TownCard("Great Britain", 300, 150, 150, pinkCardGroup, new TaxGroup(50, 100, 120, 360, 850, 1025, 1200), CardOrientation.TOP),
                 
                 //go to jail corner
-                null,
+                new EventCard("Court", DefaultImagesLocator.GetEventPicture("court.png"), (gm) => gm.GameAction( new GameAction("You are going to jail!", (g) => g.GoToJail()))),
 
                 //orange group
                 new TownCard("Canada", 300, 150, 200, orangeCardGroup, new TaxGroup(50, 100, 130, 390, 900, 1100, 1275), CardOrientation.RIGHT),
@@ -118,7 +118,7 @@ namespace Monopoly.Model.Services
                 new TownCard("China", 400, 200, 200, redCardGroup, new TaxGroup(80, 160, 200, 600, 1400, 1700, 2000), CardOrientation.RIGHT),
 
                 //tax pay
-                new EventCard("Tax", DefaultImagesLocator.GetEventPicture("tax.png"), (gm) => { gm.TakeMoney(200); }),
+                new EventCard("Tax", DefaultImagesLocator.GetEventPicture("tax.png"), (gm) => gm.GameAction( new GameAction("You pay tax", (man) => man.TakeMoney(200)))),
             };
         }
     }

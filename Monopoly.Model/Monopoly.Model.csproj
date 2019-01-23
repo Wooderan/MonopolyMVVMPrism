@@ -35,10 +35,10 @@
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.4.0.0-alpha0218\lib\net45\ControlzEx.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.4.0.0-alpha0222\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.2.0.0-alpha0186\lib\net46\MahApps.Metro.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.2.0.0-alpha0212\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.3.0.0-alpha0096\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
@@ -92,6 +92,7 @@
     <Compile Include="Abstract\AbstractPlayer.cs" />
     <Compile Include="Abstract\AbstractRealtyCard.cs" />
     <Compile Include="Events\Events.cs" />
+    <Compile Include="Helpers\BoolToVisibility.cs" />
     <Compile Include="Helpers\CardOrientationToProperties.cs" />
     <Compile Include="Helpers\CardTemplateSelector.cs" />
     <Compile Include="Helpers\ColorToSolidBrushConverter.cs" />
@@ -108,9 +109,11 @@
     <Compile Include="Interfaces\IPlayerProvider.cs" />
     <Compile Include="Interfaces\ITaxGroup.cs" />
     <Compile Include="Models\ActionProvider.cs" />
+    <Compile Include="Models\ComputerPlayer.cs" />
     <Compile Include="Models\EventCard.cs" />
     <Compile Include="Models\ExchangeManager.cs" />
     <Compile Include="Models\GameAction.cs" />
+    <Compile Include="Models\PlayerParameters.cs" />
     <Compile Include="Models\StationCardGroup.cs" />
     <Compile Include="Models\TownCardGroup.cs" />
     <Compile Include="Models\GameManager.cs" />
@@ -131,51 +134,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Avatars\boy-1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Avatars\boy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Avatars\girl-1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Avatars\girl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Avatars\man-1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Avatars\man-2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Avatars\man-3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Avatars\man-4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Avatars\man.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Chips\coffe-cup-aqua.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Chips\coffe-cup-blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Chips\coffe-cup-green.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Chips\coffe-cup-red.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Chips\coffe-cup-violet.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Chips\coffe-cup-yellow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Events\default.png" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +150,45 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Events\luckwheel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Events\parking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Events\court.png" />
+    <Resource Include="Images\Events\jail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Dice\Dice_1.png" />
+    <Resource Include="Images\Dice\Dice_2.png" />
+    <Resource Include="Images\Dice\Dice_3.png" />
+    <Resource Include="Images\Dice\Dice_4.png" />
+    <Resource Include="Images\Dice\Dice_5.png" />
+    <Resource Include="Images\Dice\Dice_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Events\escape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Avatars\avatar-1.png" />
+    <Resource Include="Images\Avatars\avatar-10.png" />
+    <Resource Include="Images\Avatars\avatar-2.png" />
+    <Resource Include="Images\Avatars\avatar-3.png" />
+    <Resource Include="Images\Avatars\avatar-4.png" />
+    <Resource Include="Images\Avatars\avatar-5.png" />
+    <Resource Include="Images\Avatars\avatar-6.png" />
+    <Resource Include="Images\Avatars\avatar-7.png" />
+    <Resource Include="Images\Avatars\avatar-8.png" />
+    <Resource Include="Images\Avatars\avatar-9.png" />
+    <Resource Include="Images\Avatars\Cell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Chips\chip-1.png" />
+    <Resource Include="Images\Chips\chip-2.png" />
+    <Resource Include="Images\Chips\chip-3.png" />
+    <Resource Include="Images\Chips\chip-4.png" />
+    <Resource Include="Images\Chips\chip-5.png" />
+    <Resource Include="Images\Chips\chip-6.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

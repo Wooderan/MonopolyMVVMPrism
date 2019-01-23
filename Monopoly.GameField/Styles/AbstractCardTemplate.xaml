@@ -24,7 +24,8 @@
     <helpers:CardOrientationToColumns x:Key="CardOrientationToColumns"/>
 
     <DataTemplate x:Key="TownCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1 2" Background="White">
+        <Border BorderThickness="1"  
+                Background="White" BorderBrush="{StaticResource GrayBrush1}">
             <Border.ToolTip>
                 <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
                                      x:Name="tooltip"
@@ -51,7 +52,8 @@
                     </Label.RenderTransform>
                     <Label.Content>
                         <Image Source="{Binding Owner.Chip}"
-                               Opacity="0.7"/>
+                               Opacity="0.7"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Label.Content>
                 </Label>
                 <DockPanel>
@@ -59,7 +61,8 @@
                            Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"
                            Height="{Binding Orientation, Converter={StaticResource CardOrientationToLabelHeight}}"
                            Width="{Binding Orientation, Converter={StaticResource CardOrientationToLabelWidth}}"
-                           Padding="0">
+                           Padding="0"
+                           HorizontalContentAlignment="Center">
                         <Label.Content>
                             <UniformGrid Rows="{Binding Orientation, Converter={StaticResource CardOrientationToRows}}"
                                          Columns="{Binding Orientation, Converter={StaticResource CardOrientationToColumns}}"
@@ -141,7 +144,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="StationCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1 2" Background="White">
+        <Border BorderBrush="{StaticResource GrayBrush1}" BorderThickness="1" Background="White">
             <Border.ToolTip>
                 <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}"
                                      x:Name="tooltip"
@@ -168,7 +171,8 @@
                     </Label.RenderTransform>
                     <Label.Content>
                         <Image Source="{Binding Owner.Chip}"
-                               Opacity="0.7"/>
+                               Opacity="0.7"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Label.Content>
                 </Label>
                 <DockPanel>
@@ -200,12 +204,12 @@
     </DataTemplate>
 
     <DataTemplate x:Key="EventCardTemplate" DataType="{x:Type viewModels:CardViewModel}">
-        <Border BorderBrush="Black" BorderThickness="1 2" Background="White">
+        <Border BorderBrush="{StaticResource GrayBrush1}" BorderThickness="1" Background="White">
             <Grid>
                 <Rectangle x:Name="grayRect" Fill="Gray" Visibility="Collapsed" Opacity="0.5"/>
                 <Rectangle x:Name="redRect" Fill="Red" Visibility="Collapsed" Opacity="0.5"/>
                 <Viewbox Margin="5" Stretch="Uniform">
-                    <Image Source="{Binding EventPicture}" Width="35" Height="35" />
+                    <Image Source="{Binding EventPicture}" Width="35" Height="35" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Viewbox>
             </Grid>
         </Border>

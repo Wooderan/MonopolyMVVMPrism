@@ -14,7 +14,8 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <DockPanel Width="150" Height="75">
-                <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70"/>
+                <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="70" Height="70"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
                 <StackPanel DockPanel.Dock="Left">
                     <TextBlock Text="{Binding Nickname}" HorizontalAlignment="Center"/>
                     <TextBlock HorizontalAlignment="Center">
@@ -35,7 +36,7 @@
                 <Viewbox DockPanel.Dock="Left" 
                          Stretch="Uniform"
                          MaxHeight="100">
-                    <Image Source="{Binding Avatar}"/>
+                    <Image Source="{Binding Avatar}" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Viewbox>
                 <Viewbox DockPanel.Dock="Left"
                          Stretch="Uniform"

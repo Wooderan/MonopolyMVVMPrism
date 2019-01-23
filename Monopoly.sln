@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.GameField", "Monop
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.UserField", "Monopoly.UserField\Monopoly.UserField.csproj", "{42EECE08-8401-4351-8EAC-E4D143BEA97D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.Settings", "Monopoly.Settings\Monopoly.Settings.csproj", "{7704268F-4FA8-49A6-A0FD-D66C400979FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{42EECE08-8401-4351-8EAC-E4D143BEA97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42EECE08-8401-4351-8EAC-E4D143BEA97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42EECE08-8401-4351-8EAC-E4D143BEA97D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7704268F-4FA8-49A6-A0FD-D66C400979FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7704268F-4FA8-49A6-A0FD-D66C400979FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7704268F-4FA8-49A6-A0FD-D66C400979FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7704268F-4FA8-49A6-A0FD-D66C400979FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

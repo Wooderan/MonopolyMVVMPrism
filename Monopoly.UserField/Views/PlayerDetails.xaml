@@ -18,7 +18,8 @@
                 <ResourceDictionary>
                     <sharedHelpers:CardTemplateSelector x:Key="CardTemplateSelector"
                                                   TownCardTemplate="{StaticResource TownCard}"
-                                                  StationCardTemplate="{StaticResource StationCard}"/>
+                                                  StationCardTemplate="{StaticResource StationCard}"
+                                                  EventCardTemplate="{StaticResource ActionCard}"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -49,9 +50,27 @@
 
         <ListView ItemsSource="{Binding RealtyCards}"
                  ItemTemplateSelector="{StaticResource CardTemplateSelector}"
-                 Grid.Row="2"/>
+                 Grid.Row="2"
+                  Background="Transparent"
+                  HorizontalContentAlignment="Center">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <!--<Setter Property="Background" Value="AliceBlue"/>-->
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
         <ListView ItemsSource="{Binding ActionCards}"
                  ItemTemplateSelector="{StaticResource CardTemplateSelector}"
-                 Grid.Row="4"/>
+                 Grid.Row="4"
+                 Background="Transparent"
+                  HorizontalContentAlignment="Center">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <!--<Setter Property="Background" Value="AliceBlue"/>-->
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </UserControl>

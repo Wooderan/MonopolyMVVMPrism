@@ -1,4 +1,5 @@
 ﻿using Monopoly.Model.Abstract;
+using Monopoly.Model.Interfaces;
 using Monopoly.Model.Models;
 using Monopoly.Model.ViewModels;
 using System;
@@ -24,15 +25,19 @@ namespace Monopoly.Model.Helpers
                 {
                     switch (card.Type)
                     {
-                        case Model.Interfaces.CardType.TOWN:
+                        case CardType.TOWN:
                             return this.TownCardTemplate;
-                        case Model.Interfaces.CardType.STATION:
+                        case CardType.STATION:
                             return this.StationCardTemplate;
-                        case Model.Interfaces.CardType.EVENT:
+                        case CardType.EVENT:
                             return this.EventCardTemplate;
                         default:
                             throw new Exception("Unsupported CardType!");
                     }
+                }
+                else if ((item as CardViewModel).Card is EventCard eCard)
+                {
+                    return this.EventCardTemplate;
                 }
                 else
                 {
@@ -43,11 +48,11 @@ namespace Monopoly.Model.Helpers
             {
                 switch (card.Type)
                 {
-                    case Model.Interfaces.CardType.TOWN:
+                    case CardType.TOWN:
                         return this.TownCardTemplate;
-                    case Model.Interfaces.CardType.STATION:
+                    case CardType.STATION:
                         return this.StationCardTemplate;
-                    case Model.Interfaces.CardType.EVENT:
+                    case CardType.EVENT:
                         return this.EventCardTemplate;
                     default:
                         throw new Exception("Unsupported CardType!");

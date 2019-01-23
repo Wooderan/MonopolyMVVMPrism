@@ -9,6 +9,11 @@ using Monopoly.Model.Models;
 
 namespace Monopoly.Model.Abstract
 {
+    public enum PlayerType
+    {
+        PLAYER,
+        COMPUTER
+    }
     public abstract class AbstractPlayer : BindableBase, IPlayer
     {
 
@@ -42,6 +47,13 @@ namespace Monopoly.Model.Abstract
                 return _chip;
             }
             set => _chip = value;
+        }
+
+        private int _cantAct;
+        public int CantAct
+        {
+            get { return _cantAct; }
+            internal set { SetProperty(ref _cantAct, value); }
         }
 
         #endregion
@@ -171,6 +183,16 @@ namespace Monopoly.Model.Abstract
             }
         }
 
+        internal void AddEventCard(EventCard eventCard)
+        {
+            this.ActionCards.Add(eventCard);
+        }
+
+        internal void DropEventCard(EventCard eventCard)
+        {
+            this.ActionCards.Remove(eventCard);
+        }
+
         private bool CheckIfOwnCard(AbstractCard card)
         {
             if (this.RealtyCards.Where(ac => ac == card).Any())
@@ -243,13 +265,17 @@ namespace Monopoly.Model.Abstract
             }
             internal set
             {
-                if (value <= 39)
+                if (value > 39)
                 {
-                    _cardPosition = value;
+                    _cardPosition = 0;
+                }
+                else if (value < 0)
+                {
+                    _cardPosition = 39;
                 }
                 else
                 {
-                    _cardPosition = 0;
+                    _cardPosition = value;
                 }
                 this.RaisePropertyChanged();
             }

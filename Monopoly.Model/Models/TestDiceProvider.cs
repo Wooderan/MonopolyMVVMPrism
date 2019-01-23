@@ -1,4 +1,7 @@
-﻿using Monopoly.Model.Interfaces;
+﻿using Monopoly.Model.Events;
+using Monopoly.Model.Interfaces;
+using Prism.Events;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,34 +10,62 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Model.Models
 {
-    public class TestDiceProvider : IDiceProvider
+    public class TestDiceProvider : BindableBase, IDiceProvider
     {
         private int _step = 0;
 
-        public bool RollDice(out int result)
+        private int _leftCube;
+        public int LeftCube
         {
+            get { return _leftCube; }
+            set { SetProperty(ref _leftCube, value); }
+        }
+
+        private int _rightCube;
+        public int RightCube
+        {
+            get { return _rightCube; }
+            set { SetProperty(ref _rightCube, value); }
+        }
+
+        private int _result;
+        public int Result
+        {
+            get { return _result; }
+            set { SetProperty(ref _result, value); }
+        }
+
+        public void RollDice()
+        {
+            Random rand = new Random();
+            this.LeftCube = rand.Next(1, 6);
+            this.RightCube = rand.Next(1, 6);
             switch (_step)
             {
                 case 0:
-                    result = 1;
+                    LeftCube = RightCube;
+                    this.Result = 3;
                     break;
                 case 1:
-                    result = 3;
+                    this.Result = 27;
                     break;
                 case 2:
-                    result = 5;
+                    this.Result = 9;
                     break;
-                case 3:
-                    result = 5;
-                    break;
+                //case 3:
+                //    this.Result = 5;
+                //    break;
+                //case 6:
+                //    this.Result = 10;
+                //    break;
+                //case 11:
+                //    this.Result = 10;
+                //    break;
                 default:
-                    Random rand1 = new Random();
-                    Random rand2 = new Random();
-                    result = rand1.Next(1, 6) + rand2.Next(1, 6);
+                    this.Result = this.LeftCube + this.RightCube;
                     break;
             }
             _step++;
-            return false;
         }
     }
 }

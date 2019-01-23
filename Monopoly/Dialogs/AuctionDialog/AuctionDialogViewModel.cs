@@ -15,7 +15,7 @@ namespace Monopoly.Dialogs
     {
         #region Constructors
 
-        public AuctionDialogViewModel(AbstractCard card, ObservableCollection<AbstractPlayer> players, Action<AbstractPlayer, int> closeAction)
+        public AuctionDialogViewModel(AbstractRealtyCard card, ObservableCollection<AbstractPlayer> players, Action<AbstractPlayer, int> closeAction)
         {
             this.Card = card;
             this.Players = new ObservableCollection<AbstractPlayer>(players);
@@ -25,6 +25,10 @@ namespace Monopoly.Dialogs
             this.Bets = new ObservableCollection<PlayersBet>();
             this.RaisePropertyChanged("Bets");
             this.CurrentSliderValue = 1;
+            this.Bets.Insert(0, new PlayersBet(this.Player, (int)this.CurrentSliderValue));
+            this.RaisePropertyChanged("LastBet");
+            this.CurrentSliderValue = this.LastBet + 1;
+            this.NextPlayer();
         }
 
         #endregion
@@ -62,6 +66,7 @@ namespace Monopoly.Dialogs
                 else
                 {
                     this.CurrentPlayer = this.Players.IndexOf(nextPlayer);
+                    this.ComputerAction();
                 }
             }
         }
@@ -89,6 +94,26 @@ namespace Monopoly.Dialogs
                 this.Close(currentPlayer, this.LastBet);
             }
             this.CurrentPlayer = this.Players.IndexOf(currentPlayer) + 1;
+            this.ComputerAction();
+        }
+
+        private void ComputerAction()
+        {
+            if (this.Player is ComputerPlayer computer)
+            {
+                int bet = computer.DecideBetOrLeave(this.Card, this.LastBet);
+                if (bet != 0)
+                {
+                    this.Bets.Insert(0, new PlayersBet(this.Player, bet));
+                    this.RaisePropertyChanged("LastBet");
+                    this.CurrentSliderValue = this.LastBet + 1;
+                    this.NextPlayer();
+                }
+                else
+                {
+                    this.ExecuteLeaveCommand();
+                }
+            }
         }
 
         #endregion
@@ -102,8 +127,8 @@ namespace Monopoly.Dialogs
             set { SetProperty(ref _title, value); }
         }
 
-        private AbstractCard _card;
-        public AbstractCard Card
+        private AbstractRealtyCard _card;
+        public AbstractRealtyCard Card
         {
             get { return _card; }
             set { SetProperty(ref _card, value); }

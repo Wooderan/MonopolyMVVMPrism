@@ -1,4 +1,5 @@
 ﻿using Monopoly.Model.Abstract;
+using Monopoly.Model.Models;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -26,12 +27,19 @@ namespace Monopoly.Model.Interfaces
         void TakeMoney(int money);
         void ChestAction();
         void LuckyAction();
+        void GameAction(GameAction action);
+        void GoToJail();
+        void FreeFromJail();
+        void ActivateEventCard(EventCard eventCard);
+        void GiveEventCard(EventCard eventCard);
+        void ReloadGame();
+
 
         #endregion
 
         #region Event
         event Action<AbstractCard> ShowBuyOrAuctionDialog;
-        event Action<AbstractCard, ObservableCollection<AbstractPlayer>> ShowAuctionDialog;
+        event Action<AbstractRealtyCard, ObservableCollection<AbstractPlayer>> ShowAuctionDialog;
         #endregion
 
         #region Fields
@@ -45,6 +53,12 @@ namespace Monopoly.Model.Interfaces
         bool HasMonopoly { get;}
         bool HasBuildings { get; }
         bool HasMortgageCards { get; }
+        bool CanAct { get; }
+        bool Animating { get; set; }
+
+        void AfterAction();
+
+
 
 
 

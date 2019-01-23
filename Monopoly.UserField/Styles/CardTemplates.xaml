@@ -234,20 +234,21 @@
         </Border>
     </DataTemplate>
 
-    <DataTemplate x:Key="ActionCard" DataType="{x:Type abstractModel:AbstractCard}">
-        <Border BorderBrush="Black" BorderThickness="1 2" DataContext="{Binding Card}">
+    <DataTemplate x:Key="ActionCard" DataType="{x:Type model:EventCard}">
+        <Border BorderBrush="Black" BorderThickness="1" Background="White">
             <DockPanel>
-                <Label DockPanel.Dock="Left" Background="{Binding CardGroup.GroupColor, Converter={StaticResource ColorToSolidColorBrushConverter}}">
-                </Label>
+                <Image  DockPanel.Dock="Left" Source="{Binding EventPicture}"
+                        Height="60" Width="60" Margin="3"
+                        RenderOptions.BitmapScalingMode="HighQuality"/>
+
                 <TextBlock HorizontalAlignment="Center"
-                           DockPanel.Dock="Bottom">
-                    <TextBlock.Text>
-                        <Binding Path="Cost">
-                            <Binding.StringFormat>{0:C}</Binding.StringFormat>
-                        </Binding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           DockPanel.Dock="Left"
+                           Foreground="Black"
+                           Text="{Binding Name}"
+                           FontSize="16"
+                           FontWeight="Black"
+                           Margin="3 0"/>
             </DockPanel>
         </Border>
     </DataTemplate>

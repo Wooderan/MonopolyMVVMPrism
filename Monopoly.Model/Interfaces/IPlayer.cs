@@ -28,5 +28,6 @@ namespace Monopoly.Model.Interfaces
         int CardPosition { get; }
         bool HaveMoney { get; }
         bool IsActive { get; }
+        int CantAct { get; }
     }
 }
